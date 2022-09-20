@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">appTFG</string>
+    <string name="actividades">Actividades</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="txt_hola">¡Hola!</string>
+    <string name="txt_usuario">Usuario</string>
+    <string name="txt_pagos">Pagos</string>
+    <string name="txt_recibos">Recibos</string>
+    <string name="txt_actividades">Actividades</string>
+    <string name="txt_notificaciones_y_mas">Notificaciones y Más</string>
+    <string name="txt_seleccion">Selecciona el servicio</string>
+    <string name="txt_agua">Agua</string>
+    <string name="txt_luz">Luz</string>
+    <string name="txt_comunidad">Comunidad</string>
+    <string name="txt_otro">Otro</string>
+
+    <string name="imagenusuario">imagenusuario</string>
+    <string name="imagenpagos">imagenpagos</string>
+    <string name="imagenpagosagua">imagenpagosagua</string>
+    <string name="imagenpagosluz">imagenpagosluz</string>
+    <string name="imagenpagoscomunidad">imagenpagoscomunidad</string>
+    <string name="imagenrecibos">imagenrecibos</string>
+    <string name="imagennotis">imagennotis</string>
+
+    <string name="botonAnterior">Volver</string>
+    <string name="botonSiguiente">Continuar</string>
+
+
+</resources>
