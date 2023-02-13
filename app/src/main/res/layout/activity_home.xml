@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.075"
         app:srcCompat="@drawable/icon"
         tools:ignore="ImageContrastCheck"
-        android:contentDescription="@string/imagenusuario" />
+        android:contentDescription="@string/imagenusuario_perfil" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -78,8 +78,8 @@
                     android:layout_height="117dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="29dp"
-                    android:layout_marginEnd="26dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="27dp"
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenpagos"
@@ -134,14 +134,14 @@
 
                 <TextView
                     android:id="@+id/idtxtrecibos"
-                    android:layout_width="64dp"
+                    android:layout_width="164dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/img_recibos"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="56dp"
+                    android:layout_marginStart="6dp"
                     android:layout_marginTop="-9dp"
-                    android:layout_marginEnd="56dp"
+                    android:layout_marginEnd="6dp"
                     android:text="@string/txt_recibos"
                     android:textSize="18sp" />
             </RelativeLayout>
@@ -176,8 +176,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="29dp"
-                    android:layout_marginEnd="26dp"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginEnd="28dp"
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/Actividades"
@@ -220,8 +220,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="29dp"
-                    android:layout_marginEnd="26dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="27dp"
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagennotis"

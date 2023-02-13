@@ -44,9 +44,9 @@ public class PrincipalActivity extends AppCompatActivity {
         startActivity(ventanaRecibos);
     }
 
-    //Función para la acceder a la ventana de Actividades
+    //Función para la acceder a la ventana de ReservaActividades
     public void ventanaActividades(View v){
-        Intent ventanaActividades = new Intent(this,Actividades.class);
+        Intent ventanaActividades = new Intent(this, ReservaActividades.class);
         startActivity(ventanaActividades);
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.apptfg">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,16 +15,46 @@
         android:theme="@style/Theme.AppTFG"
         tools:targetApi="31">
         <activity
+            android:name=".PagarComunidad"
+            android:exported="false" />
+        <activity
+            android:name=".PagarLuz"
+            android:exported="false" />
+        <activity
+            android:name=".PagarAgua"
+            android:exported="false" />
+        <activity
+            android:name=".ReportarIncidencia"
+            android:exported="false" />
+        <activity
+            android:name=".ConsultarNotificaciones"
+            android:exported="false" />
+        <activity
+            android:name=".Acerca_de"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarDatosVecino"
+            android:exported="false" />
+        <activity
+            android:name=".ReservasConsultar"
+            android:exported="false" />
+        <activity
+            android:name=".ReservaHorarios"
+            android:exported="false" />
+        <activity
             android:name=".Notificaciones"
             android:exported="false" />
         <activity
-            android:name=".Actividades"
+            android:name=".ReservaActividades"
             android:exported="false" />
         <activity
             android:name=".Recibos"
             android:exported="false" />
         <activity
             android:name=".Pagos"
+            android:exported="false" />
+        <activity
+            android:name=".ReservaDetalles"
             android:exported="false" />
         <activity
             android:name=".PrincipalActivity"

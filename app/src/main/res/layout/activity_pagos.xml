@@ -37,10 +37,10 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenpagosagua"
-                    android:onClick="ventanaPagos"
+                    android:onClick="pagarAguaVentana"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pago_agua"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/txtpagosagua"
@@ -81,10 +81,10 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenpagosluz"
-                    android:onClick="ventanaRecibos"
+                    android:onClick="pagarLuzVentana"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pagos_luz"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/txtpagosluz"
@@ -135,7 +135,7 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenpagoscomunidad"
-                    android:onClick="ventanaActividades"
+                    android:onClick="pagarComunidadVentana"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pagos_comunidad"
                     tools:ignore="DuplicateSpeakableTextCheck" />
@@ -179,7 +179,7 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagennotis"
-                    android:onClick="ventanaNotificaciones"
+                    android:onClick="anteriorVentana"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/reparaciones" />
 
@@ -204,7 +204,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:text="@string/txt_seleccion"
+        android:text="@string/txt_seleccion_servicio"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,29 +1,168 @@
 <resources>
+
+    <!--Etiquetas para labels o textos-->
     <string name="app_name">appTFG</string>
-    <string name="actividades">Actividades</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="txt_contrasena">Contraseña</string>
+    <string name="txt_registrarse">¿No tiene cuenta? Regístrese</string>
+    <string name="txt_crearperfil">Crea tu perfil</string>
+    <string name="txt_acercade_tituloApp">Aplicación móvil para la gestión de servicios comunitarios en urbanizaciones.</string>
+    <string name="txt_acercade_autorApp">Jacques Michael Mendieta Herrera</string>
+    <string name="txt_acercade_tfgApp">Trabajo Final de Grado</string>
+    <string name="txt_acercade_fechaApp">© 2022en dash2023</string>
+    <string name="txt_fecha_incidencia">Seleccione la fecha</string>
+
+
+    <!--Formulario registro-->
+    <string name="txt_cancelar">Cancelar</string>
+    <string name="txt_continuar">Continuar</string>
+    <!-- Datos Personales-->
+    <string name="txt_usuarioperfil">Introduzca su Usuario</string>
+    <string name="txt_usuariohint">Vecino2023</string>
+
+    <string name="txt_contrasenaperfil">Introduzca su Contraseña</string>
+    <string name="txt_contrasenahint">Contraseña</string>
+
+    <string name="txt_nombreperfil">Introduzca su Nombre</string>
+    <string name="txt_nombrehint">Jacques</string>
+
+    <string name="txt_apellidoperfil">Introduzca sus Apellidos</string>
+    <string name="txt_apellidoshint">Mendieta</string>
+
+    <string name="txt_edadperfil">Introduzca su Edad</string>
+    <string name="txt_edadhint">22</string>
+
+    <string name="txt_dniperfil">Introduzca su Dni</string>
+    <string name="txt_dnihint">123456789-A</string>
+
+    <string name="txt_telefonoperfil">Introduzca su Teléfono</string>
+    <string name="txt_telefonohint">123456789</string>
+
+    <string name="txt_correoperfil">Introduzca su Correo</string>
+    <string name="txt_correohint">hola@dominio.com</string>
+
+    <string name="txt_direccionperfil">Introduzca su Dirección</string>
+    <string name="txt_direccionhint">Calle del puerto</string>
+
+    <string name="txt_localidadperfil">Introduzca su Localidad</string>
+    <string name="txt_localidadhint">Alboraya</string>
+
+    <string name="txt_provinciaperfil">Introduzca su Provincia</string>
+    <string name="txt_provinciahint">Valencia</string>
+
+    <string name="txt_cpperfil">Introduzca su Código Postal</string>
+    <string name="txt_cphint">46900</string>
+
+    <string name="txt_fotoperfil">Subir Foto de Perfil</string>
+
+    <!-- Datos Vivienda-->
+    <string name="txt_aguaperfil">Dirección</string>
+    <string name="txt_luzperfil">Localidad</string>
+    <string name="txt_comunidadperfil">Comunidad</string>
+
+
+    <!-- Ventana de inicio-->
     <string name="txt_hola">¡Hola!</string>
     <string name="txt_usuario">Usuario</string>
     <string name="txt_pagos">Pagos</string>
-    <string name="txt_recibos">Recibos</string>
+    <string name="txt_recibos">Historial de Recibos</string>
     <string name="txt_actividades">Actividades</string>
     <string name="txt_notificaciones_y_mas">Notificaciones y Más</string>
-    <string name="txt_seleccion">Selecciona el servicio</string>
+
+    <!-- Ventana de pagos-->
+    <string name="txt_seleccion_servicio">Selecciona el servicio</string>
     <string name="txt_agua">Agua</string>
     <string name="txt_luz">Luz</string>
     <string name="txt_comunidad">Comunidad</string>
     <string name="txt_otro">Otro</string>
+    <string name="txt_pagoAgua">Recibo de Agua</string>
+    <string name="txt_pagoLuz">Recibo de Luz</string>
+    <string name="txt_pagoComunidad">Recibo de Comunidad</string>
+    <string name="txt_metodoPago">Selecciona el método de pago</string>
+    <string name="txt_nombre_default">John Doe</string>
+    <string name="img_tarjeta_credito">Tarjeta de Crédito</string>
 
+    <!-- Ventana de actividades-->
+    <string name="Actividades">Actividades</string>
+    <string name="txt_seleccion_actividad">Selecciona la actividad</string>
+    <string name="txt_padel">Pádel</string>
+    <string name="txt_tenis">Tenis</string>
+    <string name="txt_futbol">Fútbol</string>
+    <string name="txt_basket">Baloncesto</string>
+    <string name="txt_piscina">Piscina</string>
+    <string name="txt_reservas">Reservas</string>
+    <string name="txt_horarios">Horarios</string>
+    <string name="txt_consultar_reservas">Consultar Reservas</string>
+    <string name="txt_consultar_mis_reservas">Mis Reservas</string>
+    <string name="txt_horariopadelgeneral">Horario General: 7:00 a.m - 12:00 a.m</string>
+    <string name="txt_horariotenisgeneral">Horario General: 7:00 a.m - 12:00 a.m</string>
+    <string name="txt_horariofutbolgeneral">Horario General: 8:00 a.m - 23:30 p.m</string>
+    <string name="txt_horariobaloncestogeneral">Horario General: 8:00 a.m - 23:30 p.m</string>
+    <string name="txt_horarios_disponibles">Seleccione fecha y horario disponible</string>
+    <!-- Fecha mock -->
+    <string name="txt_fecha_reserva">Fecha</string>
+    <string name="txt_cancelar_reserva">Cancelar</string>
+    <string name="txt_confirmar_reserva">Confirmar</string>
+    <!-- Horarios mock reservas-->
+    <string name="txt_horario1">8:00 AM - 10:00 AM</string>
+    <string name="txt_horario2">10:00 AM - 12:00 PM</string>
+    <string name="txt_horario3">12:00 PM - 14:00 PM</string>
+    <string name="txt_horario4">14:00 PM - 16:00 PM</string>
+    <string name="txt_horario5">16:00 PM - 18:00 PM</string>
+    <string name="txt_horario6">18:00 PM - 20:00 PM</string>
+    <string name="txt_horario7">20:00 PM - 22:00 PM</string>
+
+    <!-- Mock reservas -->
+    <string name="txt_reserva1">Padel</string>
+    <string name="txt_reserva2">Tenis</string>
+    <string name="txt_reserva3">Fútbol</string>
+
+    <!-- Ventana de notificaciones y más-->
+    <string name="txt_vernotificaciones">Ver Notificaciones</string>
+    <string name="txt_notificaciones">Notificaciones</string>
+    <string name="txt_notifincidencia">Reportar Incidencia</string>
+    <string name="txt_txtrepincidencia">Escribe tu sugerencia, incidencia o comentario aquí</string>
+    <string name="txt_acercade">Acerca de</string>
+    <string name="txt_enviar_incidencia">Enviar</string>
+    <string name="txt_tipo_incidencia">Tipo de incidencia</string>
+    <string-array name="tipo_incidencia">
+        <item>Tipo de incidencia</item>
+        <item>General</item>
+        <item>Reservas</item>
+        <item>Pistas</item>
+        <item>Incendio</item>
+        <item>Corte de luz</item>
+        <item>Fuga de agua</item>
+        <item>Mejoras</item>
+        <item>Sugerencias</item>
+        <item>Quejas</item>
+    </string-array>
+
+
+    <!--Etiquetas para imagenes-->
+    <string name="imagenlogo">imagenlogo</string>
+    <string name="imagenfondoprincipal">imagenfondoprincipal</string>
     <string name="imagenusuario">imagenusuario</string>
+    <string name="imagencandadocontrasena">imagencandado</string>
+    <string name="imagenusuario_perfil">imagenusuarioperfil</string>
     <string name="imagenpagos">imagenpagos</string>
     <string name="imagenpagosagua">imagenpagosagua</string>
     <string name="imagenpagosluz">imagenpagosluz</string>
     <string name="imagenpagoscomunidad">imagenpagoscomunidad</string>
+    <string name="imagenactivdadpadel">imagenactividadpadel</string>
+    <string name="imagenactivdadtenis">imagenactividadtenis</string>
+    <string name="imagenactivdadbasket">imagenactividadbasket</string>
+    <string name="imagenactivdadreserva">imagenactividadreserva</string>
+    <string name="imagenactivdadhorarios">imagenactividadhorario</string>
     <string name="imagenrecibos">imagenrecibos</string>
     <string name="imagennotis">imagennotis</string>
 
+
+    <!--Etiquetas para los botones de navegación-->
     <string name="botonAnterior">Volver</string>
     <string name="botonSiguiente">Continuar</string>
 
+    <string name="prueba">20</string>
 
 </resources>

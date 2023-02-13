@@ -35,41 +35,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edtUsuario = findViewById(R.id.edtUsuario);
-        edtPassword = findViewById(R.id.edtPassword);
+        edtUsuario = findViewById(R.id.idtxtUsuario);
+        edtPassword = findViewById(R.id.idtxtPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validarUsuario("http://192.168.1.6/appTFG/validar_usuario.php");
-            }
+        btnLogin.setOnClickListener(view -> {
+            //validarUsuario("http://192.168.1.3/BDappTFG/validar_usuario.php");
+            Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+            startActivity(intent);
         });
-
 
     }
 
     private void validarUsuario(String URL){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (!response.isEmpty()){
-                    Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "¡Usuario o contraseña incorrecta!", Toast.LENGTH_LONG).show();
-                }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            if (!response.isEmpty()){
+                Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "¡Usuario o contraseña incorrecta!", Toast.LENGTH_LONG).show();
+            }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }){
+        }, error -> Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show()){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
+                Map<String, String> parametros = new HashMap<>();
                 parametros.put("usuario", edtUsuario.getText().toString());
                 parametros.put("clave", edtPassword.getText().toString());
                 return parametros;
@@ -79,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+    }
+
+    //Función para dar de alta a un nuevo vecino
+    public void registrarVecinoNuevo(View view){
+        Intent registrar = new Intent(this, RegistrarDatosVecino.class);
+        startActivity(registrar);
     }
 
 }

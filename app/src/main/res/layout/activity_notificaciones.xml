@@ -6,25 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".Notificaciones">
 
-    <Button
-        android:id="@+id/btnAnteriorNotis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:onClick="anteriorVentana"
-        android:text="@string/botonAnterior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/idtxtnotis"
+        android:id="@+id/id_txtnotis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="68dp"
         android:text="@string/txt_notificaciones_y_mas"
-        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_txtnotis"
+        app:layout_constraintVertical_bias="0.052">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_txtnotis">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="40dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/id_btnvernotificaciones"
+                        android:layout_width="320sp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="40dp"
+                        android:backgroundTint="#FFDD94"
+
+                        android:onClick="verNotificacionesVentana"
+                        android:text="@string/txt_vernotificaciones"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/id_btnrepincidencia"
+                        android:layout_width="320sp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="40dp"
+                        android:backgroundTint="#FFDD94"
+                        android:onClick="reportarIncidenciaVentana"
+                        android:text="@string/txt_notifincidencia"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/id_btnacercade"
+                        android:layout_width="320sp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="40dp"
+                        android:backgroundTint="#FFDD94"
+                        android:onClick="acercaDeVentana"
+                        android:text="@string/txt_acercade"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/id_btn_volver_acercade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF6957"
+        android:onClick="anteriorVentana"
+        android:text="@string/botonAnterior"
+        android:textColor="#000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.631"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,24 @@ public class Pagos extends AppCompatActivity {
         setContentView(R.layout.activity_pagos);
     }
 
+    //Función para pagar el recibo de agua.
+    public void pagarAguaVentana(View view){
+        Intent pAgua = new Intent(this,PrincipalActivity.class);
+        startActivity(pAgua);
+    }
+
+    //Función para pagar el recibo de luz.
+    public void pagarLuzVentana(View view){
+        Intent pLuz = new Intent(this, PagarLuz.class);
+        startActivity(pLuz);
+    }
+
+    //Función para pagar el recibo de comunidad.
+    public void pagarComunidadVentana(View view){
+        Intent pComunidad = new Intent(this,PrincipalActivity.class);
+        startActivity(pComunidad);
+    }
+
     //Función para volver a la ventana principal
     public void anteriorVentana(View view){
         Intent anterior = new Intent(this,PrincipalActivity.class);
