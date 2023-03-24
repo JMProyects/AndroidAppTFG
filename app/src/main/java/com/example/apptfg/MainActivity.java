@@ -26,11 +26,8 @@ import java.util.Map;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends AppCompatActivity {
-
     EditText edtUsuario, edtPassword;
     Button btnLogin;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

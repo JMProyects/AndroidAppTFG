@@ -28,7 +28,7 @@ public class Pagos extends AppCompatActivity {
 
     //Función para pagar el recibo de comunidad.
     public void pagarComunidadVentana(View view){
-        Intent pComunidad = new Intent(this,PrincipalActivity.class);
+        Intent pComunidad = new Intent(this,PagarComunidad.class);
         startActivity(pComunidad);
     }
 

@@ -6,24 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".RegistrarDatosVecino">
 
+    <RelativeLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="60dp"
+            app:cardElevation="0dp">
+
+            <ImageButton
+                android:id="@+id/id_btn_imagen_perfil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/q" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/card_view"
+            android:layout_centerHorizontal="true"
+            android:layout_alignEnd="@id/card_view"
+            android:src="@drawable/ic_edit_pencil" />
+
+    </RelativeLayout>
+
+
+
+
     <TextView
         android:id="@+id/id_txt_recibos2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="@string/txt_crearperfil"
+        android:text="@string/txt_titulo_perfil"
+        android:layout_marginTop="10dp"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
 
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="wrap_content"
-        android:layout_height="471dp"
+        android:layout_height="410dp"
         android:layout_marginBottom="32dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_registro"
@@ -35,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="280dp">
+            android:layout_marginTop="300dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
@@ -44,6 +85,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
@@ -51,23 +93,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
                     <TextView
                         android:id="@+id/id_lblusuarioperfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_usuarioperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputusuario"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_usuariohint"
                         android:inputType="text"
@@ -78,16 +125,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_contrasenaperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputcontrasena"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_contrasenahint"
                         android:inputType="text"
@@ -98,16 +149,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_nombreperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputnombre"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_nombrehint"
                         android:inputType="text"
@@ -118,16 +173,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_apellidoperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputapellidos"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_apellidoshint"
                         android:inputType="text"
@@ -138,16 +197,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_dniperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputdni"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_dnihint"
                         android:inputType="text"
@@ -159,16 +222,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_telefonoperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputtelefono"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
                         android:autofillHints=""
                         android:hint="@string/txt_telefonohint"
                         android:inputType="phone"
@@ -179,16 +244,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_correoperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputcorreo"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_correohint"
                         android:inputType="textEmailAddress"
@@ -200,16 +269,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_direccionperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputdireccion"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_direccionhint"
                         android:inputType="text"
@@ -221,16 +294,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_localidadperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputlocalidad"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_localidadhint"
                         android:inputType="text"
@@ -241,18 +318,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_provinciaperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputprovincia"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
-                        android:hint="@string/txt_provinciahint"
+                        android:hint="@string/txt_dnihint"
                         android:inputType="text"
                         android:minHeight="48dp" />
 
@@ -261,29 +342,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_gravity="center"
                         android:text="@string/txt_cpperfil"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/id_inputcp"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:focusable="false"
                         android:autofillHints=""
                         android:hint="@string/txt_cphint"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:minHeight="48dp" />
-
-                    <TextView
-                        android:id="@+id/id_lblfotoperfilperfil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="@string/txt_fotoperfil"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -296,9 +372,9 @@
         android:id="@+id/id_btn_volver_registro"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorVentana"
+        android:onClick="anteriorVentanaPerfil"
         android:text="@string/txt_cancelar"
         android:textColor="#000"
         android:textStyle="bold"
@@ -308,15 +384,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/id_btn_registro_siguiente"
+        android:id="@+id/id_btn_modificar_datos"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#C7FE80"
-        android:text="@string/txt_continuar"
+        android:text="@string/txt_perfil_modificar"
         android:textColor="#000"
         android:textStyle="bold"
-        android:onClick="verificarCampos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"

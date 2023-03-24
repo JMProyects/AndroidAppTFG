@@ -10,7 +10,7 @@
     <string name="txt_acercade_tituloApp">Aplicación móvil para la gestión de servicios comunitarios en urbanizaciones.</string>
     <string name="txt_acercade_autorApp">Jacques Michael Mendieta Herrera</string>
     <string name="txt_acercade_tfgApp">Trabajo Final de Grado</string>
-    <string name="txt_acercade_fechaApp">© 2022en dash2023</string>
+    <string name="txt_acercade_fechaApp">© 2022 – 2023</string>
     <string name="txt_fecha_incidencia">Seleccione la fecha</string>
 
 
@@ -18,6 +18,8 @@
     <string name="txt_cancelar">Cancelar</string>
     <string name="txt_continuar">Continuar</string>
     <!-- Datos Personales-->
+    <string name="txt_titulo_perfil">Mi perfil</string>
+    <string name="txt_perfil_modificar">Modificar</string>
     <string name="txt_usuarioperfil">Introduzca su Usuario</string>
     <string name="txt_usuariohint">Vecino2023</string>
 
@@ -72,16 +74,26 @@
 
     <!-- Ventana de pagos-->
     <string name="txt_seleccion_servicio">Selecciona el servicio</string>
+    <string name="txt_seleccion_proveedor">Selecciona el proveedor</string>
     <string name="txt_agua">Agua</string>
     <string name="txt_luz">Luz</string>
     <string name="txt_comunidad">Comunidad</string>
     <string name="txt_otro">Otro</string>
-    <string name="txt_pagoAgua">Recibo de Agua</string>
-    <string name="txt_pagoLuz">Recibo de Luz</string>
-    <string name="txt_pagoComunidad">Recibo de Comunidad</string>
+    <string name="txt_pagoAgua">Pago de agua</string>
+    <string name="txt_pagoLuz">Pago de luz</string>
+    <string name="txt_pagoComunidad">Pago de comunidad</string>
     <string name="txt_metodoPago">Selecciona el método de pago</string>
+    <string name="txt_etiqueta_nombre_tarjeta">Nombre completo</string>
     <string name="txt_nombre_default">John Doe</string>
+    <string name="txt_nombre_completo">Jacques Michael Mendieta Herrera</string>
+    <string name="txt_etiqueta_numero_tarjeta">Número tarjeta crédito/debito</string>
+    <string name="txt_numero_tarjeta">**** **** **** 1836</string>
+    <string name="txt_numero_tarjeta2">**** **** **** ****</string>
     <string name="img_tarjeta_credito">Tarjeta de Crédito</string>
+    <string name="txt_etiqueta_cvv_tarjeta">CVV</string>
+    <string name="txt_etiqueta_cvvhint_tarjeta">***</string>
+    <string name="txt_etiqueta_caducidad_tarjeta">Caducidad</string>
+    <string name="txt_etiqueta_caducidadhint_tarjeta">MM/AA</string>
 
     <!-- Ventana de actividades-->
     <string name="Actividades">Actividades</string>
@@ -99,7 +111,7 @@
     <string name="txt_horariotenisgeneral">Horario General: 7:00 a.m - 12:00 a.m</string>
     <string name="txt_horariofutbolgeneral">Horario General: 8:00 a.m - 23:30 p.m</string>
     <string name="txt_horariobaloncestogeneral">Horario General: 8:00 a.m - 23:30 p.m</string>
-    <string name="txt_horarios_disponibles">Seleccione fecha y horario disponible</string>
+    <string name="txt_horarios_disponibles">Seleccione una fecha y horario disponible</string>
     <!-- Fecha mock -->
     <string name="txt_fecha_reserva">Fecha</string>
     <string name="txt_cancelar_reserva">Cancelar</string>

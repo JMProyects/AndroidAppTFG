@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/btnAnteriorRecibos"
         android:layout_width="wrap_content"
@@ -29,8 +28,8 @@
         android:onClick="anteriorVentana"
         android:text="@string/botonAnterior"
         android:backgroundTint="#FF6957"
-        android:textColor="#000"
         android:textStyle="bold"
+        android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

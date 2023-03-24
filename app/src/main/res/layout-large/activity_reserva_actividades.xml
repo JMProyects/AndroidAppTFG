@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReservaActividades">
+
+    <TextView
+        android:id="@+id/id_txt_actividades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/txt_reservas"
+        android:textColor="#000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/id_txt_seleccion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/txt_seleccion_actividad"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_txt_actividades"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/id_btn_mis_reservas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+        app:layout_constraintVertical_bias="0.08"
+        tools:ignore="MissingConstraints">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#F6FFEF">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/id_img_actividad_futbol"
+                    android:layout_width="121dp"
+                    android:layout_height="117dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginEnd="26dp"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="#F6FFEF"
+                    android:contentDescription="@string/imagenactivdadreserva"
+                    android:onClick="verHorariosReservaVentana"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/actividades_futbol" />
+
+                <TextView
+                    android:id="@+id/id_txt_actividad_reservas"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/id_img_actividad_futbol"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="58dp"
+                    android:text="@string/txt_futbol"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    tools:ignore="TextSizeCheck" />
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFF0F9">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/id_img_actividad_basket"
+                    android:layout_width="121dp"
+                    android:layout_height="117dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginEnd="26dp"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="#FFF0F9"
+                    android:contentDescription="@string/imagenactivdadbasket"
+                    android:onClick="verHorariosReservaVentana"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/actividades_basket" />
+
+                <TextView
+                    android:id="@+id/id_txt_actividad_basket"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/id_img_actividad_basket"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="41dp"
+                    android:text="@string/txt_basket"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    tools:ignore="TextSizeCheck" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_txt_seleccion2"
+        tools:ignore="MissingConstraints">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#ECFCFC">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/id_img_actividad_padel"
+                    android:layout_width="130dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="-17dp"
+                    android:layout_marginEnd="15dp"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="#ECFCFC"
+                    android:contentDescription="@string/imagenactivdadpadel"
+                    android:onClick="verHorariosReservaVentana"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/actividades_padel_2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/id_txt_actividad_padel"
+                    android:layout_width="47dp"
+                    android:layout_height="21dp"
+                    android:layout_below="@+id/id_img_actividad_padel"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-15dp"
+                    android:layout_marginEnd="65dp"
+                    android:text="@string/txt_padel"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    tools:ignore="TextSizeCheck" />
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFEED">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/id_img_actividad_tenis"
+                    android:layout_width="140dp"
+                    android:layout_height="155dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="15dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/actividades_tenis"
+                    android:contentDescription="@string/imagenactivdadtenis"
+                    android:onClick="verHorariosReservaVentana"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/id_txt_actividad_tenis"
+                    android:layout_width="45dp"
+                    android:layout_height="21dp"
+                    android:layout_below="@id/id_img_actividad_tenis"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginEnd="65dp"
+                    android:text="@string/txt_tenis"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    tools:ignore="TextSizeCheck" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/id_btn_mis_reservas"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#C7FE80"
+        android:onClick="consultarReservasVentana"
+        android:text="@string/txt_consultar_mis_reservas"
+        android:textColor="#000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/id_btn_Anterior_Actividades"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/id_btn_Anterior_Actividades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#FF6957"
+        android:onClick="anteriorPrincipalVentana"
+        android:text="@string/botonAnterior"
+        android:textColor="#000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

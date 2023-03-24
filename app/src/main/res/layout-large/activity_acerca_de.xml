@@ -97,7 +97,7 @@
         android:id="@+id/id_btn_volver_acercade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="90dp"
         android:backgroundTint="#FF6957"
         android:onClick="anteriorVentana"
         android:text="@string/botonAnterior"

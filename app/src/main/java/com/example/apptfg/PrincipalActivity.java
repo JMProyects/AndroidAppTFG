@@ -27,11 +27,18 @@ public class PrincipalActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });*/
+        ImageButton btnVerDatos = findViewById(R.id.btn_ver_datos);
+        btnVerDatos.setOnClickListener(v -> {
+            // Abrir la nueva vista con los datos del vecino
+            Intent intent = new Intent(PrincipalActivity.this, VerDatosVecino.class);
+            startActivity(intent);
+        });
+
     }
 
-    /*
-     *Funciones para la navegación entre apartados de la app:
-    */
+    /*********************************************************
+     *Funciones para la navegación entre apartados de la app:*
+     *********************************************************/
     //Función para la acceder a la ventana de Pagos
     public void ventanaPagos(View v){
         Intent ventanaPagos = new Intent(this,Pagos.class);
