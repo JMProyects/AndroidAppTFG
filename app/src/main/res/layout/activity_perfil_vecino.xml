@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".RegistrarDatosVecino">
 
     <RelativeLayout
@@ -29,7 +30,8 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/q" />
+                android:src="@drawable/q"
+                android:contentDescription="@string/txt_img_vecino" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -40,7 +42,8 @@
             android:layout_alignBottom="@+id/card_view"
             android:layout_centerHorizontal="true"
             android:layout_alignEnd="@id/card_view"
-            android:src="@drawable/ic_edit_pencil" />
+            android:src="@drawable/ic_edit_pencil"
+            android:contentDescription="@string/txt_titulo_perfil" />
 
     </RelativeLayout>
 
@@ -235,6 +238,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
                         android:autofillHints=""
+                        android:background="@null"
+                        android:focusable="false"
                         android:hint="@string/txt_telefonohint"
                         android:inputType="phone"
                         android:minHeight="48dp" />
@@ -374,8 +379,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorVentanaPerfil"
-        android:text="@string/txt_cancelar"
+        android:text="@string/botonAnterior"
         android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -389,7 +393,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#C7FE80"
-        android:text="@string/txt_perfil_modificar"
+        android:text="@string/btn_perfil_modificar"
         android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

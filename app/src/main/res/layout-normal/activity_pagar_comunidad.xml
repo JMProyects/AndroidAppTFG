@@ -4,18 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PagarComunidad">
 
     <TextView
         android:id="@+id/id_txtpagarluz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/txt_pagoComunidad"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_txt_importe_comunidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:text="@string/txt_importe_pago_comunidad"
+        android:textColor="#000000"
+        android:textSize="14sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +45,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/creditcard4" />
+        app:srcCompat="@drawable/creditcard6c" />
+
+    <ImageView
+        android:id="@+id/cardBackImage"
+        android:layout_width="370dp"
+        android:layout_height="216dp"
+        android:src="@drawable/card_back"
+        android:visibility="invisible"
+        android:layout_marginBottom="404dp"
+        android:contentDescription="@string/img_tarjeta_credito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 
@@ -76,16 +104,64 @@
         android:layout_marginStart="48dp"
         android:layout_marginBottom="28dp"
         android:autofillHints=""
-        android:ems="10"
+        android:ems="8"
+        android:backgroundTint="@android:color/transparent"
+        android:textSize="15sp"
         android:inputType="none"
         android:enabled="false"
         android:hint="@string/txt_nombre_default"
         android:textColorHint="#fff"
         android:minHeight="48dp"
         android:textColor="#fff"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2" />
+
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="500dp"
+        android:autofillHints=""
+        android:backgroundTint="@android:color/transparent"
+        android:ems="2"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/txt_etiqueta_cvvhint_tarjeta"
+        android:inputType="number"
+        android:maxLength="3"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.603"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="432dp"
+        android:autofillHints=""
+        android:backgroundTint="@android:color/transparent"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/txt_etiqueta_caducidadhint_tarjeta"
+        android:inputType="date"
+        android:maxLength="5"
+        android:minHeight="48dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/id_txt_numero_tarjeta_pago"
@@ -130,6 +206,7 @@
         android:layout_marginBottom="480dp"
         android:autofillHints=""
         android:ems="13"
+        android:backgroundTint="@android:color/transparent"
         android:inputType="none"
         android:hint="@string/txt_numero_tarjeta2"
         android:textColorHint="#fff"
@@ -159,7 +236,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -216,7 +293,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/id_btn_Anterior_Actividades"
+        android:id="@+id/id_btn_Anterior_Pagos"
         android:layout_width="120sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -232,15 +309,16 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/id_btn_registro_siguiente"
+        android:id="@+id/id_btn_continuar_pago_comunidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="48dp"
         android:backgroundTint="#C7FE80"
-        android:text="@string/txt_continuar"
+        android:text="@string/btn_continuar"
         android:textColor="#000"
         android:textStyle="bold"
+        android:onClick="verificarPago"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText6"

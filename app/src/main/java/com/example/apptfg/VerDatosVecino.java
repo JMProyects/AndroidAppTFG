@@ -3,7 +3,6 @@ package com.example.apptfg;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -14,14 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class VerDatosVecino extends AppCompatActivity {
 
     private ActivityResultLauncher<String> galleryLauncher;
-    private ImageButton btnImagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_vecino);
-
-        btnImagen = findViewById(R.id.id_btn_imagen_perfil);
+        Button btnModificarDatos = findViewById(R.id.id_btn_modificar_datos);
+        Button id_btn_volver_registro = findViewById(R.id.id_btn_volver_registro);
+        ImageButton btnImagen = findViewById(R.id.id_btn_imagen_perfil);
         setupGalleryLauncher();
 
         btnImagen.setOnClickListener(v -> {
@@ -41,18 +40,18 @@ public class VerDatosVecino extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
-        Button btnModificarDatos = findViewById(R.id.id_btn_modificar_datos);
         btnModificarDatos.setOnClickListener(v -> {
             // Abrir la nueva vista con los datos del vecino
             Intent intent = new Intent(VerDatosVecino.this, ModificarDatosVecino.class);
             startActivity(intent);
         });
-    }
 
-    //Función para volver a la ventana principal
-    public void anteriorVentanaPerfil(View view){
-        Intent anterior = new Intent(this,PrincipalActivity.class);
-        startActivity(anterior);
+        id_btn_volver_registro.setOnClickListener(v -> {
+            // Abrir la vista anterior
+            Intent intent = new Intent(VerDatosVecino.this, PrincipalActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void setupGalleryLauncher() {

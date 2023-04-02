@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PagarComunidad">
 
     <TextView
@@ -89,7 +90,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorPrincipalVentana"
         android:text="@string/botonAnterior"
         android:textColor="#000"
         android:textStyle="bold"

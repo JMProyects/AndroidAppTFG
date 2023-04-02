@@ -1,11 +1,8 @@
 package com.example.apptfg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PagarLuz extends AppCompatActivity {
 

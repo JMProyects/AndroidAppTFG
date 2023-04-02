@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ReportarIncidencia">
 
 
@@ -35,11 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
-            android:gravity="center|center_horizontal"
+            android:layout_marginStart="15dp"
+            android:gravity="center_vertical|start"
             android:text="@string/txt_fecha_incidencia"
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:drawablePadding="10dp"
+            app:drawableStartCompat="@drawable/ic_calendar"
             app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
             app:layout_constraintEnd_toStartOf="@+id/spinner_incidencias"
             app:layout_constraintHorizontal_bias="0.636"
@@ -47,13 +51,15 @@
             app:layout_constraintTop_toBottomOf="@+id/id_txtrepincidencia"
             app:layout_constraintVertical_bias="0.587" />
 
+
         <Spinner
             android:id="@+id/spinner_incidencias"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:contentDescription="@string/txt_tipo_incidencia"
-            android:gravity="center|center_horizontal"
+            android:gravity="end|center_horizontal"
+            android:minHeight="48dp"
             android:spinnerMode="dropdown"
             android:theme="@style/miSpinnerEstilo"
             android:tooltipText="@string/txt_tipo_incidencia"
@@ -133,7 +139,7 @@
         android:id="@+id/id_btn_enviar_incidencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#A2EF59"
+        android:backgroundTint="#C7FE80"
         android:onClick="enviarIncidencia"
         android:text="@string/txt_enviar_incidencia"
         android:textColor="#000"

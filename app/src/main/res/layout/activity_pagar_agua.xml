@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PagarAgua">
 
     <TextView
@@ -63,7 +64,6 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenpagos"
-                    android:onClick="ventanaPagos"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pago"
 
@@ -107,7 +107,6 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagenrecibos"
-                    android:onClick="ventanaRecibos"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/recibosv2" />
 

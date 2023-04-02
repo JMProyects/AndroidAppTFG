@@ -1,9 +1,13 @@
 package com.example.apptfg;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +47,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     public void mostrarDialogoConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar registro");
-        builder.setMessage("Está a punto de darse de alta en el sistema");
+        builder.setMessage("Está a punto de darse de alta en el sistema. ¿Está seguro?");
 
         builder.setPositiveButton("Confirmar", (dialog, id) -> {
             // Aquí puedes realizar las acciones necesarias al confirmar el registro
@@ -51,6 +55,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
             Intent principal = new Intent(RegistrarDatosVecino.this, PrincipalActivity.class);
             startActivity(principal);
+            Toast.makeText(this, "¡Usuario creado correctamente!", Toast.LENGTH_SHORT).show();
         });
 
         builder.setNegativeButton("Atrás", (dialog, id) -> {
@@ -60,6 +65,21 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        // Obtener los botones del AlertDialog
+        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+        // Establecer el estilo de fuente en negrita
+        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+        positiveButton.setTypeface(boldTypeface);
+        negativeButton.setTypeface(boldTypeface);
+
+        // Establecer el color hexadecimal del texto en los botones
+        int greenColor = Color.parseColor("#66BB00");
+        int redColor = Color.parseColor("#FF0000");
+        positiveButton.setTextColor(greenColor);
+        negativeButton.setTextColor(redColor);
     }
 
 

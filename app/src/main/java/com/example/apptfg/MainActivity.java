@@ -1,29 +1,21 @@
 package com.example.apptfg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.textclassifier.TextLinks;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.apptfg.PrincipalActivity;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtUsuario, edtPassword;
@@ -55,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         }, error -> Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show()){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("usuario", edtUsuario.getText().toString());
                 parametros.put("clave", edtPassword.getText().toString());

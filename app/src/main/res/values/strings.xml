@@ -11,15 +11,19 @@
     <string name="txt_acercade_autorApp">Jacques Michael Mendieta Herrera</string>
     <string name="txt_acercade_tfgApp">Trabajo Final de Grado</string>
     <string name="txt_acercade_fechaApp">© 2022 – 2023</string>
-    <string name="txt_fecha_incidencia">Seleccione la fecha</string>
+    <string name="txt_fecha_incidencia">Fecha</string>
 
 
-    <!--Formulario registro-->
-    <string name="txt_cancelar">Cancelar</string>
-    <string name="txt_continuar">Continuar</string>
-    <!-- Datos Personales-->
+    <!--Formulario registro y perfil-->
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_continuar">Continuar</string>
     <string name="txt_titulo_perfil">Mi perfil</string>
-    <string name="txt_perfil_modificar">Modificar</string>
+    <string name="txt_img_vecino">Imagen vecino</string>
+    <string name="btn_perfil_modificar">Modificar</string>
+    <string name="txt_modificar">Modificar perfil</string>
+    <string name="btn_actualizar_perfil">Actualizar</string>
+    <!-- Datos Personales-->
+
     <string name="txt_usuarioperfil">Introduzca su Usuario</string>
     <string name="txt_usuariohint">Vecino2023</string>
 
@@ -36,7 +40,7 @@
     <string name="txt_edadhint">22</string>
 
     <string name="txt_dniperfil">Introduzca su Dni</string>
-    <string name="txt_dnihint">123456789-A</string>
+    <string name="txt_dnihint">012345678A</string>
 
     <string name="txt_telefonoperfil">Introduzca su Teléfono</string>
     <string name="txt_telefonohint">123456789</string>
@@ -94,6 +98,16 @@
     <string name="txt_etiqueta_cvvhint_tarjeta">***</string>
     <string name="txt_etiqueta_caducidad_tarjeta">Caducidad</string>
     <string name="txt_etiqueta_caducidadhint_tarjeta">MM/AA</string>
+    <string name="txt_importe_pago_comunidad">Importe anual 2023-2024: 45€</string>
+    <string name="txt_pago_comunidad_realizado">Pago confirmado</string>
+    <string name="img_pago_comunidad_realizado">Tick</string>
+    <string name="txt_pago_comunidad_realizado2">Acabas de realizar el pago del recibo de comunidad
+    con un importe de 45€</string>
+    <string name="txt_pago_comunidad_realizado3">Para ver el estado de los recibos, visita el
+    apartado de "Historial de Recibos"</string>
+    <string name="txt_pago_comunidad_realizado4">> Ir a "Historial de Recibos"</string>
+    <string name="btn_menu_principal">Menú principal</string>
+
 
     <!-- Ventana de actividades-->
     <string name="Actividades">Actividades</string>
