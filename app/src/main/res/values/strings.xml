@@ -137,6 +137,11 @@
     <string name="txt_servicioTelefonia5">Simyo</string>
     <string name="txt_servicioTelefonia6">PTV</string>
 
+    <!-- Historial de recibos -->
+    <string name="txt_servicioRecibo">Recibo: </string>
+    <string name="txt_estadoRecibo">Estado: </string>
+    <string name="txt_fechaRecibo">Fecha: </string>
+
     <!-- Ventana de actividades-->
     <string name="Actividades">Actividades</string>
     <string name="txt_seleccion_actividad">Selecciona la actividad</string>
@@ -168,13 +173,20 @@
     <string name="txt_horario7">20:00 PM - 22:00 PM</string>
 
     <!-- Mock reservas -->
-    <string name="txt_reserva1">Padel</string>
-    <string name="txt_reserva2">Tenis</string>
-    <string name="txt_reserva3">Fútbol</string>
+    <string name="txt_tipoReserva">Actividad: </string>
+    <string name="txt_franjaReserva">Hora: </string>
+    <string name="txt_fechaReserva">Fecha: </string>
 
-    <!-- Ventana de notificaciones y más-->
+    <!-- Ventana de notificaciones y más -->
     <string name="txt_vernotificaciones">Ver Notificaciones</string>
     <string name="txt_notificaciones">Notificaciones</string>
+
+    <!-- Notificaciones -->
+    <string name="txt_asuntoNotif">Asunto: </string>
+    <string name="txt_servicioNotif">Servicio: </string>
+    <string name="txt_fechaNotif">Fecha: </string>
+
+    <!-- Incidencias -->
     <string name="txt_notifincidencia">Reportar Incidencia</string>
     <string name="txt_txtrepincidencia">Escribe tu sugerencia, incidencia o comentario aquí</string>
     <string name="txt_acercade">Acerca de</string>
