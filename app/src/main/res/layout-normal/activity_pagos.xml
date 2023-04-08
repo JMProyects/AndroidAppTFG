@@ -179,7 +179,7 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:id="@+id/imgnotissid"
+                    android:id="@+id/imgtelefonia_id"
                     android:layout_width="121dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
@@ -188,20 +188,19 @@
                     android:adjustViewBounds="true"
                     android:backgroundTint="#FFFFFF"
                     android:contentDescription="@string/imagennotis"
-                    android:onClick="anteriorVentana"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/pago_seguro" />
+                    app:srcCompat="@drawable/pagos_telf3" />
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/imgnotissid"
+                    android:layout_below="@id/imgtelefonia_id"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="-25dp"
                     android:gravity="center"
-                    android:text="@string/txt_otro"
+                    android:text="@string/txt_telefonia"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#000"/>

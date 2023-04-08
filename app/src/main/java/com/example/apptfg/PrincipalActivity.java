@@ -1,11 +1,13 @@
 package com.example.apptfg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PrincipalActivity extends AppCompatActivity {
     @Override
@@ -13,16 +15,26 @@ public class PrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ImageButton pagos = findViewById(R.id.imgpagosagua_id);
+        ImageButton btnVerDatos = findViewById(R.id.btn_ver_datos); // Reemplaza esto con el ID de tu ImageButton
+
+
+        // Cargar la imagen desde SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("imagen_perfil", MODE_PRIVATE);
+        String imageUriString = prefs.getString("imagen_perfil", null);
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            btnVerDatos.setImageURI(imageUri);
+        }
 
         pagos.setOnClickListener(v -> {
             Intent i = new Intent(PrincipalActivity.this, Pagos.class);
             startActivity(i);
         });
-        ImageButton btnVerDatos = findViewById(R.id.btn_ver_datos);
+
         btnVerDatos.setOnClickListener(v -> {
             // Abrir la nueva vista con los datos del vecino
-            Intent intent = new Intent(PrincipalActivity.this, VerDatosVecino.class);
-            startActivity(intent);
+            Intent intentPerfil = new Intent(PrincipalActivity.this, VerDatosVecino.class);
+            startActivity(intentPerfil);
         });
 
     }

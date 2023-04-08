@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/q"
+                android:src="@drawable/icon"
                 android:contentDescription="@string/txt_img_vecino" />
 
         </com.google.android.material.card.MaterialCardView>

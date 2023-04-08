@@ -7,24 +7,26 @@
     android:fitsSystemWindows="true"
     tools:context=".RegistrarDatosVecino">
 
+
     <TextView
         android:id="@+id/id_txt_recibos2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         android:text="@string/txt_crearperfil"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="wrap_content"
         android:layout_height="471dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="32dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_registro"
@@ -61,6 +63,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_usuarioperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -81,6 +84,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_contrasenaperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -101,6 +105,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_nombreperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -121,6 +126,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_apellidoperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -141,6 +147,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_dniperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -163,6 +170,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_telefonoperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -184,6 +192,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_correoperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -205,6 +214,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_direccionperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -226,6 +236,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_localidadperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -246,6 +257,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_provinciaperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -266,6 +278,7 @@
                         android:layout_margin="10dp"
                         android:text="@string/txt_cpperfil"
                         android:textSize="14sp"
+                        android:textColor="#000"
                         android:textStyle="bold" />
 
                     <EditText
@@ -280,14 +293,36 @@
                         android:inputType="number"
                         android:minHeight="48dp" />
 
-                    <TextView
-                        android:id="@+id/id_lblfotoperfilperfil"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="@string/txt_fotoperfil"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/id_lblfotoperfilperfil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/txt_fotoperfil"
+                            android:textSize="14sp"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:drawablePadding="10dp"
+                            app:drawableEndCompat="@drawable/ic_upload" />
+
+                        <ImageView
+                            android:id="@+id/image_tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_tick"
+                            android:visibility="gone"
+                            android:contentDescription="@string/ic_tick" />
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 

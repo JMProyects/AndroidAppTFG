@@ -1,7 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Etiquetas para labels o textos-->
-    <string name="app_name">appTFG</string>
+    <string name="app_name">Home Cloud</string>
+    <string name="txt_bienvenida">Bienvenido/a</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
     <string name="txt_contrasena">Contraseña</string>
@@ -15,6 +16,7 @@
 
 
     <!--Formulario registro y perfil-->
+    <string name="toggle_password_visibility">password</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_continuar">Continuar</string>
     <string name="txt_titulo_perfil">Mi perfil</string>
@@ -22,6 +24,7 @@
     <string name="btn_perfil_modificar">Modificar</string>
     <string name="txt_modificar">Modificar perfil</string>
     <string name="btn_actualizar_perfil">Actualizar</string>
+    <string name="ic_tick">img_confirmado</string>
     <!-- Datos Personales-->
 
     <string name="txt_usuarioperfil">Introduzca su Usuario</string>
@@ -39,7 +42,7 @@
     <string name="txt_edadperfil">Introduzca su Edad</string>
     <string name="txt_edadhint">22</string>
 
-    <string name="txt_dniperfil">Introduzca su Dni</string>
+    <string name="txt_dniperfil">Introduzca su DNI</string>
     <string name="txt_dnihint">012345678A</string>
 
     <string name="txt_telefonoperfil">Introduzca su Teléfono</string>
@@ -79,12 +82,28 @@
     <!-- Ventana de pagos-->
     <string name="txt_seleccion_servicio">Selecciona el servicio</string>
     <string name="txt_seleccion_proveedor">Selecciona el proveedor</string>
+
+    <!-- Pago de agua-->
     <string name="txt_agua">Agua</string>
+    <string name="txt_servicioAgua1">Aguas de Valencia</string>
+
+
+    <!-- Pago de luz-->
     <string name="txt_luz">Luz</string>
+    <string name="txt_servicioLuz1">Iberdrola</string>
+    <string name="txt_servicioLuz2">Endesa</string>
+    <string name="txt_servicioLuz3">Naturgy</string>
+    <string name="txt_servicioLuz4">Holaluz</string>
+    <string name="txt_servicioLuz5">Lucera</string>
+    <string name="txt_servicioLuz6">Repsol</string>
+
+    <!-- Pago de comunidad-->
     <string name="txt_comunidad">Comunidad</string>
     <string name="txt_otro">Otro</string>
     <string name="txt_pagoAgua">Pago de agua</string>
     <string name="txt_pagoLuz">Pago de luz</string>
+
+    <!-- Pago de comunidad-->
     <string name="txt_pagoComunidad">Pago de comunidad</string>
     <string name="txt_metodoPago">Selecciona el método de pago</string>
     <string name="txt_etiqueta_nombre_tarjeta">Nombre completo</string>
@@ -98,7 +117,7 @@
     <string name="txt_etiqueta_cvvhint_tarjeta">***</string>
     <string name="txt_etiqueta_caducidad_tarjeta">Caducidad</string>
     <string name="txt_etiqueta_caducidadhint_tarjeta">MM/AA</string>
-    <string name="txt_importe_pago_comunidad">Importe anual 2023-2024: 45€</string>
+    <string name="txt_importe_pago_comunidad" tools:ignore="Typos">Importe anual 2023–2024: 45€</string>
     <string name="txt_pago_comunidad_realizado">Pago confirmado</string>
     <string name="img_pago_comunidad_realizado">Tick</string>
     <string name="txt_pago_comunidad_realizado2">Acabas de realizar el pago del recibo de comunidad
@@ -108,6 +127,15 @@
     <string name="txt_pago_comunidad_realizado4">> Ir a "Historial de Recibos"</string>
     <string name="btn_menu_principal">Menú principal</string>
 
+    <!-- Pago de telefonia-->
+    <string name="txt_telefonia">Telefonía</string>
+    <string name="txt_pagoTelefonia">Pago de telefonía</string>
+    <string name="txt_servicioTelefonia1">Movistar</string>
+    <string name="txt_servicioTelefonia2">Vodafone</string>
+    <string name="txt_servicioTelefonia3">Orange</string>
+    <string name="txt_servicioTelefonia4">Jazztel</string>
+    <string name="txt_servicioTelefonia5">Simyo</string>
+    <string name="txt_servicioTelefonia6">PTV</string>
 
     <!-- Ventana de actividades-->
     <string name="Actividades">Actividades</string>

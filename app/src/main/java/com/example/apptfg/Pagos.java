@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class Pagos extends AppCompatActivity {
 
@@ -12,11 +13,18 @@ public class Pagos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagos);
+        ImageButton pagarTelefonia = findViewById(R.id.imgtelefonia_id);
+
+        pagarTelefonia.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PagarTelefonia.class);
+            startActivity(intent);
+        });
+
     }
 
     //Función para pagar el recibo de agua.
     public void pagarAguaVentana(View view){
-        Intent pAgua = new Intent(this,PrincipalActivity.class);
+        Intent pAgua = new Intent(this,PagarAgua.class);
         startActivity(pAgua);
     }
 

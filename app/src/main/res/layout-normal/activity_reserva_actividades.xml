@@ -25,7 +25,6 @@
         android:id="@+id/id_txt_seleccion2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
         android:text="@string/txt_seleccion_actividad"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"

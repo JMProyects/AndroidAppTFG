@@ -309,6 +309,8 @@ public class PagarComunidad extends AppCompatActivity {
 
         if (campoVacio(inputNombreVecino) || campoVacio(inputNumTarjeta) || campoVacio(inputCvv) || campoVacio(inputFechaCad)) {
             Toast.makeText(this, "Por favor, complete todos los campos antes de continuar", Toast.LENGTH_SHORT).show();
+        } else if (!longitudExacta(inputNumTarjeta, 19) || !longitudExacta(inputCvv, 3) || !longitudExacta(inputFechaCad, 5)) {
+            Toast.makeText(this, "Por favor, asegúrese de que los campos tienen la longitud correcta", Toast.LENGTH_SHORT).show();
         } else {
             mostrarDialogoConfirmacion(); // Muestra el diálogo de confirmación cuando todos los campos estén completados
         }
@@ -316,6 +318,10 @@ public class PagarComunidad extends AppCompatActivity {
 
     private boolean campoVacio(EditText editText) {
         return editText.getText().toString().trim().isEmpty();
+    }
+
+    private boolean longitudExacta(EditText editText, int longitud) {
+        return editText.getText().toString().trim().length() == longitud;
     }
 
     public void anteriorVentana(View view) {
