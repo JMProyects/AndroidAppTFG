@@ -34,7 +34,7 @@ public class ModificarDatosVecino extends AppCompatActivity {
     public void mostrarDialogoConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar modificación");
-        builder.setMessage("Sus datos serán actualizados.   ¿Está seguro?");
+        builder.setMessage("Sus datos serán actualizados.\n ¿Está seguro?");
 
         builder.setPositiveButton("Confirmar", (dialog, id) -> {
             //Navega a la anterior actividad y muestra el toast de confirmación.

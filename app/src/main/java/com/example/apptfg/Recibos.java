@@ -13,21 +13,18 @@ import java.util.Date;
 import java.util.List;
 
 public class Recibos extends AppCompatActivity {
-    private RecyclerView rvRecibos;
-    private RecibosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recibos);
-        rvRecibos = findViewById(R.id.id_rv_recibos);
+        RecyclerView rvRecibos = findViewById(R.id.id_rv_recibos);
         rvRecibos.setLayoutManager(new LinearLayoutManager(this));
 
         List<Recibo> listaRecibos = obtenerRecibos(); // Aquí debes implementar la lógica para obtener la lista de recibos
-        adapter = new RecibosAdapter(listaRecibos);
+        RecibosAdapter adapter = new RecibosAdapter(listaRecibos);
         rvRecibos.setAdapter(adapter);
     }
-
 
     private List<Recibo> obtenerRecibos() {
         // Aquí debes implementar la lógica para obtener la lista de recibos.

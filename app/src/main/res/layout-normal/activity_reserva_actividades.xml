@@ -11,7 +11,7 @@
         android:id="@+id/id_txt_actividades"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="50dp"
         android:text="@string/txt_reservas"
         android:textColor="#000"
         android:textSize="30sp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_txt_actividades"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

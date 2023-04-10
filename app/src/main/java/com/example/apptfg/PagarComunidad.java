@@ -26,16 +26,12 @@ import java.util.Locale;
 
 public class PagarComunidad extends AppCompatActivity {
     private boolean isCardFront = true;
-    private EditText editText1;
     private EditText editText2;
-    private EditText editText3;
     private EditText editText4;
     private EditText expiryEditText2;
     private ImageView cardFrontImage;
     private ImageView cardBackImage;
-    private EditText cvvEditText1;
     private EditText cvvEditText2;
-    private EditText expiryEditText1;
     private static final char space = ' ';
     private static final char barra = '/';
 
@@ -48,15 +44,15 @@ public class PagarComunidad extends AppCompatActivity {
         cardFrontImage = findViewById(R.id.imageView2);
         cardBackImage = findViewById(R.id.cardBackImage);
 
-        editText1 = findViewById(R.id.editText1);
+        EditText editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
 
-        editText3 = findViewById(R.id.editText3);
+        EditText editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
 
-        cvvEditText1 = findViewById(R.id.editText5);
+        EditText cvvEditText1 = findViewById(R.id.editText5);
         //editText7 = findViewById(R.id.editText7);
-        expiryEditText1 = findViewById(R.id.editText6);
+        EditText expiryEditText1 = findViewById(R.id.editText6);
         //editText8 = findViewById(R.id.editText8);
 
         cvvEditText2 = findViewById(R.id.editText7);
@@ -267,7 +263,7 @@ public class PagarComunidad extends AppCompatActivity {
     public void mostrarDialogoConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar pago");
-        builder.setMessage("Está a punto de realizar el pago del recibo de comunidad con un importe de 45€. ¿Está seguro?");
+        builder.setMessage("Está a punto de realizar el pago del recibo de comunidad con un importe de 45€.\n ¿Está seguro?");
 
         builder.setPositiveButton("Confirmar", (dialog, id) -> {
             //Navega a la anterior actividad y muestra el toast de confirmación.

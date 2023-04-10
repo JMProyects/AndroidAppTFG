@@ -7,34 +7,36 @@
     android:fitsSystemWindows="true"
     tools:context=".ReservaHorarios">
 
+
     <TextView
         android:id="@+id/id_txt_reservas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/txt_reservas"
         android:textColor="#000"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/id_txt_horarios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/id_txt_horarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
         android:text="@string/txt_horarios_disponibles"
         android:textSize="22sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_txt_reservas"
-         />
+
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -55,6 +57,8 @@
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_calendar"
+            android:drawablePadding="10dp"
             app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
             app:layout_constraintEnd_toStartOf="@+id/spinner_incidencias"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +101,7 @@
                     android:id="@+id/id_btn_horario1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#CA1041"
+                    android:backgroundTint="#FF3957"
 
                     android:text="@string/txt_horario1"
                     android:textColor="#000000"
@@ -131,7 +135,7 @@
                     android:id="@+id/id_btn_horario4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#CA1041"
+                    android:backgroundTint="#FF3957"
 
                     android:text="@string/txt_horario4"
                     android:textColor="#000000"
@@ -183,7 +187,7 @@
         android:id="@+id/id_btn_Anterior_Actividades2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#FF6957"
         android:onClick="anteriorReservasVentana"
         android:text="@string/botonAnterior"
