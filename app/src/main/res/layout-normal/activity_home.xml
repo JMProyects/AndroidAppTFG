@@ -262,7 +262,6 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FF6957"
         android:gravity="center"
-        android:onClick="cerrarSesion"
         android:text="@string/cerrar_sesion"
         android:textColor="#000"
         android:textStyle="bold"

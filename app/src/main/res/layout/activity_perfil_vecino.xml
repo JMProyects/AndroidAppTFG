@@ -67,8 +67,8 @@
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="wrap_content"
-        android:layout_height="410dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="30dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_registro"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="300dp">
+            android:layout_marginTop="230dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
@@ -88,7 +88,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
@@ -105,23 +104,19 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_usuarioperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_usuario"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputusuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_usuariohint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/txt_usuariohint"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"
+                         />
 
                     <TextView
                         android:id="@+id/id_lblcontraperfil"
@@ -129,23 +124,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_contrasenaperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_contrasenya"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputcontrasena"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_contrasenahint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_contrasenya"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"/>
 
                     <TextView
                         android:id="@+id/id_lblnombreperfil"
@@ -153,23 +145,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_nombreperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_nombre"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputnombre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_nombrehint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_nombre"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"/>
 
                     <TextView
                         android:id="@+id/id_lblapellidosperfil"
@@ -177,23 +166,21 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_apellidoperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_apellidos"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputapellidos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_apellidoshint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_apellidos"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"
+                        />
 
                     <TextView
                         android:id="@+id/id_lbldniperfil"
@@ -201,24 +188,21 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_dniperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_dni"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputdni"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_dnihint"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        tools:ignore="TextContrastCheck,TextContrastCheck" />
+                        android:text="@string/lbl_dni"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"
+                        />
 
                     <TextView
                         android:id="@+id/id_lbltelefonoperfil"
@@ -226,23 +210,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_telefonoperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_telefono"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputtelefono"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:autofillHints=""
-                        android:background="@null"
-                        android:focusable="false"
-                        android:hint="@string/txt_telefonohint"
-                        android:inputType="phone"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_telefono"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"/>
 
                     <TextView
                         android:id="@+id/id_lblcorreoperfil"
@@ -250,24 +231,21 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_correoperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_correo"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputcorreo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_correohint"
-                        android:inputType="textEmailAddress"
-                        android:minHeight="48dp"
-                        tools:ignore="TextContrastCheck,TextContrastCheck" />
+                        android:text="@string/lbl_correo"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"
+                        />
 
                     <TextView
                         android:id="@+id/id_lbldireccionperfil"
@@ -275,24 +253,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_direccionperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_direccion"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputdireccion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_direccionhint"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        tools:ignore="TextContrastCheck" />
+                        android:text="@string/lbl_direccion"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:id="@+id/id_lbllocalidadperfil"
@@ -300,23 +274,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_localidadperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_localidad"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputlocalidad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_localidadhint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_localidad"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:id="@+id/id_lblprovinciaperfil"
@@ -324,23 +295,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_provinciaperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_provincia"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputprovincia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_dnihint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_provincia"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:id="@+id/id_lblcpperfil"
@@ -348,23 +316,20 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:text="@string/txt_cpperfil"
-                        android:textSize="14sp"
+                        android:text="@string/lbl_cp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/id_inputcp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:background="@null"
-                        android:focusable="false"
-                        android:autofillHints=""
-                        android:hint="@string/txt_cphint"
-                        android:inputType="text"
-                        android:minHeight="48dp" />
+                        android:text="@string/lbl_cp"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp"/>
 
                 </LinearLayout>
 

@@ -5,6 +5,7 @@
     <string name="txt_bienvenida">Bienvenido/a</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="txt_email">E-Mail</string>
     <string name="txt_contrasena">Contraseña</string>
     <string name="txt_registrarse">¿No tiene cuenta? Regístrese</string>
     <string name="txt_crearperfil">Crea tu perfil</string>
@@ -25,6 +26,21 @@
     <string name="txt_modificar">Modificar perfil</string>
     <string name="btn_actualizar_perfil">Actualizar</string>
     <string name="ic_tick">img_confirmado</string>
+
+    <string name="lbl_usuario">Usuario</string>
+    <string name="lbl_contrasenya">Contraseña</string>
+    <string name="lbl_nombre">Nombre</string>
+    <string name="lbl_apellidos">Apellidos</string>
+    <string name="lbl_dni">DNI</string>
+    <string name="lbl_telefono">Teléfono</string>
+    <string name="lbl_correo">Correo</string>
+    <string name="lbl_direccion">Dirección</string>
+    <string name="lbl_localidad">Localidad</string>
+    <string name="lbl_provincia">Provincia</string>
+    <string name="lbl_cp">Código Postal</string>
+
+
+
     <!-- Datos Personales-->
 
     <string name="txt_usuarioperfil">Introduzca su Usuario</string>
@@ -63,7 +79,7 @@
     <string name="txt_cpperfil">Introduzca su Código Postal</string>
     <string name="txt_cphint">46900</string>
 
-    <string name="txt_fotoperfil">Subir Foto de Perfil</string>
+    <string name="txt_fotoperfil">Subir foto de perfil (Opcional)</string>
 
     <!-- Datos Vivienda-->
     <string name="txt_aguaperfil">Dirección</string>
