@@ -5,39 +5,39 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 public class VerDatosVecino extends AppCompatActivity {
 
-    private ActivityResultLauncher<String> galleryLauncher;
     ImageButton btnImagen;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseUser currentUser;
+
+    // Crear ActivityResultLauncher para abrir la galería
+    ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+        if (uri != null) {
+            // Actualizar la imagen de perfil en la base de datos y actualizar el ImageButton
+            updateProfileImage(uri);
+        }
+    });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +55,7 @@ public class VerDatosVecino extends AppCompatActivity {
         Button btnModificarDatos = findViewById(R.id.id_btn_modificar_datos);
         Button id_btn_volver_registro = findViewById(R.id.id_btn_volver_registro);
         btnImagen = findViewById(R.id.id_btn_imagen_perfil);
-        setupGalleryLauncher();
-
-        // Cargar la imagen desde SharedPreferences
-        SharedPreferences prefs = getSharedPreferences("imagen_perfil", MODE_PRIVATE);
-        String imageUriString = prefs.getString("imagen_perfil", null);
-        if (imageUriString != null) {
-            Uri imageUri = Uri.parse(imageUriString);
-            btnImagen.setImageURI(imageUri);
-        }
+        //setupGalleryLauncher();
 
         btnImagen.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(VerDatosVecino.this);
@@ -77,16 +69,24 @@ public class VerDatosVecino extends AppCompatActivity {
                             case 1:
                                 // Acción para eliminar la imagen
                                 btnImagen.setImageResource(R.drawable.icon); // Reemplaza con el nombre de tu imagen por defecto
-                                // Eliminar la ruta de la imagen en SharedPreferences
-                                SharedPreferences.Editor editor = getSharedPreferences("imagen_perfil", MODE_PRIVATE).edit();
-                                editor.remove("imagen_perfil");
-                                editor.apply();
+                                // Eliminar la ruta de la imagen en la base de datos
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                String userEmail = currentUser.getEmail();
+                                db.collection("vecinos").document(userEmail).update("profile_image_url", null).addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(this, "¡Foto de perfil eliminada con éxito!", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "Imagen de perfil eliminada");
+                                    } else {
+                                        Log.d(TAG, "Error al eliminar la imagen de perfil: ", task.getException());
+                                    }
+                                });
                                 break;
                         }
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
         btnModificarDatos.setOnClickListener(v -> {
             // Abrir la nueva vista con los datos del vecino
             Intent intent = new Intent(VerDatosVecino.this, ModificarDatosVecino.class);
@@ -97,19 +97,6 @@ public class VerDatosVecino extends AppCompatActivity {
             // Abrir la vista anterior
             Intent intent = new Intent(VerDatosVecino.this, PrincipalActivity.class);
             startActivity(intent);
-        });
-    }
-
-    private void setupGalleryLauncher() {
-        galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-            if (uri != null) {
-                // Aquí puedes hacer algo con la imagen seleccionada
-                btnImagen.setImageURI(uri);
-                // Guardar la ruta de la imagen en SharedPreferences
-                SharedPreferences.Editor editor = getSharedPreferences("imagen_perfil", MODE_PRIVATE).edit();
-                editor.putString("imagen_perfil", uri.toString());
-                editor.apply();
-            }
         });
     }
 
@@ -134,9 +121,14 @@ public class VerDatosVecino extends AppCompatActivity {
                     String localidad = document.getString("localidad");
                     String provincia = document.getString("provincia");
                     String cp = document.getString("codigo_postal");
-                    // Agrega otros campos según sea necesario
 
                     // Muestra los datos en TextViews o en otros elementos de la interfaz
+                    RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.icon).error(R.drawable.icon);
+                    Glide.with(this)
+                            .load(imagen)
+                            .apply(requestOptions)
+                            .into(btnImagen);
+
                     TextView usuarioTextView = findViewById(R.id.id_inputusuario);
                     usuarioTextView.setText(usuario);
 
@@ -175,6 +167,27 @@ public class VerDatosVecino extends AppCompatActivity {
                 }
             } else {
                 Log.d(TAG, "Error al obtener los datos del usuario: ", task.getException());
+            }
+        });
+    }
+
+    private void updateProfileImage(Uri uri) {
+        // Actualizar la imagen de perfil en la base de datos
+        String userEmail = currentUser.getEmail();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String imageUriString = uri.toString();
+
+        db.collection("vecinos").document(userEmail).update("profile_image_url", imageUriString).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Actualizar la imagen en el ImageButton
+                RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.icon).error(R.drawable.icon);
+                Glide.with(this)
+                        .load(uri)
+                        .apply(requestOptions)
+                        .into(btnImagen);
+                Toast.makeText(this, "¡Foto de perfil actualizada con éxito!", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d(TAG, "Error al actualizar la imagen de perfil: ", task.getException());
             }
         });
     }

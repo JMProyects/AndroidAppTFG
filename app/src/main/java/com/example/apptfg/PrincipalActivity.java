@@ -28,20 +28,11 @@ public class PrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         logOutButton = findViewById(R.id.btn_cerrarsesion);
         emailTextView = findViewById(R.id.txtUser);
-
         ImageButton pagos = findViewById(R.id.imgpagosagua_id);
         btnVerDatos = findViewById(R.id.btn_ver_datos);
-        loadImage();
-        SharedPreferences sharedPreferences = getSharedPreferences("misPreferencias", MODE_PRIVATE);
-        String nombreUsuario1 = sharedPreferences.getString("nombreUsuario", "");
-        SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
-        String nombreUsuario2 = preferences.getString("nombre_usuario", "Usuario");
 
-        if (!nombreUsuario1.isEmpty()) {
-            emailTextView.setText(nombreUsuario1);
-        } else {
-            emailTextView.setText(nombreUsuario2);
-        }
+        loadImage();
+        loadUser();
 
         pagos.setOnClickListener(v -> {
             Intent i = new Intent(PrincipalActivity.this, Pagos.class);
@@ -58,22 +49,12 @@ public class PrincipalActivity extends AppCompatActivity {
             // Eliminar la clave de sesión del usuario
             FirebaseAuth.getInstance().signOut();
 
-            // Eliminar todas las SharedPreferences
-            SharedPreferences.Editor editor = getSharedPreferences("imagen_perfil", MODE_PRIVATE).edit();
-            SharedPreferences.Editor editor2 = getSharedPreferences("myPrefs", MODE_PRIVATE).edit();
-            SharedPreferences.Editor editor3 = getSharedPreferences("misPreferencias", MODE_PRIVATE).edit();
-
-            editor.clear();
-            editor.apply();
-            editor2.clear();
-            editor2.apply();
-            editor3.clear();
-            editor3.apply();
-
             // Redirigir al usuario a la pantalla de inicio de sesión
             Intent intent = new Intent(PrincipalActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+
         });
     }
 
@@ -86,9 +67,31 @@ public class PrincipalActivity extends AppCompatActivity {
                 if (document.exists()) {
                     String imageUrl = document.getString("profile_image_url");
                     if (imageUrl != null) {
-                        // Carga la imagen de perfil en el ImageButton
-                        Glide.with(this).load(imageUrl).into(btnVerDatos);
+                        if (!imageUrl.equals("https://firebasestorage.googleapis.com/v0/b/home-cloud-bd.appspot.com/o/profile_images%2Ficon.png?alt=media&token=722fc61f-b3d2-4ca2-bf8d-b584be99608d")) {
+                            // Carga la imagen de perfil en el ImageButton
+                            Glide.with(this).load(imageUrl).into(btnVerDatos);
+                        } else {
+                            // Carga la imagen predeterminada en el ImageButton
+                            Glide.with(this).load(R.drawable.icon).into(btnVerDatos);
+                        }
                     }
+                }
+            } else {
+                Log.e("Firestore", "Error al obtener el documento", task.getException());
+            }
+        });
+    }
+
+
+    private void loadUser() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        db.collection("vecinos").document(userEmail).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String usuario = document.getString("usuario");
+                    emailTextView.setText(usuario);
                 }
             } else {
                 Log.e("Firestore", "Error al obtener el documento", task.getException());

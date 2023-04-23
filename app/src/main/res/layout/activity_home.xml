@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutheader"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PrincipalActivity">
 
 
@@ -43,6 +42,7 @@
         android:layout_width="106dp"
         android:layout_height="114dp"
         android:layout_marginEnd="44dp"
+        android:contentDescription="@string/imagenusuario_perfil"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -50,8 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.075"
         app:srcCompat="@drawable/icon"
-        tools:ignore="ImageContrastCheck"
-        android:contentDescription="@string/imagenusuario_perfil" />
+        tools:ignore="ImageContrastCheck" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -86,7 +85,7 @@
                     android:contentDescription="@string/imagenpagos"
                     android:onClick="ventanaPagos"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/pagos"
+                    app:srcCompat="@drawable/pago"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -130,7 +129,7 @@
                     android:contentDescription="@string/imagenrecibos"
                     android:onClick="ventanaRecibos"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/recibos"
+                    app:srcCompat="@drawable/recibosv2"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -184,7 +183,7 @@
                     android:contentDescription="@string/Actividades"
                     android:onClick="ventanaActividades"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/actividades"
+                    app:srcCompat="@drawable/actividadesv2"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -228,7 +227,7 @@
                     android:contentDescription="@string/imagennotis"
                     android:onClick="ventanaNotificaciones"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/reparaciones" />
+                    app:srcCompat="@drawable/reparacionesv2" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -251,7 +250,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:onClick="cerrarSesion"
         android:text="@string/cerrar_sesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

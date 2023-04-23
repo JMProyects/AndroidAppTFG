@@ -22,6 +22,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/id_txt_no_reservas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_sinReservas"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/id_rv_reservas"
         android:layout_width="match_parent"
@@ -31,12 +43,12 @@
         tools:listitem="@layout/item_reserva" />
 
     <Button
-        android:id="@+id/id_btn_volver_incidencia"
+        android:id="@+id/id_btn_volver_cReservas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorVentana"
+        android:onClick="anteriorVentanaActividades"
         android:text="@string/botonAnterior"
         android:textColor="#000"
         android:textStyle="bold"

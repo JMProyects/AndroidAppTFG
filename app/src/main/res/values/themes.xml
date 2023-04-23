@@ -19,4 +19,9 @@
     <style name="miSpinnerEstilo" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="android:windowMinWidthMinor">60%</item>
+    </style>
+
 </resources>

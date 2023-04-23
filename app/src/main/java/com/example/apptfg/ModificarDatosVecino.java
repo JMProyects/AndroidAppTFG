@@ -1,5 +1,7 @@
 package com.example.apptfg;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,14 +19,24 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModificarDatosVecino extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_datos_vecino);
-        Button btnCancelar = findViewById(R.id.id_btn_volver_registro);
+        // Obtiene los datos del usuario y establece el contenido de los EditText
+        getUserDataForEditing();
 
+        Button btnCancelar = findViewById(R.id.id_btn_volver_registro);
         btnCancelar.setOnClickListener(view -> {
             Intent anterior = new Intent(this, VerDatosVecino.class);
             startActivity(anterior);
@@ -37,8 +50,10 @@ public class ModificarDatosVecino extends AppCompatActivity {
         builder.setMessage("Sus datos serán actualizados.\n ¿Está seguro?");
 
         builder.setPositiveButton("Confirmar", (dialog, id) -> {
-            //Navega a la anterior actividad y muestra el toast de confirmación.
+            // Actualiza los datos en Firestore
+            updateUserData();
 
+            //Navega a la anterior actividad y muestra el toast de confirmación.
             Intent principal = new Intent(this, VerDatosVecino.class);
             startActivity(principal);
             Toast.makeText(this, "¡Datos actualizados correctamente!", Toast.LENGTH_SHORT).show();
@@ -69,7 +84,124 @@ public class ModificarDatosVecino extends AppCompatActivity {
 
     }
 
-    public void actualizarCampos(View view) {
+    private void getUserDataForEditing() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = currentUser.getEmail();
+
+        db.collection("vecinos").document(userEmail).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null && document.exists()) {
+                    // Obtiene los datos del usuario
+                    String usuario = document.getString("usuario");
+                    String contrasenya = document.getString("contraseña");
+                    String nombre = document.getString("nombre");
+                    String apellidos = document.getString("apellidos");
+                    String dni = document.getString("dni");
+                    String telefono = document.getString("telefono");
+                    String correo = document.getString("correo");
+                    String direccion = document.getString("direccion");
+                    String localidad = document.getString("localidad");
+                    String provincia = document.getString("provincia");
+                    String cp = document.getString("codigo_postal");
+
+                    // Establece los datos en EditTexts
+                    EditText usuarioEditText = findViewById(R.id.id_inputusuario);
+                    usuarioEditText.setText(usuario);
+
+                    EditText contrasenyaEditText = findViewById(R.id.id_inputcontrasena);
+                    contrasenyaEditText.setText(contrasenya);
+
+                    EditText nombreEditText = findViewById(R.id.id_inputnombre);
+                    nombreEditText.setText(nombre);
+
+                    EditText apellidosEditText = findViewById(R.id.id_inputapellidos);
+                    apellidosEditText.setText(apellidos);
+
+                    EditText dniEditText = findViewById(R.id.id_inputdni);
+                    dniEditText.setText(dni);
+
+                    EditText telefonoEditText = findViewById(R.id.id_inputtelefono);
+                    telefonoEditText.setText(telefono);
+
+                    EditText correoEditText = findViewById(R.id.id_inputcorreo);
+                    correoEditText.setText(correo);
+
+                    EditText direccionEditText = findViewById(R.id.id_inputdireccion);
+                    direccionEditText.setText(direccion);
+
+                    EditText localidadEditText = findViewById(R.id.id_inputlocalidad);
+                    localidadEditText.setText(localidad);
+
+                    EditText provinciaEditText = findViewById(R.id.id_inputprovincia);
+                    provinciaEditText.setText(provincia);
+
+                    EditText cpEditText = findViewById(R.id.id_inputcp);
+                    cpEditText.setText(cp);
+
+                } else {
+                    Log.d(TAG, "No se encontró el documento");
+                }
+            } else {
+                Log.d(TAG, "Error al obtener los datos del usuario: ", task.getException());
+            }
+        });
+    }
+
+    private void updateUserData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = currentUser.getEmail();
+
+        EditText inputUsuario = findViewById(R.id.id_inputusuario);
+        EditText inputContrasena = findViewById(R.id.id_inputcontrasena);
+        EditText inputNombre = findViewById(R.id.id_inputnombre);
+        EditText inputApellidos = findViewById(R.id.id_inputapellidos);
+        EditText inputDni = findViewById(R.id.id_inputdni);
+        EditText inputTelefono = findViewById(R.id.id_inputtelefono);
+        EditText inputCorreo = findViewById(R.id.id_inputcorreo);
+        EditText inputDireccion = findViewById(R.id.id_inputdireccion);
+        EditText inputLocalidad = findViewById(R.id.id_inputlocalidad);
+        EditText inputProvincia = findViewById(R.id.id_inputprovincia);
+        EditText inputCp = findViewById(R.id.id_inputcp);
+
+        String usuario = inputUsuario.getText().toString();
+        String contrasena = inputContrasena.getText().toString();
+        String nombre = inputNombre.getText().toString();
+        String apellidos = inputApellidos.getText().toString();
+        String dni = inputDni.getText().toString();
+        String telefono = inputTelefono.getText().toString();
+        String correo = inputCorreo.getText().toString();
+        String direccion = inputDireccion.getText().toString();
+        String localidad = inputLocalidad.getText().toString();
+        String provincia = inputProvincia.getText().toString();
+        String cp = inputCp.getText().toString();
+
+        Map<String, Object> updatedData = new HashMap<>();
+        updatedData.put("usuario", usuario);
+        updatedData.put("contraseña", contrasena);
+        updatedData.put("nombre", nombre);
+        updatedData.put("apellidos", apellidos);
+        updatedData.put("dni", dni);
+        updatedData.put("telefono", telefono);
+        updatedData.put("correo", correo);
+        updatedData.put("direccion", direccion);
+        updatedData.put("localidad", localidad);
+        updatedData.put("provincia", provincia);
+        updatedData.put("codigo_postal", cp);
+
+        db.collection("vecinos").document(userEmail).update(updatedData).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, "Datos actualizados correctamente");
+            } else {
+                Log.d(TAG, "Error al actualizar los datos: ", task.getException());
+            }
+        });
+    }
+
+
+    public void actualizarCamposVecino(View view) {
         EditText inputUsuario = findViewById(R.id.id_inputusuario);
         EditText inputContrasena = findViewById(R.id.id_inputcontrasena);
         EditText inputNombre = findViewById(R.id.id_inputnombre);

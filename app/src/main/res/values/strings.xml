@@ -5,6 +5,7 @@
     <string name="txt_bienvenida">Bienvenido/a</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="txt_cargando">Cargando...</string>
     <string name="txt_email">E-Mail</string>
     <string name="txt_contrasena">Contraseña</string>
     <string name="txt_registrarse">¿No tiene cuenta? Regístrese</string>
@@ -192,6 +193,8 @@
     <string name="txt_tipoReserva">Actividad: </string>
     <string name="txt_franjaReserva">Hora: </string>
     <string name="txt_fechaReserva">Fecha: </string>
+    <string name="img_papelera">Papelera </string>
+    <string name="txt_sinReservas">No hay reservas realizadas.</string>
 
     <!-- Ventana de notificaciones y más -->
     <string name="txt_vernotificaciones">Ver Notificaciones</string>

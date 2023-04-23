@@ -3,37 +3,47 @@ package com.example.apptfg;
 import java.util.Date;
 
 public class Reserva {
-    private String nombreActividad;
-    private String franjaHoraria;
-    private Date fecha;
 
-    public Reserva(String nombreActividad, String franjaHoraria, Date fecha) {
-        this.nombreActividad = nombreActividad;
-        this.franjaHoraria = franjaHoraria;
-        this.fecha = fecha;
+    //Es como SpringBoot / JPA, hay que poner los nombres de las variables al igual que en la
+    //base de datos, si no no aparecen los datos.
+    private String id;
+    private String actividad;
+    private String horario;
+    private String fecha_reserva;
+
+    // Constructor vacío requerido para Firestore
+    public Reserva() {
     }
 
-    public String getNombreActividad() {
-        return nombreActividad;
+    public String getId() {
+        return id;
     }
 
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreActividad = nombreActividad;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getFranjaHoraria() {
-        return franjaHoraria;
+    public String getActividad() {
+        return actividad;
     }
 
-    public void setFranjaHoraria(String franjaHoraria) {
-        this.franjaHoraria = franjaHoraria;
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getHorario() {
+        return horario;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getFecha_reserva() {
+        return fecha_reserva;
+    }
+
+    public void setFecha_reserva(String fecha_reserva) {
+        this.fecha_reserva = fecha_reserva;
     }
 }

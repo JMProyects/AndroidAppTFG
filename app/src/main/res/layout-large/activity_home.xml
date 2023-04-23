@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutheader"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PrincipalActivity">
 
 
@@ -29,10 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:text="@string/txt_usuario"
-        android:textSize="30sp"
         android:gravity="center"
+        android:text="@string/txt_usuario"
         android:textColor="#000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.118"
@@ -88,7 +87,7 @@
                     android:contentDescription="@string/Actividades"
                     android:onClick="ventanaActividades"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/actividades"
+                    app:srcCompat="@drawable/actividadesv2"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -101,9 +100,9 @@
                     android:layout_marginTop="-25dp"
                     android:gravity="center"
                     android:text="@string/txt_actividades"
+                    android:textColor="#000"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000"/>
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
@@ -131,7 +130,7 @@
                     android:contentDescription="@string/imagennotis"
                     android:onClick="ventanaNotificaciones"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/reparaciones" />
+                    app:srcCompat="@drawable/reparacionesv2" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -143,9 +142,9 @@
                     android:layout_marginTop="-25dp"
                     android:gravity="center"
                     android:text="@string/txt_notificaciones_y_mas"
+                    android:textColor="#000"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -181,7 +180,7 @@
                     android:contentDescription="@string/imagenpagos"
                     android:onClick="ventanaPagos"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/pagos"
+                    app:srcCompat="@drawable/pago"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -194,9 +193,9 @@
                     android:layout_marginTop="-25dp"
                     android:gravity="center"
                     android:text="@string/txt_pagos"
-                    android:textSize="18sp"
                     android:textColor="#000"
-                    android:textStyle="bold"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
@@ -224,7 +223,7 @@
                     android:contentDescription="@string/imagenrecibos"
                     android:onClick="ventanaRecibos"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/recibos"
+                    app:srcCompat="@drawable/recibosv2"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -237,9 +236,9 @@
                     android:layout_marginTop="-25dp"
                     android:gravity="center"
                     android:text="@string/txt_recibos"
+                    android:textColor="#000"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#000"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -248,17 +247,15 @@
         android:id="@+id/btn_cerrarsesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:onClick="cerrarSesion"
-        android:text="@string/cerrar_sesion"
         android:backgroundTint="#FF6957"
-        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/cerrar_sesion"
         android:textColor="#000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

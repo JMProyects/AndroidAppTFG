@@ -51,8 +51,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     EditText id_inputlocalidad;
     EditText id_inputprovincia;
     EditText id_inputcp;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private Uri selectedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,43 +73,19 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
     private void setupGalleryLauncher() {
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            ImageView tickIcon = findViewById(R.id.image_tick);
             if (uri != null) {
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    // Guarda la imagen seleccionada en un archivo
-                    File imageFile = saveImageToExternalStorage(bitmap);
-                    // Guardar la ruta de la imagen en SharedPreferences
-                    SharedPreferences.Editor editor = getSharedPreferences("imagen_perfil", MODE_PRIVATE).edit();
-                    editor.putString("imagen_perfil", imageFile.getAbsolutePath());
-                    editor.apply();
-
-                    // Muestra el ícono de tick
-                    ImageView tickIcon = findViewById(R.id.image_tick);
-                    tickIcon.setVisibility(View.VISIBLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                selectedImageUri = uri;
+                tickIcon.setVisibility(View.VISIBLE);
+            } else {
+                selectedImageUri = null;
+                tickIcon.setVisibility(View.GONE);
             }
         });
 
         fotoPerfil.setOnClickListener(v -> galleryLauncher.launch("image/*"));
     }
 
-    private File saveImageToExternalStorage(Bitmap bitmap) {
-        String fileName = "userProfileImage.jpg";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File imageFile = new File(storageDir, fileName);
-
-        try {
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return imageFile;
-    }
 
     public void anteriorVentana(View view) {
         Intent anterior = new Intent(this, MainActivity.class);
@@ -142,15 +117,12 @@ public class RegistrarDatosVecino extends AppCompatActivity {
             // Obtiene la referencia al almacenamiento de Firebase
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-            // Crea una referencia al archivo de imagen en Firebase Storage
             StorageReference profileImageRef = storageRef.child("profile_images/" + user.getUid() + ".jpg");
-            // Obtiene el archivo de imagen local
-            File imageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "userProfileImage.jpg");
 
             // Sube la imagen a Firebase Storage
-            if (imageFile.exists()) {
-                Uri fileUri = Uri.fromFile(imageFile);
-                UploadTask uploadTask = profileImageRef.putFile(fileUri);
+            if (selectedImageUri != null) {
+                UploadTask uploadTask = profileImageRef.putFile(selectedImageUri);
+
                 uploadTask.addOnSuccessListener(taskSnapshot -> {
                     // Obtiene la URL de la imagen subida
                     profileImageRef.getDownloadUrl().addOnSuccessListener(imageUrl -> {
@@ -164,7 +136,8 @@ public class RegistrarDatosVecino extends AppCompatActivity {
                 });
             } else {
                 // Si no hay una imagen de perfil, guarda los datos en Firestore sin la URL de la imagen
-                guardarDatosPersonales(user, null);
+                String defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/home-cloud-bd.appspot.com/o/profile_images%2Ficon.png?alt=media&token=722fc61f-b3d2-4ca2-bf8d-b584be99608d";
+                guardarDatosPersonales(user, defaultImageUrl);
             }
         } catch (Exception e) {
             Log.e("FirebaseStorage", "Error en guardarDatosPersonales", e);
@@ -173,6 +146,9 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
     private void guardarDatosPersonales(FirebaseUser user, String imageUrl) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Convierte el correo electrónico a minúsculas
+        String correoEnMinusculas = id_inputcorreo.getText().toString().toLowerCase();
+
         // Crea un nuevo mapa con los datos del usuario
         Map<String, Object> userData = new HashMap<String, Object>() {{
             put("usuario", id_inputusuario.getText().toString());
@@ -181,7 +157,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
             put("apellidos", id_inputapellidos.getText().toString());
             put("dni", id_inputdni.getText().toString());
             put("telefono", id_inputtelefono.getText().toString());
-            put("correo", id_inputcorreo.getText().toString());
+            put("correo", correoEnMinusculas);
             put("direccion", id_inputdireccion.getText().toString());
             put("localidad", id_inputlocalidad.getText().toString());
             put("provincia", id_inputprovincia.getText().toString());
@@ -193,7 +169,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
             userData.put("profile_image_url", imageUrl);
         }
 
-        db.collection("vecinos").document(id_inputcorreo.getText().toString()).set(userData).addOnSuccessListener(aVoid -> {
+        db.collection("vecinos").document(correoEnMinusculas).set(userData).addOnSuccessListener(aVoid -> {
             // Continúa con la siguiente actividad o muestra un mensaje de éxito
             Toast.makeText(RegistrarDatosVecino.this, "¡Usuario creado correctamente!", Toast.LENGTH_SHORT).show();
             Intent principal = new Intent(RegistrarDatosVecino.this, PrincipalActivity.class);
@@ -213,29 +189,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
         builder.setTitle("Confirmar registro");
         builder.setMessage("Está a punto de darse de alta en el sistema. ¿Está seguro?");
 
-
-        builder.setPositiveButton("Confirmar", (dialog, id) -> {
-
-            registrarUsuario(id_inputcorreo.getText().toString(), id_inputcontrasena.getText().toString());
-
-            // Aquí puedes realizar las acciones necesarias al confirmar el registro
-            // Por ejemplo, navegar a la siguiente actividad
-            Intent principal = new Intent(RegistrarDatosVecino.this, PrincipalActivity.class);
-
-            // Pasa la ruta de la imagen seleccionada a la siguiente actividad
-            File imageFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "userProfileImage.jpg");
-            if (imageFile.exists()) {
-                principal.putExtra("profile_image_path", imageFile.getAbsolutePath());
-            }
-            // Pasa el nombre del usuario a la siguiente actividad
-            /*
-            principal.putExtra("nombre_usuario", id_inputnombre.getText().toString());*/
-
-            SharedPreferences preferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("nombre_usuario", id_inputusuario.getText().toString());
-            editor.apply();
-        });
+        builder.setPositiveButton("Confirmar", (dialog, id) -> registrarUsuario(id_inputcorreo.getText().toString(), id_inputcontrasena.getText().toString()));
 
         builder.setNegativeButton("Atrás", (dialog, id) -> {
             // No es necesario realizar ninguna acción, simplemente se cierra el diálogo

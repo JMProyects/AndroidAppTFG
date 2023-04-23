@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.StyleSpan;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,17 +46,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAnalytics mFirebaseAnalytics;
     Button btnLogin;
     EditText emailEditText;
     EditText passwordEditText;
-
+    AlertDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        // Obtención de FirebaseAnalytics.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
@@ -125,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             // Si alguno de los campos está vacío, mostrar un Toast y salir de la función
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
-            return;
         } else {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            showProgressDialog();
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
@@ -137,11 +139,6 @@ public class MainActivity extends AppCompatActivity {
                         if (task2.isSuccessful()) {
                             DocumentSnapshot document = task2.getResult();
                             if (document != null && document.exists()) {
-                                String nombreUsuario = document.getString("usuario");
-                                SharedPreferences sharedPreferences = getSharedPreferences("misPreferencias", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("nombreUsuario", nombreUsuario);
-                                editor.apply();
                                 Intent principal = new Intent(MainActivity.this, PrincipalActivity.class);
                                 startActivity(principal);
                             } else {
@@ -150,35 +147,33 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(MainActivity.this, "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
                         }
+                        // Asegúrate de ocultar el diálogo de progreso cuando la tarea se complete
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     });
 
                 } else {
                     // Si el inicio de sesión falla, muestra un mensaje al usuario
+                    progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, "Las credenciales introducidas son incorrectas", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-    private void showAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("El usuario y/o contraseña introducida no existe o es incorrecto");
-        builder.setPositiveButton("Aceptar", null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private void showProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.progress_dialog, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
     }
-
-    private void showHome() {
-        Intent homeIntent = new Intent(this, PrincipalActivity.class);
-
-        startActivity(homeIntent);
-    }
-
 
     //Función para dar de alta a un nuevo vecino
     public void registrarVecinoNuevo(View view) {
         Intent registrar = new Intent(this, RegistrarDatosVecino.class);
         startActivity(registrar);
     }
-
 }

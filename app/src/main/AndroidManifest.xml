@@ -87,10 +87,6 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ReservaDetalles"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".PrincipalActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>

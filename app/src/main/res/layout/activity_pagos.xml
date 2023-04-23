@@ -182,7 +182,7 @@
                     android:contentDescription="@string/imagennotis"
                     android:onClick="anteriorVentana"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/reparaciones" />
+                    app:srcCompat="@drawable/pagos_telefonia" />
 
                 <TextView
                     android:id="@+id/textView13"
