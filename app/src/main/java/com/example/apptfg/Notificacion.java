@@ -4,13 +4,18 @@ import java.util.Date;
 
 public class Notificacion {
     private String asunto;
-    private String servicio;
+    private String mensaje;
     private Date fecha;
+    private String usuario;
 
-    public Notificacion(String asunto, String servicio, Date fecha) {
+    public Notificacion() {
+        // Constructor vacío necesario para Firebase
+    }
+    public Notificacion(String asunto, String mensaje, Date fecha, String usuario) {
         this.asunto = asunto;
-        this.servicio = servicio;
+        this.mensaje = mensaje;
         this.fecha = fecha;
+        this.usuario = usuario;
     }
 
     public String getAsunto() {
@@ -21,12 +26,12 @@ public class Notificacion {
         this.asunto = asunto;
     }
 
-    public String getServicio() {
-        return servicio;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public Date getFecha() {
@@ -35,6 +40,14 @@ public class Notificacion {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }
 

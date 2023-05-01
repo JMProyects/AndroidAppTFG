@@ -28,10 +28,14 @@ import java.util.Map;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 
 public class ReservaHorarios extends AppCompatActivity {
@@ -140,40 +144,49 @@ public class ReservaHorarios extends AppCompatActivity {
             TextView txtActividad = findViewById(R.id.id_txt_reservas);
             String actividad = txtActividad.getText().toString();
 
+            // Llama a la función showConfirmationDialog
             showConfirmationDialog(horario, fechaReserva, actividad, button);
         });
     }
 
-
     private void showConfirmationDialog(String horarioSeleccionado, String fechaReserva, String actividad, Button button) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmar Reserva");
-        builder.setMessage("Está a punto de realizar una reserva. \n" + "\nActividad: " + actividad + "." + "\nDía: " + fechaReserva + "." + "\nHorario: " + horarioSeleccionado + ".\n\n ¿Está seguro?").setCancelable(false).setPositiveButton("Confirmar", (dialog, id) -> {
-            // Realizar la reserva aquí
-            realizarReserva(horarioSeleccionado, fechaReserva, actividad);
-            button.setBackgroundColor(Color.parseColor("#FF3957"));
-            button.setTag(true); // Establece el atributo isReserved en 'true' para bloquear el botón
-            Intent anterior = new Intent(this, ReservaActividades.class);
-            startActivity(anterior);
-            Toast.makeText(this, "¡Reserva confirmada con éxito!", Toast.LENGTH_LONG).show();
-        }).setNegativeButton("Cancelar", (dialog, id) -> dialog.cancel());
-        AlertDialog alert = builder.create();
-        alert.show();
+        checkOverlappingReservations(horarioSeleccionado, fechaReserva, actividad, (overlappingReservation, existingReservation, hasExistingActivityReservation) -> {
+            if (overlappingReservation) {
+                String existingReservationActivity = existingReservation.getString("actividad");
+                Toast.makeText(this, "Ya tienes una reserva para la actividad: " + existingReservationActivity + " en este horario.", Toast.LENGTH_SHORT).show();
+            } else if (hasExistingActivityReservation) {
+                Toast.makeText(this, "Solo puedes realizar una reserva de la actividad por dia.", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Confirmar Reserva");
+                builder.setMessage("Está a punto de realizar una reserva. \n" + "\nActividad: " + actividad + "." + "\nDía: " + fechaReserva + "." + "\nHorario: " + horarioSeleccionado + ".\n\n ¿Está seguro?").setCancelable(false).setPositiveButton("Confirmar", (dialog, id) -> {
+                    // Realizar la reserva aquí
+                    realizarReserva(horarioSeleccionado, fechaReserva, actividad);
+                    button.setBackgroundColor(Color.parseColor("#FF3957"));
+                    button.setTag(true); // Establece el atributo isReserved en 'true' para bloquear el botón
+                    Intent anterior = new Intent(this, ReservaActividades.class);
+                    startActivity(anterior);
+                    Toast.makeText(this, "¡Reserva confirmada con éxito!", Toast.LENGTH_LONG).show();
+                }).setNegativeButton("Cancelar", (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
 
-        // Obtener los botones del AlertDialog
-        Button positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-        Button negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+                // Obtener los botones del AlertDialog
+                Button positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-        // Establecer el estilo de fuente en negrita
-        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
-        positiveButton.setTypeface(boldTypeface);
-        negativeButton.setTypeface(boldTypeface);
+                // Establecer el estilo de fuente en negrita
+                Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                positiveButton.setTypeface(boldTypeface);
+                negativeButton.setTypeface(boldTypeface);
 
-        // Establecer el color hexadecimal del texto en los botones
-        int greenColor = Color.parseColor("#66BB00");
-        int redColor = Color.parseColor("#FF0000");
-        positiveButton.setTextColor(greenColor);
-        negativeButton.setTextColor(redColor);
+                // Establecer el color hexadecimal del texto en los botones
+                int greenColor = Color.parseColor("#66BB00");
+                int redColor = Color.parseColor("#FF0000");
+                positiveButton.setTextColor(greenColor);
+                negativeButton.setTextColor(redColor);
+            }
+        });
     }
 
 
@@ -198,7 +211,6 @@ public class ReservaHorarios extends AppCompatActivity {
         }
     }
 
-
     private void updateHorarioButtons(String fecha, String actividad) {
         List<Button> buttons = Arrays.asList(findViewById(R.id.id_btn_horario1), findViewById(R.id.id_btn_horario2), findViewById(R.id.id_btn_horario3), findViewById(R.id.id_btn_horario4), findViewById(R.id.id_btn_horario5), findViewById(R.id.id_btn_horario6), findViewById(R.id.id_btn_horario7));
 
@@ -221,9 +233,12 @@ public class ReservaHorarios extends AppCompatActivity {
             Date selectedDate = sdf.parse(fecha);
             if (selectedDate != null && selectedDate.compareTo(todayCalendar.getTime()) == 0) {
                 int currentTimeInMinutes = getCurrentTimeInMinutes();
-                int[] horarioMinutes = {0, 120, 240, 360, 480, 600, 720};
+                int[] horarioInicioMinutes = {480, 600, 720, 840, 960, 1080, 1200}; // Horarios de inicio de cada franja horaria (en minutos desde las 0:00 horas)
+                int[] horarioFinMinutes = {600, 720, 840, 960, 1080, 1200, 1320}; // Horarios de finalización de cada franja horaria (en minutos desde las 0:00 horas)
                 for (int i = 0; i < buttons.size(); i++) {
-                    if (currentTimeInMinutes > horarioMinutes[i]) {
+                    if (currentTimeInMinutes >= horarioInicioMinutes[i] && currentTimeInMinutes < horarioFinMinutes[i]) {
+                        // La franja actual aún no ha terminado, así que no hagas nada
+                    } else if (currentTimeInMinutes >= horarioFinMinutes[i]) {
                         buttons.get(i).setEnabled(false);
                         buttons.get(i).setBackgroundColor(Color.parseColor("#9E9E9E"));
                     }
@@ -250,14 +265,93 @@ public class ReservaHorarios extends AppCompatActivity {
             }
         });
     }
+    private void checkOverlappingReservations(String horario, String fechaReserva, String actividad, OnOverlappingReservationCheckCompleteListener listener) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userEmail = currentUser.getEmail();
 
+            db.collection("reservas")
+                    .whereEqualTo("fecha_reserva", fechaReserva)
+                    .whereEqualTo("usuario", userEmail)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            boolean overlappingReservation = false;
+                            boolean alreadyReservedActivity = false;
+                            DocumentSnapshot existingReservation = null;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String existingHorario = document.getString("horario");
+                                String existingActividad = document.getString("actividad");
+                                if (areHorariosOverlapping(horario, existingHorario)) {
+                                    overlappingReservation = true;
+                                    existingReservation = document;
+                                    break;
+                                }
+                                if (existingActividad.equals(actividad)) {
+                                    alreadyReservedActivity = true;
+                                }
+                            }
+                            if (!overlappingReservation && alreadyReservedActivity) {
+                                listener.onComplete(false, null, true);
+                            } else {
+                                listener.onComplete(overlappingReservation, existingReservation, false);
+                            }
+                        } else {
+                            boolean overlappingReservation = false;
+                            boolean alreadyReservedActivity = false;
+                            DocumentSnapshot existingReservation = null;
+                            listener.onComplete(overlappingReservation, existingReservation, alreadyReservedActivity);
+                        }
+                    });
+        }
+    }
+
+    public interface OnOverlappingReservationCheckCompleteListener {
+        void onComplete(boolean overlappingReservation, DocumentSnapshot existingReservation, boolean hasExistingActivityReservation);
+    }
+
+    private boolean areHorariosOverlapping(String horario1, String horario2) {
+        String[] horario1Parts = horario1.split(" - ");
+        String[] horario2Parts = horario2.split(" - ");
+
+        String horario1Start = horario1Parts[0];
+        String horario1End = horario1Parts[1];
+        String horario2Start = horario2Parts[0];
+        String horario2End = horario2Parts[1];
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            Date horario1StartAsDate = sdf.parse(horario1Start);
+            Date horario1EndAsDate = sdf.parse(horario1End);
+            Date horario2StartAsDate = sdf.parse(horario2Start);
+            Date horario2EndAsDate = sdf.parse(horario2End);
+
+            if (horario1StartAsDate == null || horario1EndAsDate == null || horario2StartAsDate == null || horario2EndAsDate == null) {
+                return false;
+            }
+
+            if (horario1StartAsDate.before(horario2StartAsDate) && horario1EndAsDate.after(horario2StartAsDate)) {
+                return true;
+            } else if (horario2StartAsDate.before(horario1StartAsDate) && horario2EndAsDate.after(horario1StartAsDate)) {
+                return true;
+            } else if (horario1StartAsDate.equals(horario2StartAsDate) || horario1EndAsDate.equals(horario2EndAsDate)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        } catch (java.text.ParseException e) {
+            return false;
+        }
+    }
     private int getCurrentTimeInMinutes() {
         Calendar now = Calendar.getInstance();
         int currentHour = now.get(Calendar.HOUR_OF_DAY);
         int currentMinute = now.get(Calendar.MINUTE);
 
-        // Resta 8 horas (480 minutos) para calcular el tiempo transcurrido desde las 8:00 a.m.
-        return (currentHour * 60 + currentMinute) - 480;
+        //Calcula la franja en hora de finalización
+        return currentHour * 60 + currentMinute;
     }
-
 }

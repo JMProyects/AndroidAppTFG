@@ -5,59 +5,142 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".PagarAgua">
+    tools:context=".MainAdminActivity">
 
     <TextView
-        android:id="@+id/id_txtpagarluz"
+        android:id="@+id/txtBienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="@string/txt_pagoLuz"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"
+        android:text="@string/txt_holaAdm"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_seleccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_seleccion_servicio"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/txtUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="@string/txt_usuarioAdm"
+        android:textColor="#000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="60dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_ver_datos"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/imagenusuario_perfil"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtUser"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+    </com.google.android.material.card.MaterialCardView>
 
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="20dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_seleccion"
+        app:layout_constraintTop_toBottomOf="@+id/txtUser"
         app:layout_constraintVertical_bias="0.138">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout0"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="0dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:id="@+id/img_recibos"
+                            android:layout_width="121dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerHorizontal="true"
+                            android:adjustViewBounds="true"
+                            android:backgroundTint="#FFFFFF"
+                            android:contentDescription="@string/imagenrecibos"
+                            android:onClick="ventanaRecibosAdm"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/recibosv2" />
+
+                        <TextView
+                            android:id="@+id/idtxtrecibos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_recibos"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="-25dp"
+                            android:gravity="center"
+                            android:text="@string/txt_recibosAdm"
+                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="175dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp">
 
                 <androidx.cardview.widget.CardView
@@ -71,33 +154,7 @@
                         android:layout_height="match_parent">
 
                         <ImageButton
-                            android:id="@+id/imgservicioluz1_id"
-                            android:layout_width="121dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:adjustViewBounds="true"
-                            android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/txt_servicioLuz1"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_iberdrola_c" />
-
-
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageButton
-                            android:id="@+id/imgservicioluz2_id"
+                            android:id="@+id/actividades_img"
                             android:layout_width="121dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
@@ -105,24 +162,40 @@
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
                             android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/txt_servicioLuz2"
-
+                            android:contentDescription="@string/Actividades"
+                            android:onClick="ventanaActividadesAdm"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_endesa_c" />
+                            app:srcCompat="@drawable/actividadesv2"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                        <TextView
+                            android:id="@+id/actividades_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/actividades_img"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="-25dp"
+                            android:gravity="center"
+                            android:text="@string/txt_actividadesAdm"
+                            android:textColor="#000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
-
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp">
 
                 <androidx.cardview.widget.CardView
@@ -136,33 +209,7 @@
                         android:layout_height="match_parent">
 
                         <ImageButton
-                            android:id="@+id/imgservicioluz3_id"
-                            android:layout_width="121dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:adjustViewBounds="true"
-                            android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/imagenpagos"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_naturgy_c" />
-
-
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageButton
-                            android:id="@+id/imgservicioluz4_id"
+                            android:id="@+id/imgnotissid"
                             android:layout_width="121dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
@@ -170,93 +217,44 @@
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
                             android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/imagenrecibos"
+                            android:contentDescription="@string/imagennotis"
+                            android:onClick="ventanaNotificacionesAdmin"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_holaluz_c" />
+                            app:srcCompat="@drawable/reparacionesv2" />
 
-
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
-
-                android:orientation="horizontal"
-                android:padding="10dp"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="0dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageButton
-                            android:id="@+id/imgservicioluz5_id"
-                            android:layout_width="121dp"
-                            android:layout_height="match_parent"
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgnotissid"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:adjustViewBounds="true"
-                            android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/imagenpagos"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_lucera_c" />
-
-
+                            android:layout_marginTop="-25dp"
+                            android:gravity="center"
+                            android:text="@string/txt_notificaciones_y_masAdm"
+                            android:textColor="#000"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageButton
-                            android:id="@+id/imgservicioluz6_id"
-                            android:layout_width="121dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerHorizontal="true"
-                            android:adjustViewBounds="true"
-                            android:backgroundTint="#FFFFFF"
-                            android:contentDescription="@string/imagenrecibos"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/logo_repsol_c" />
-
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
 
     <Button
-        android:id="@+id/id_btn_Anterior_Pagos"
+        android:id="@+id/btn_cerrarsesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:backgroundTint="#FF6957"
-        android:text="@string/botonAnterior"
+        android:gravity="center"
+        android:text="@string/cerrar_sesion"
         android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv"
+        app:layout_constraintVertical_bias="0.63" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

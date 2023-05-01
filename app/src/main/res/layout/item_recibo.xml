@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.example.apptfg.GradientItemList
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,70 +26,95 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/txt_servicioRecibo"
-                    android:gravity="start"
-                    android:textStyle="bold"
-                    android:textColor="#000"
                     android:layout_marginEnd="4dp"
-                    />
+                    android:gravity="start"
+                    android:text="@string/txt_servicioRecibo"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/id_tv_tipo_recibo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/app_name"
                     android:gravity="start"
-                    android:textColor="#000"
-                    />
+                    android:text="@string/app_name"
+                    android:textColor="#000" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/txt_estadoRecibo"
-                    android:gravity="start"
-                    android:textStyle="bold"
-                    android:textColor="#000"
                     android:layout_marginEnd="4dp"
-                    />
-                <TextView
-                    android:id="@+id/id_tv_estado_recibo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_name"
                     android:gravity="start"
-                    android:textColor="#000"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:text="@string/txt_fechaRecibo"
-                    android:gravity="start"
-                    android:textStyle="bold"
                     android:textColor="#000"
-                    android:layout_marginEnd="4dp"
-                    />
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/id_tv_fecha_recibo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/app_name"
                     android:gravity="start"
+                    android:text="@string/app_name"
+                    android:textColor="#000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="start"
+                    android:text="@string/txt_importeRecibo"
                     android:textColor="#000"
-                    />
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/id_tv_importe_recibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:text="@string/app_name"
+                    android:textColor="#000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="start"
+                    android:text="@string/txt_tarjetaRecibo"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/id_tv_numeroTarjeta_recibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:text="@string/app_name"
+                    android:textColor="#000" />
+
             </LinearLayout>
         </LinearLayout>
+
 
     </com.example.apptfg.GradientItemList>
 </androidx.constraintlayout.widget.ConstraintLayout>

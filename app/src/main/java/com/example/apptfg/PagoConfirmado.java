@@ -7,10 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Random;
 
 public class PagoConfirmado extends AppCompatActivity {
     @Override
@@ -27,17 +24,12 @@ public class PagoConfirmado extends AppCompatActivity {
             startActivity(anterior);
         });
 
-        // Generar un identificador aleatorio de 5 dígitos
-        Random random = new Random();
-        int idPago = random.nextInt(100000);
-
-        // Formatear el número con 5 dígitos rellenando con ceros a la izquierda si es necesario
-        String idPagoFormateado = String.format("ID: %05d", idPago);
+        // Recibir el identificador de pago desde PagarComunidad
+        String idPagoFormateado = getIntent().getStringExtra("identificador");
 
         // Mostrar el identificador en el TextView correspondiente
         TextView textViewIdPago = findViewById(R.id.id_txtpagarcomunidadconfirmado_id);
-        textViewIdPago.setText(idPagoFormateado);
-
+        textViewIdPago.setText("ID: " + idPagoFormateado);
 
         tickAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -52,7 +44,6 @@ public class PagoConfirmado extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {}
         });
         tickImage.startAnimation(tickAnimation);
-
     }
 
     public void principalVentana (View v){
@@ -60,3 +51,4 @@ public class PagoConfirmado extends AppCompatActivity {
         startActivity(anterior);
     }
 }
+

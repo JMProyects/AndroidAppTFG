@@ -7,9 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,21 +25,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModificarDatosVecino extends AppCompatActivity {
-
+public class ModificarDatosAdmin extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modificar_datos_vecino);
+        setContentView(R.layout.activity_admin_modificar_datos);
         // Obtiene los datos del usuario y establece el contenido de los EditText
         getUserDataForEditing();
 
         Button btnCancelar = findViewById(R.id.id_btn_volver_perfil);
         btnCancelar.setOnClickListener(view -> {
-            Intent anterior = new Intent(this, VerDatosVecino.class);
+            Intent anterior = new Intent(this, VerDatosAdministrador.class);
             startActivity(anterior);
         });
-
     }
 
     public void mostrarDialogoConfirmacion() {
@@ -198,7 +194,6 @@ public class ModificarDatosVecino extends AppCompatActivity {
             }
         });
     }
-
 
     public void actualizarCamposVecino(View view) {
         EditText inputUsuario = findViewById(R.id.id_inputusuario);

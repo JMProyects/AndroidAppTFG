@@ -5,18 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ConsultarNotificaciones">
+    tools:context=".ConsultarNotisAdminActivity">
+
 
     <TextView
-        android:id="@+id/id_txtnotis"
+        android:id="@+id/id_txtnotificaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/txt_notificaciones"
+        android:layout_marginTop="40dp"
+        android:text="@string/txt_consultar_notificaciones"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,17 +39,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginVertical="110dp"
-
         tools:listitem="@layout/item_notificacion" />
 
-
     <Button
-        android:id="@+id/id_btn_volver_notis"
+        android:id="@+id/id_btn_volver_cNotis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorVentana"
+        android:onClick="anteriorVentanaNotificacionesAdm"
         android:text="@string/botonAnterior"
         android:textColor="#000"
         android:textStyle="bold"
@@ -55,4 +55,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

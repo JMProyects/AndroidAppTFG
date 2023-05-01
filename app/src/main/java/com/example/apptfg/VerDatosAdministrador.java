@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -23,8 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class VerDatosVecino extends AppCompatActivity {
-
+public class VerDatosAdministrador extends AppCompatActivity {
+    Button id_btn_volver_menuAdm;
     ImageButton btnImagen;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -37,10 +38,12 @@ public class VerDatosVecino extends AppCompatActivity {
             updateProfileImage(uri);
         }
     });
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil_vecino);
+        setContentView(R.layout.activity_admin_perfil);
+        id_btn_volver_menuAdm = findViewById(R.id.id_btn_volver_menuAdm);
 
         //Recoger los datos del usuario actual logeado:
         mAuth = FirebaseAuth.getInstance();
@@ -52,11 +55,10 @@ public class VerDatosVecino extends AppCompatActivity {
         }
 
         Button btnModificarDatos = findViewById(R.id.id_btn_modificar_datos);
-        Button id_btn_volver_registro = findViewById(R.id.id_btn_volver_registro);
         btnImagen = findViewById(R.id.id_btn_imagen_perfil);
 
         btnImagen.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(VerDatosVecino.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(VerDatosAdministrador.this);
             builder.setTitle("Selecciona una opción")
                     .setItems(new CharSequence[]{"Actualizar imagen", "Eliminar imagen"}, (dialog, which) -> {
                         switch (which) {
@@ -87,13 +89,12 @@ public class VerDatosVecino extends AppCompatActivity {
 
         btnModificarDatos.setOnClickListener(v -> {
             // Abrir la nueva vista con los datos del vecino
-            Intent intent = new Intent(VerDatosVecino.this, ModificarDatosVecino.class);
+            Intent intent = new Intent(VerDatosAdministrador.this, ModificarDatosAdmin.class);
             startActivity(intent);
         });
 
-        id_btn_volver_registro.setOnClickListener(v -> {
-            // Abrir la vista anterior
-            Intent intent = new Intent(VerDatosVecino.this, PrincipalActivity.class);
+        id_btn_volver_menuAdm.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainAdminActivity.class);
             startActivity(intent);
         });
     }
@@ -189,4 +190,5 @@ public class VerDatosVecino extends AppCompatActivity {
             }
         });
     }
+
 }

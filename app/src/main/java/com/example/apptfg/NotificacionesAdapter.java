@@ -8,19 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apptfg.Notificacion;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAdapter.NotificacionViewHolder> {
 
-    private List<Notificacion> listaNotificaciones;
-    private SimpleDateFormat formatoFecha;
+    private final List<Notificacion> listaIncidencias;
+    private final SimpleDateFormat formatoFecha;
 
-    public NotificacionesAdapter(List<Notificacion> listaNotificaciones) {
-        this.listaNotificaciones = listaNotificaciones;
+    public NotificacionesAdapter(List<Notificacion> listaIncidencias) {
+        this.listaIncidencias = listaIncidencias;
         this.formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     }
 
@@ -33,27 +31,30 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
 
     @Override
     public void onBindViewHolder(@NonNull NotificacionViewHolder holder, int position) {
-        Notificacion notificacion = listaNotificaciones.get(position);
-        holder.tvAsunto.setText(notificacion.getAsunto());
-        holder.tvServicio.setText(notificacion.getServicio());
-        holder.tvFecha.setText(formatoFecha.format(notificacion.getFecha()));
+        Notificacion incidencia = listaIncidencias.get(position);
+        holder.tvAsunto.setText(incidencia.getAsunto());
+        holder.tvMensaje.setText(incidencia.getMensaje());
+        holder.tvUsuario.setText(incidencia.getUsuario());
+        holder.tvFecha.setText(formatoFecha.format(incidencia.getFecha()));
     }
 
     @Override
     public int getItemCount() {
-        return listaNotificaciones.size();
+        return listaIncidencias.size();
     }
 
     public static class NotificacionViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvAsunto;
-        TextView tvServicio;
+        TextView tvMensaje;
+        TextView tvUsuario;
         TextView tvFecha;
 
         public NotificacionViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAsunto = itemView.findViewById(R.id.id_tv_asunto_notificacion);
-            tvServicio = itemView.findViewById(R.id.id_tv_servicio_notificacion);
+            tvMensaje = itemView.findViewById(R.id.id_tv_mensaje_notificacion);
+            tvUsuario = itemView.findViewById(R.id.id_tv_usuario_notificacion);
             tvFecha = itemView.findViewById(R.id.id_tv_fecha_notificacion);
         }
     }

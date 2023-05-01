@@ -8,33 +8,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ReciboViewHolder> {
+public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ViewHolder> {
 
-    private List<Recibo> listaRecibos;
-    private SimpleDateFormat formatoFecha;
+    private final List<Recibo> listaRecibos;
 
     public RecibosAdapter(List<Recibo> listaRecibos) {
         this.listaRecibos = listaRecibos;
-        this.formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     }
 
     @NonNull
     @Override
-    public ReciboViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recibo, parent, false);
-        return new ReciboViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReciboViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recibo recibo = listaRecibos.get(position);
-        holder.tvTipo.setText(recibo.getTipo());
-        holder.tvEstado.setText(recibo.getEstado());
-        holder.tvFecha.setText(formatoFecha.format(recibo.getFecha()));
+        holder.tvServicio.setText(recibo.getServicio());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = dateFormat.format(recibo.getFecha_pago());
+        holder.tvFecha.setText(fechaFormateada);
+        holder.tvImporte.setText(recibo.getImporte());
+        holder.tvUltimosDigitosTarjeta.setText(recibo.getMaskedCardNumber());
     }
 
     @Override
@@ -42,18 +44,15 @@ public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ReciboVi
         return listaRecibos.size();
     }
 
-    public static class ReciboViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvServicio, tvFecha, tvImporte, tvUltimosDigitosTarjeta;
 
-        TextView tvTipo;
-        TextView tvEstado;
-        TextView tvFecha;
-
-        public ReciboViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTipo = itemView.findViewById(R.id.id_tv_tipo_recibo);
-            tvEstado = itemView.findViewById(R.id.id_tv_estado_recibo);
+            tvServicio = itemView.findViewById(R.id.id_tv_tipo_recibo);
             tvFecha = itemView.findViewById(R.id.id_tv_fecha_recibo);
+            tvImporte = itemView.findViewById(R.id.id_tv_importe_recibo);
+            tvUltimosDigitosTarjeta = itemView.findViewById(R.id.id_tv_numeroTarjeta_recibo);
         }
     }
 }
-

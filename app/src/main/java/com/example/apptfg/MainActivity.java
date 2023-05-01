@@ -139,8 +139,14 @@ public class MainActivity extends AppCompatActivity {
                         if (task2.isSuccessful()) {
                             DocumentSnapshot document = task2.getResult();
                             if (document != null && document.exists()) {
-                                Intent principal = new Intent(MainActivity.this, PrincipalActivity.class);
-                                startActivity(principal);
+                                String rol = document.getString("rol");
+                                Intent intent;
+                                if ("administrador".equalsIgnoreCase(rol)) {
+                                    intent = new Intent(MainActivity.this, MainAdminActivity.class);
+                                } else {
+                                    intent = new Intent(MainActivity.this, PrincipalActivity.class);
+                                }
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(MainActivity.this, "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
                             }
@@ -161,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
     private void showProgressDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         LayoutInflater inflater = getLayoutInflater();

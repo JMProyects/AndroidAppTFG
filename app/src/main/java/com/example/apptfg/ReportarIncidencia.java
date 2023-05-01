@@ -150,7 +150,7 @@ public class ReportarIncidencia extends AppCompatActivity {
         // Crear un nuevo objeto Map con los campos de la incidencia
         Map<String, Object> incidencia = new HashMap<>();
         incidencia.put("fecha", fechaSeleccionada);
-        incidencia.put("tipo", tipoIncidencia);
+        incidencia.put("asunto", tipoIncidencia);
         incidencia.put("mensaje", texto);
 
         // Añadir el correo del usuario a la incidencia

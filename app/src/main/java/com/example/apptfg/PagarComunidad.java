@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -22,16 +23,34 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 
 public class PagarComunidad extends AppCompatActivity {
     private boolean isCardFront = true;
+    EditText editText1;
     private EditText editText2;
+    EditText editText3;
     private EditText editText4;
     private EditText expiryEditText2;
     private ImageView cardFrontImage;
     private ImageView cardBackImage;
     private EditText cvvEditText2;
+    TextView importe;
     private static final char space = ' ';
     private static final char barra = '/';
 
@@ -44,16 +63,17 @@ public class PagarComunidad extends AppCompatActivity {
         cardFrontImage = findViewById(R.id.imageView2);
         cardBackImage = findViewById(R.id.cardBackImage);
 
-        EditText editText1 = findViewById(R.id.editText1);
+        editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
 
-        EditText editText3 = findViewById(R.id.editText3);
+        editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
 
         EditText cvvEditText1 = findViewById(R.id.editText5);
         //editText7 = findViewById(R.id.editText7);
         EditText expiryEditText1 = findViewById(R.id.editText6);
         //editText8 = findViewById(R.id.editText8);
+        importe = findViewById(R.id.id_txt_importe_comunidad2);
 
         cvvEditText2 = findViewById(R.id.editText7);
         expiryEditText2 = findViewById(R.id.editText8);
@@ -177,8 +197,6 @@ public class PagarComunidad extends AppCompatActivity {
                     }
                     pos += 3;
                 }
-
-                //expiryEditText1.setText(s.toString());
             }
         });
 
@@ -260,16 +278,40 @@ public class PagarComunidad extends AppCompatActivity {
         isCardFront = !isCardFront;
     }
 
+    private void guardarDatosPago(String nombre, String numeroTarjeta) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = currentUser.getEmail();
+
+        Map<String, Object> pago = new HashMap<>();
+        int idPago = new Random().nextInt(100000);
+        String idPagoFormateado = String.format("%05d", idPago);
+        pago.put("usuario", userEmail);
+        pago.put("identificador", idPagoFormateado);
+        pago.put("nombre", nombre);
+        pago.put("servicio", "Comunidad");
+        pago.put("numero_tarjeta", numeroTarjeta);
+        pago.put("importe", importe.getText().toString());
+        pago.put("fecha_pago", new Timestamp(new Date()));
+
+        db.collection("recibos").add(pago).addOnSuccessListener(documentReference -> {
+            Log.d("Firestore", "Documento guardado con ID: " + documentReference.getId());
+            Intent principal = new Intent(PagarComunidad.this, PagoConfirmado.class);
+            principal.putExtra("identificador", idPagoFormateado);
+            startActivity(principal);
+        }).addOnFailureListener(e -> Log.w("Firestore", "Error al guardar el documento", e));
+    }
+
     public void mostrarDialogoConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar pago");
-        builder.setMessage("Está a punto de realizar el pago del recibo de comunidad con un importe de 45€.\n ¿Está seguro?");
+        builder.setMessage("Está a punto de realizar el pago del recibo de comunidad con un importe\nde 45€.\n\n¿Está seguro?");
 
         builder.setPositiveButton("Confirmar", (dialog, id) -> {
             //Navega a la anterior actividad y muestra el toast de confirmación.
-
-            Intent principal = new Intent(this, PagoConfirmado.class);
-            startActivity(principal);
+            String nombre = editText1.getText().toString();
+            String numeroTarjeta = editText3.getText().toString().replaceAll(" ", ""); // Elimina los espacios en el número de tarjeta
+            guardarDatosPago(nombre, numeroTarjeta);
         });
 
         builder.setNegativeButton("Cancelar", (dialog, id) -> {
@@ -294,7 +336,6 @@ public class PagarComunidad extends AppCompatActivity {
         int redColor = Color.parseColor("#FF0000");
         positiveButton.setTextColor(greenColor);
         negativeButton.setTextColor(redColor);
-
     }
 
     public void verificarPago(View view) {
@@ -307,9 +348,32 @@ public class PagarComunidad extends AppCompatActivity {
             Toast.makeText(this, "Por favor, complete todos los campos antes de continuar", Toast.LENGTH_SHORT).show();
         } else if (!longitudExacta(inputNumTarjeta, 19) || !longitudExacta(inputCvv, 3) || !longitudExacta(inputFechaCad, 5)) {
             Toast.makeText(this, "Por favor, asegúrese de que los campos tienen la longitud correcta", Toast.LENGTH_SHORT).show();
+        } else if (!fechaCaducidadValida(inputFechaCad)) {
+            Toast.makeText(this, "La fecha de caducidad de la tarjeta es incorrecta", Toast.LENGTH_SHORT).show();
         } else {
             mostrarDialogoConfirmacion(); // Muestra el diálogo de confirmación cuando todos los campos estén completados
         }
+    }
+
+    private boolean fechaCaducidadValida(EditText expiryDateEditText) {
+        String expiryDate = expiryDateEditText.getText().toString().trim();
+        String pattern = "^(0[1-9]|1[0-2])/([0-9]{2})$"; // Formato: MM/YY
+        if (!expiryDate.matches(pattern)) {
+            return false;
+        }
+        String[] dateParts = expiryDate.split("/");
+        int month = Integer.parseInt(dateParts[0]);
+        int year = Integer.parseInt(dateParts[1]);
+
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH) + 1; // Calendar.MONTH empieza en 0
+        int currentYear = calendar.get(Calendar.YEAR) % 100; // Obtiene los dos últimos dígitos del año
+
+        if (year < currentYear || (year == currentYear && month < currentMonth)) {
+            return false;
+        }
+        Log.d("FECHA_CADUCIDAD", "Mes: " + month + ", Año: " + year + ", Fecha válida: " + true);
+        return !(year < currentYear || (year == currentYear && month < currentMonth));
     }
 
     private boolean campoVacio(EditText editText) {

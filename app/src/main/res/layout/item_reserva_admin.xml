@@ -32,39 +32,19 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:gravity="start"
-                    android:text="@string/txt_usuarioNotif"
+                    android:text="@string/txt_tipoReserva"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/id_tv_usuario_notificacion"
+                    android:id="@+id/id_tv_nombre_actividad"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="4dp"
-                    android:gravity="start"
-                    android:text="@string/txt_asuntoNotif"
                     android:textColor="#000"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/id_tv_asunto_notificacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="start"
-                    android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
 
@@ -76,18 +56,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
-                    android:gravity="start"
-                    android:text="@string/txt_mensajeNotif"
+                    android:gravity="start|fill"
+                    android:text="@string/txt_franjaReserva"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/id_tv_mensaje_notificacion"
+                    android:id="@+id/id_tv_franja_horaria"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="start"
+                    android:gravity="start|fill"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -99,17 +82,43 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:gravity="start"
-                    android:text="@string/txt_fechaNotif"
+                    android:text="@string/txt_fechaReserva"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/id_tv_fecha_notificacion"
+                    android:id="@+id/id_tv_fecha_actividad"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="start"
+                    android:text="@string/txt_usuarioReservaAdm"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/id_tv_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:text="@string/app_name"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 

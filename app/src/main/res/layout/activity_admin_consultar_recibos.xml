@@ -5,26 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ConsultarNotificaciones">
+    tools:context=".ConsultarRecibosAdminActivity">
 
     <TextView
-        android:id="@+id/id_txtnotis"
+        android:id="@+id/id_txtrecibos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/txt_notificaciones"
+        android:layout_marginTop="40dp"
+        android:text="@string/txt_reciboAdm"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id_txt_no_notificaciones"
+        android:id="@+id/id_txt_no_recibos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_sinNotis"
+        android:text="@string/txt_sinRecibos"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,21 +34,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_rv_notificaciones"
+        android:id="@+id/id_rv_recibos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginVertical="110dp"
 
-        tools:listitem="@layout/item_notificacion" />
-
+        tools:listitem="@layout/item_recibo" />
 
     <Button
-        android:id="@+id/id_btn_volver_notis"
+        android:id="@+id/id_btn_volver_cReservas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#FF6957"
-        android:onClick="anteriorVentana"
+        android:onClick="anteriorVentanaMenuPrincipalAdm"
         android:text="@string/botonAnterior"
         android:textColor="#000"
         android:textStyle="bold"
@@ -55,4 +55,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

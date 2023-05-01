@@ -41,7 +41,6 @@
     <string name="lbl_cp">Código Postal</string>
 
 
-
     <!-- Datos Personales-->
 
     <string name="txt_usuarioperfil">Introduzca su Usuario</string>
@@ -134,7 +133,9 @@
     <string name="txt_etiqueta_cvvhint_tarjeta">***</string>
     <string name="txt_etiqueta_caducidad_tarjeta">Caducidad</string>
     <string name="txt_etiqueta_caducidadhint_tarjeta">MM/AA</string>
-    <string name="txt_importe_pago_comunidad" tools:ignore="Typos">Importe anual 2023–2024: 45€</string>
+    <string name="txt_importe_pago_comunidad" tools:ignore="Typos">Importe anual 2023–2024: </string>
+    <string name="txt_importe_pago_comunidad2" tools:ignore="Typos">45</string>
+    <string name="txt_importe_pago_comunidad3" tools:ignore="Typos">€</string>
     <string name="txt_pago_comunidad_realizado">Pago confirmado</string>
     <string name="img_pago_comunidad_realizado">Tick</string>
     <string name="txt_pago_comunidad_realizado2">Acabas de realizar el pago del recibo de comunidad
@@ -155,9 +156,10 @@
     <string name="txt_servicioTelefonia6">PTV</string>
 
     <!-- Historial de recibos -->
-    <string name="txt_servicioRecibo">Recibo: </string>
-    <string name="txt_estadoRecibo">Estado: </string>
+    <string name="txt_servicioRecibo">Servicio: </string>
     <string name="txt_fechaRecibo">Fecha: </string>
+    <string name="txt_importeRecibo">Importe(€): </string>
+    <string name="txt_tarjetaRecibo">Núm. Tarjeta: </string>
 
     <!-- Ventana de actividades-->
     <string name="Actividades">Actividades</string>
@@ -201,8 +203,9 @@
     <string name="txt_notificaciones">Notificaciones</string>
 
     <!-- Notificaciones -->
+    <string name="txt_usuarioNotif">Usuario: </string>
     <string name="txt_asuntoNotif">Asunto: </string>
-    <string name="txt_servicioNotif">Servicio: </string>
+    <string name="txt_mensajeNotif">Mensaje: </string>
     <string name="txt_fechaNotif">Fecha: </string>
 
     <!-- Incidencias -->
@@ -212,6 +215,65 @@
     <string name="txt_enviar_incidencia">Enviar</string>
     <string name="txt_tipo_incidencia">Tipo de incidencia</string>
     <string-array name="tipo_incidencia">
+        <item>Tipo de incidencia</item>
+        <item>General</item>
+        <item>Reservas</item>
+        <item>Pistas</item>
+        <item>Incendio</item>
+        <item>Corte de luz</item>
+        <item>Fuga de agua</item>
+        <item>Mejoras</item>
+        <item>Sugerencias</item>
+        <item>Quejas</item>
+    </string-array>
+
+    <!-- //////////////////////////// -->
+    <!-- SECCIÓN PARA EL ADMINISTRADOR-->
+    <!-- //////////////////////////// -->
+
+    <!-- Ventana de inicio ADMINISTRADOR -->
+    <string name="txt_holaAdm">¡Hola!</string>
+    <string name="txt_usuarioAdm">Usuario</string>
+
+    <string name="txt_recibosAdm">Comprobar recibos</string>
+    <string name="txt_actividadesAdm">Comprobar reservas</string>
+    <string name="txt_notificaciones_y_masAdm">Notificaciones y Más</string>
+
+    <!-- Ventana de modificar ADMINISTRADOR -->
+    <string name="txt_modificarAdm">Modificar perfil administrador</string>
+
+    <!-- Ventana de consultar recibos ADMINISTRADOR -->
+    <string name="txt_consultar_mis_recibosAdm">Consultar recibos</string>
+
+    <string name="txt_reciboAdm">Consultar recibos</string>
+    <string name="txt_sinRecibos">No hay recibos realizados.</string>
+
+    <!-- Ventana de consultar reservas ADMINISTRADOR -->
+    <string name="txt_consultar_mis_reservasAdm">Consultar reservas</string>
+
+    <string name="txt_actividadReservaAdm">Actividad: </string>
+    <string name="txt_franjaReservaAdm">Hora: </string>
+    <string name="txt_fechaReservaAdm">Fecha: </string>
+    <string name="txt_usuarioReservaAdm">Usuario: </string>
+
+    <!-- Ventana de notificaciones y más ADMINISTRADOR -->
+    <string name="txt_vernotificacionesAdm">Consultar Notificaciones</string>
+
+    <!-- Notificaciones ADMINISTRADOR -->
+    <string name="txt_consultar_notificaciones">Mis notificaciones</string>
+
+    <string name="txt_sinNotis">No hay notificaciones.</string>
+    <string name="txt_asuntoNotifAdm">Asunto: </string>
+    <string name="txt_servicioNotifAdm">Servicio: </string>
+    <string name="txt_fechaNotifAdm">Fecha: </string>
+
+    <!-- Incidencias/Mensajes ADMINISTRADOR -->
+    <string name="txt_notifincidenciaAdm">Enviar mensaje comunidad</string>
+    <string name="txt_txtrepincidenciaAdm">Escribe el mensaje aquí</string>
+    <string name="txt_acercadeAdm">Acerca de</string>
+    <string name="txt_enviar_incidenciaAdm">Enviar</string>
+    <string name="txt_tipo_incidenciaAdm">Tipo de incidencia</string>
+    <string-array name="tipo_incidenciaAdm">
         <item>Tipo de incidencia</item>
         <item>General</item>
         <item>Reservas</item>
@@ -247,7 +309,6 @@
     <!--Etiquetas para los botones de navegación-->
     <string name="botonAnterior">Volver</string>
     <string name="botonSiguiente">Continuar</string>
-
     <string name="prueba">20</string>
 
 </resources>

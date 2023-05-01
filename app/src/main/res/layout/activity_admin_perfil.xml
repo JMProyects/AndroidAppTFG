@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".VerDatosVecino">
+    tools:context=".VerDatosAdministrador">
 
     <RelativeLayout
         android:id="@+id/frameLayout"
@@ -70,7 +70,7 @@
         android:layout_height="400dp"
         android:layout_marginBottom="30dp"
         android:isScrollContainer="false"
-        app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_registro"
+        app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_menuAdm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_txt_recibos2">
@@ -116,7 +116,7 @@
                         android:text="@string/txt_usuariohint"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp"
-                         />
+                        />
 
                     <TextView
                         android:id="@+id/id_lblcontraperfil"
@@ -330,16 +330,13 @@
                         android:text="@string/lbl_cp"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp"/>
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
         </RelativeLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/id_btn_volver_registro"
+        android:id="@+id/id_btn_volver_menuAdm"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -364,7 +361,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toEndOf="@+id/id_btn_volver_registro" />
+        app:layout_constraintStart_toEndOf="@+id/id_btn_volver_menuAdm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

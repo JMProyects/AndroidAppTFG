@@ -1,7 +1,5 @@
 package com.example.apptfg;
 
-import java.util.Date;
-
 public class Reserva {
 
     //Es como SpringBoot / JPA, hay que poner los nombres de las variables al igual que en la

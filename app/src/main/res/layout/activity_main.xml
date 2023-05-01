@@ -20,88 +20,87 @@
 
 
     <LinearLayout
-            android:id="@+id/layout"
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/greetingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="330dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/imagenlogo"
+            app:srcCompat="@drawable/ic_launchera" />
+
+        <EditText
+            android:id="@+id/idtxtUsuario"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="8dp"
+            android:autofillHints=""
+            android:drawablePadding="12dp"
+            android:hint="@string/txt_email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#000"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_email" />
 
-            <TextView
-                android:id="@+id/greetingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="#000"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/idtxtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:autofillHints=""
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/txt_contrasena"
+            android:inputType="textPassword"
+            android:textColorHint="#000"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_visibility"
+            app:drawableStartCompat="@drawable/ic_lock" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="330dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="50dp"
-                app:srcCompat="@drawable/ic_launchera"
-                android:contentDescription="@string/imagenlogo" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#C7FE80"
+            android:text="@string/iniciar_sesion"
+            android:textColor="#000"
+            android:textSize="18sp"
+            tools:ignore="TextContrastCheck" />
 
-            <EditText
-                android:id="@+id/idtxtUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="50dp"
-                android:autofillHints=""
-                app:drawableStartCompat="@drawable/ic_email"
-                android:hint="@string/txt_email"
-                android:inputType="textEmailAddress"
-                android:textColorHint="#000"
-                android:textSize="20sp"
-                android:drawablePadding="12dp"
-                />
-
-            <EditText
-                android:id="@+id/idtxtPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:autofillHints=""
-                app:drawableStartCompat="@drawable/ic_lock"
-                app:drawableEndCompat="@drawable/ic_visibility"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:hint="@string/txt_contrasena"
-                android:inputType="textPassword"
-                android:textColorHint="#000"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="50dp"
-                android:backgroundTint="#C7FE80"
-                android:text="@string/iniciar_sesion"
-                android:textColor="#000"
-                android:textSize="18sp"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/id_lblregistrarse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:minHeight="48dp"
-                android:onClick="registrarVecinoNuevo"
-                android:text="@string/txt_registrarse"
-                android:textColor="#000"
-                android:textColorHint="#000"
-                android:textSize="18sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/id_lblregistrarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:minHeight="48dp"
+            android:onClick="registrarVecinoNuevo"
+            android:text="@string/txt_registrarse"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
