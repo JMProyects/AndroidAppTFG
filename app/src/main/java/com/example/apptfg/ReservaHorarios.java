@@ -1,6 +1,11 @@
 package com.example.apptfg;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +21,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.net.ParseException;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -24,18 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import javax.annotation.Nullable;
+import java.util.concurrent.TimeUnit;
 
 
 public class ReservaHorarios extends AppCompatActivity {
@@ -84,7 +84,7 @@ public class ReservaHorarios extends AppCompatActivity {
             txtActividad.setText(actividad);
             updateHorarioButtons(textViewDate.getText().toString(), actividad);
         }
-
+        createNotificationChannel();
     }
 
     //Función para volver a la ventana principal
@@ -189,7 +189,6 @@ public class ReservaHorarios extends AppCompatActivity {
         });
     }
 
-
     private void realizarReserva(String horario, String fechaReserva, String actividad) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -207,6 +206,9 @@ public class ReservaHorarios extends AppCompatActivity {
                 Log.d("ReservaHorarios", "Reserva agregada con éxito");
                 String reservaId = documentReference.getId();
                 documentReference.update("id", reservaId);
+
+                // Establece la alarma para el recordatorio
+                setReminderAlarm(fechaReserva, horario, actividad);
             }).addOnFailureListener(e -> Log.w("ReservaHorarios", "Error al agregar la reserva", e));
         }
     }
@@ -265,44 +267,41 @@ public class ReservaHorarios extends AppCompatActivity {
             }
         });
     }
+
     private void checkOverlappingReservations(String horario, String fechaReserva, String actividad, OnOverlappingReservationCheckCompleteListener listener) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
 
-            db.collection("reservas")
-                    .whereEqualTo("fecha_reserva", fechaReserva)
-                    .whereEqualTo("usuario", userEmail)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                            boolean overlappingReservation = false;
-                            boolean alreadyReservedActivity = false;
-                            DocumentSnapshot existingReservation = null;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String existingHorario = document.getString("horario");
-                                String existingActividad = document.getString("actividad");
-                                if (areHorariosOverlapping(horario, existingHorario)) {
-                                    overlappingReservation = true;
-                                    existingReservation = document;
-                                    break;
-                                }
-                                if (existingActividad.equals(actividad)) {
-                                    alreadyReservedActivity = true;
-                                }
-                            }
-                            if (!overlappingReservation && alreadyReservedActivity) {
-                                listener.onComplete(false, null, true);
-                            } else {
-                                listener.onComplete(overlappingReservation, existingReservation, false);
-                            }
-                        } else {
-                            boolean overlappingReservation = false;
-                            boolean alreadyReservedActivity = false;
-                            DocumentSnapshot existingReservation = null;
-                            listener.onComplete(overlappingReservation, existingReservation, alreadyReservedActivity);
+            db.collection("reservas").whereEqualTo("fecha_reserva", fechaReserva).whereEqualTo("usuario", userEmail).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                    boolean overlappingReservation = false;
+                    boolean alreadyReservedActivity = false;
+                    DocumentSnapshot existingReservation = null;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String existingHorario = document.getString("horario");
+                        String existingActividad = document.getString("actividad");
+                        if (areHorariosOverlapping(horario, existingHorario)) {
+                            overlappingReservation = true;
+                            existingReservation = document;
+                            break;
                         }
-                    });
+                        if (existingActividad.equals(actividad)) {
+                            alreadyReservedActivity = true;
+                        }
+                    }
+                    if (!overlappingReservation && alreadyReservedActivity) {
+                        listener.onComplete(false, null, true);
+                    } else {
+                        listener.onComplete(overlappingReservation, existingReservation, false);
+                    }
+                } else {
+                    boolean overlappingReservation = false;
+                    boolean alreadyReservedActivity = false;
+                    DocumentSnapshot existingReservation = null;
+                    listener.onComplete(overlappingReservation, existingReservation, alreadyReservedActivity);
+                }
+            });
         }
     }
 
@@ -346,6 +345,7 @@ public class ReservaHorarios extends AppCompatActivity {
             return false;
         }
     }
+
     private int getCurrentTimeInMinutes() {
         Calendar now = Calendar.getInstance();
         int currentHour = now.get(Calendar.HOUR_OF_DAY);
@@ -353,5 +353,52 @@ public class ReservaHorarios extends AppCompatActivity {
 
         //Calcula la franja en hora de finalización
         return currentHour * 60 + currentMinute;
+    }
+
+    private void setReminderAlarm(String fechaReserva, String horario, String actividad) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat timeSdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            Date reservaDate = sdf.parse(fechaReserva);
+            Date reservaTime = timeSdf.parse(horario.split(" - ")[0]);
+            if (reservaDate != null && reservaTime != null) {
+                Calendar reminderCalendar = Calendar.getInstance();
+                reminderCalendar.setTime(reservaDate);
+                reminderCalendar.set(Calendar.HOUR_OF_DAY, reservaTime.getHours());
+                reminderCalendar.set(Calendar.MINUTE, reservaTime.getMinutes());
+                Calendar now = Calendar.getInstance();
+
+                // Calcula la diferencia entre la hora de la reserva menos 24 horas y la hora actual
+                long diffMillis = (reminderCalendar.getTimeInMillis() - TimeUnit.HOURS.toMillis(24)) - now.getTimeInMillis();
+                Log.d("DEBUG", "Diferencia en milisegundos: " + diffMillis);
+
+                // Establece la alarma para que se active 24 horas antes de la reserva
+                reminderCalendar.add(Calendar.HOUR_OF_DAY, -24);
+                Log.d("DEBUG", "Alarma establecida para: " + reminderCalendar.getTime());
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(this, ReminderBroadcast.class);
+                intent.putExtra("actividad", actividad);
+                intent.putExtra("horario", horario);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 100, intent, PendingIntent.FLAG_IMMUTABLE);
+                if (alarmManager != null) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, reminderCalendar.getTimeInMillis(), pendingIntent);
+                }
+            }
+        } catch (ParseException | java.text.ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void createNotificationChannel() {
+        CharSequence name = "ReservationReminder";
+        String description = "Channel for reservation reminder notifications";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel channel = new NotificationChannel("notifyReservation", name, importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
