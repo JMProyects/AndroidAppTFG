@@ -78,8 +78,8 @@
                     android:layout_gravity="center|end"
                     android:layout_marginStart="80dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/papelera"
-                    android:contentDescription="@string/img_papelera"/>
+                    android:contentDescription="@string/img_papelera"
+                    android:src="@drawable/papelera" />
             </LinearLayout>
 
             <LinearLayout

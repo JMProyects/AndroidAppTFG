@@ -23,5 +23,9 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="android:windowMinWidthMinor">60%</item>
     </style>
-
+    <style name="WhiteToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#000</item>
+        <item name="colorControlNormal">#000</item>
+        <item name="colorControlHighlight">#DDD</item>
+    </style>
 </resources>

@@ -5,7 +5,7 @@
     <string name="txt_bienvenida">Bienvenido/a</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
-    <string name="txt_cargando">Cargando...</string>
+    <string name="txt_cargando">Cargando…</string>
     <string name="txt_email">E-Mail</string>
     <string name="txt_contrasena">Contraseña</string>
     <string name="txt_registrarse">¿No tiene cuenta? Regístrese</string>
@@ -310,5 +310,23 @@
     <string name="botonAnterior">Volver</string>
     <string name="botonSiguiente">Continuar</string>
     <string name="prueba">20</string>
+
+
+    <!-- //////////////////////////// -->
+    <!-- OPCIONES DE ORDENAMIENTO -->
+    <!-- //////////////////////////// -->
+
+    <!-- Ordenar reservas ADMINISTRADOR -->
+    <string name="order_by_activity_name">Ordenar por actividad</string>
+    <string name="order_by_schedule">Ordenar por horario</string>
+    <string name="order_by_date">Ordenar por fecha</string>
+    <string name="order_by_user_name">Ordenar por usuario</string>
+
+    <!-- Ordenar recibos ADMINISTRADOR -->
+    <string name="order_by_servicio_name">Ordenar por servicio</string>
+    <string name="order_by_fecha">Ordenar por fecha</string>
+    <string name="order_by_importe">Ordenar por importe</string>
+    <string name="order_by_num_tarjeta">Ordenar por núm. tarjeta</string>
+    <string name="order_by_usuario">Ordenar por usuario</string>
 
 </resources>

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,5 +56,9 @@ public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ViewHold
             tvImporte = itemView.findViewById(R.id.id_tv_importe_recibo);
             tvUltimosDigitosTarjeta = itemView.findViewById(R.id.id_tv_numeroTarjeta_recibo);
         }
+    }
+
+    public void sortBy(Comparator<Recibo> comparator) {
+        listaRecibos.sort(comparator);
     }
 }

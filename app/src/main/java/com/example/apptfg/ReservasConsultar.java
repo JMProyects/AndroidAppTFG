@@ -1,14 +1,16 @@
 package com.example.apptfg;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReservasConsultar extends AppCompatActivity {
@@ -36,6 +38,11 @@ public class ReservasConsultar extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Configura el Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Mis reservas");
+
         rvReservas = findViewById(R.id.id_rv_reservas);
         noReservasTextView = findViewById(R.id.id_txt_no_reservas);
         rvReservas.setHasFixedSize(true);
@@ -43,6 +50,53 @@ public class ReservasConsultar extends AppCompatActivity {
         loadUserReservations();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Infla el menú con las opciones de ordenamiento
+        getMenuInflater().inflate(R.menu.menu_order_options_reservas, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Maneja las opciones de ordenamiento
+        switch (item.getItemId()) {
+            case R.id.order_by_activity_name:
+                sortReservationsByActivityName();
+                return true;
+            case R.id.order_by_schedule:
+                sortReservationsBySchedule();
+                return true;
+            case R.id.order_by_date:
+                sortReservationsByDate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sortReservationsByActivityName() {
+        if (adapter != null) {
+            adapter.sortBy(Comparator.comparing(Reserva::getActividad));
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void sortReservationsBySchedule() {
+        if (adapter != null) {
+            adapter.sortBy(Comparator.comparing(Reserva::getHorario));
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void sortReservationsByDate() {
+        if (adapter != null) {
+            adapter.sortBy(Comparator.comparing(Reserva::getFecha_reserva));
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
     private void loadUserReservations() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -57,8 +111,7 @@ public class ReservasConsultar extends AppCompatActivity {
                         reservas.add(reserva);
                     }
 
-                    // Configura el adaptador del RecyclerView con las reservas del usuario
-                    ReservasAdapter adapter = new ReservasAdapter(reservas, ReservasConsultar.this, ReservasConsultar.this);
+                    adapter = new ReservasAdapter(reservas, ReservasConsultar.this, ReservasConsultar.this);
                     rvReservas.setAdapter(adapter);
                     updateNoReservasMessage(reservas.size()); // Actualiza el mensaje
                 } else {
@@ -67,6 +120,7 @@ public class ReservasConsultar extends AppCompatActivity {
             });
         }
     }
+
 
     // Método para mostrar u ocultar el mensaje "No hay reservas realizadas."
     public void updateNoReservasMessage(int numReservas) {

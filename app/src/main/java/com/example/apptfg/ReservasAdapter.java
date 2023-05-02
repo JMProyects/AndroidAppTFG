@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ReservasViewHolder> {
@@ -47,7 +49,6 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         holder.fechaTextView.setText(reserva.getFecha_reserva());
         holder.horarioTextView.setText(reserva.getHorario());
         holder.cancelReservationButton.setOnClickListener(v -> cancelReservation(reserva, position));
-
     }
 
     @Override
@@ -119,7 +120,9 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         negativeButton.setTextColor(redColor);
     }
 
-
+    public void sortBy(Comparator<Reserva> comparator) {
+        reservas.sort(comparator);
+    }
 }
 
 

@@ -34,6 +34,7 @@
                     android:gravity="start"
                     android:text="@string/txt_servicioRecibo"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -42,7 +43,8 @@
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
             </LinearLayout>
 
 
@@ -57,6 +59,7 @@
                     android:gravity="start"
                     android:text="@string/txt_fechaRecibo"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -65,7 +68,8 @@
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,6 +83,7 @@
                     android:gravity="start"
                     android:text="@string/txt_importeRecibo"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -87,7 +92,8 @@
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -102,6 +108,7 @@
                     android:gravity="start"
                     android:text="@string/txt_tarjetaRecibo"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -110,7 +117,8 @@
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:text="@string/app_name"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>

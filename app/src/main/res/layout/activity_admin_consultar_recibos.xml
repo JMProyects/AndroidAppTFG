@@ -7,19 +7,16 @@
     android:fitsSystemWindows="true"
     tools:context=".ConsultarRecibosAdminActivity">
 
-    <TextView
-        android:id="@+id/id_txtrecibos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/txt_reciboAdm"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        android:textStyle="bold"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#fff"
+        app:theme="@style/WhiteToolbarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:id="@+id/id_txt_no_recibos"
@@ -37,15 +34,15 @@
         android:id="@+id/id_rv_recibos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="110dp"
-
-        tools:listitem="@layout/item_recibo" />
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="80dp"
+        tools:listitem="@layout/item_recibo_admin" />
 
     <Button
         android:id="@+id/id_btn_volver_cReservas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#FF6957"
         android:onClick="anteriorVentanaMenuPrincipalAdm"
         android:text="@string/botonAnterior"

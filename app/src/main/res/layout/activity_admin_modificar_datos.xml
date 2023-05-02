@@ -197,10 +197,10 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:autofillHints=""
+                        android:enabled="false"
                         android:hint="@string/txt_correohint"
                         android:inputType="textEmailAddress"
                         android:minHeight="48dp"
-
                         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
                     <TextView

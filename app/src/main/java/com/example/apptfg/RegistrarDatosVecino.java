@@ -1,17 +1,13 @@
 package com.example.apptfg;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,10 +27,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +45,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     EditText id_inputprovincia;
     EditText id_inputcp;
     private Uri selectedImageUri;
+    AlertDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +89,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     private void registrarUsuario(String email, String password) {
         Log.d("Auth", "Iniciando registrarUsuario");
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        showProgressDialog();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
                 Log.d("Auth", "Usuario registrado exitosamente");
@@ -251,5 +246,15 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
     private boolean validarContrasenya(EditText editText, int longitud) {
         return editText.getText().toString().trim().length() >= longitud;
+    }
+
+    private void showProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.progress_dialog, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
     }
 }

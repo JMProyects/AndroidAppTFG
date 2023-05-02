@@ -62,7 +62,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
         }).addOnFailureListener(e -> { });
     }
 
-
     private void showNotification(Context context, String reservationId, String activityName, Date startDateTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm a", Locale.getDefault());
         String startDateTimeString = sdf.format(startDateTime);

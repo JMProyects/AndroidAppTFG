@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/order_by_activity_name"
+        android:title="@string/order_by_activity_name"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/order_by_schedule"
+        android:title="@string/order_by_schedule"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/order_by_date"
+        android:title="@string/order_by_date"
+        app:showAsAction="never" />
+
+</menu>
