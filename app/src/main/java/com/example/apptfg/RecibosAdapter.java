@@ -33,6 +33,7 @@ public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recibo recibo = listaRecibos.get(position);
+        holder.tvId.setText(recibo.getIdentificador());
         holder.tvServicio.setText(recibo.getServicio());
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String fechaFormateada = dateFormat.format(recibo.getFecha_pago());
@@ -47,10 +48,11 @@ public class RecibosAdapter extends RecyclerView.Adapter<RecibosAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvServicio, tvFecha, tvImporte, tvUltimosDigitosTarjeta;
+        TextView tvId, tvServicio, tvFecha, tvImporte, tvUltimosDigitosTarjeta;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvId = itemView.findViewById(R.id.id_tv_id_recibo);
             tvServicio = itemView.findViewById(R.id.id_tv_tipo_recibo);
             tvFecha = itemView.findViewById(R.id.id_tv_fecha_recibo);
             tvImporte = itemView.findViewById(R.id.id_tv_importe_recibo);

@@ -3,6 +3,7 @@ package com.example.apptfg;
 import java.util.Date;
 
 public class Recibo {
+    private String identificador;
     private String servicio;
     private Date fecha_pago;
     private String importe;
@@ -12,11 +13,20 @@ public class Recibo {
         //Constructor para FireBase
     }
 
-    public Recibo(String servicio, Date fecha_pago, String importe, String numero_tarjeta) {
+    public Recibo(String identificador, String servicio, Date fecha_pago, String importe, String numero_tarjeta) {
+        this.identificador = identificador;
         this.servicio = servicio;
         this.fecha_pago = fecha_pago;
         this.importe = importe;
         this.numero_tarjeta = numero_tarjeta;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 
     public String getServicio() {

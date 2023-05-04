@@ -27,7 +27,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
     private final List<Reserva> reservas;
     private final ReservasConsultar reservasConsultar; // Añade una referencia a la actividad
     private final Context context; // Mantén la referencia al contexto
-
+    AlertDialog progressDialog;
     public ReservasAdapter(List<Reserva> reservas, ReservasConsultar reservasConsultar, Context context) {
         this.reservas = reservas;
         this.reservasConsultar = reservasConsultar; // Inicializa la referencia
@@ -77,7 +77,9 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         builder.setMessage("¿Estás seguro de que deseas cancelar esta reserva?");
 
         builder.setPositiveButton("Confirmar", (dialog, which) -> {
+            showProgressDialog();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
+
             // Elimina la reserva de Firestore
             db.collection("reservas").document(reserva.getId()).delete().addOnSuccessListener(aVoid -> {
                 // Actualiza la lista de reservas y notifica al adaptador
@@ -88,11 +90,13 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
                 // Actualiza el mensaje "No hay reservas realizadas" en ReservasConsultar
                 reservasConsultar.updateNoReservasMessage(reservas.size());
 
+                progressDialog.dismiss();
                 // Muestra un Toast con el mensaje de éxito
                 Toast.makeText(context, "¡Reserva cancelada con éxito!", Toast.LENGTH_SHORT).show();
             }).addOnFailureListener(e -> {
                 // Maneja el error en caso de que la eliminación falle
                 Log.e("ReservasAdapter", "Error al eliminar la reserva", e);
+                progressDialog.dismiss();
             });
         });
 
@@ -122,6 +126,16 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
 
     public void sortBy(Comparator<Reserva> comparator) {
         reservas.sort(comparator);
+    }
+
+    private void showProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.progress_dialog, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
     }
 }
 

@@ -65,6 +65,9 @@ public class Recibos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Maneja las opciones de ordenamiento
         switch (item.getItemId()) {
+            case R.id.order_by_id:
+                sortReservationsById();
+                return true;
             case R.id.order_by_servicio_name:
                 sortReservationsByServicioName();
                 return true;
@@ -76,6 +79,13 @@ public class Recibos extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sortReservationsById() {
+        if (adapter != null) {
+            adapter.sortBy(Comparator.comparing(Recibo::getIdentificador));
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -123,12 +133,13 @@ public class Recibos extends AppCompatActivity {
             if (task.isSuccessful()) {
                 List<Recibo> listaRecibos = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    String identificador = document.getString("identificador");
                     String servicio = document.getString("servicio");
                     Date fecha = document.getDate("fecha_pago");
                     String importe = document.getString("importe");
                     String numeroTarjeta = document.getString("numero_tarjeta");
 
-                    Recibo recibo = new Recibo(servicio, fecha, importe, numeroTarjeta);
+                    Recibo recibo = new Recibo(identificador, servicio, fecha, importe, numeroTarjeta);
                     listaRecibos.add(recibo);
                 }
                 adapter = new RecibosAdapter(listaRecibos);

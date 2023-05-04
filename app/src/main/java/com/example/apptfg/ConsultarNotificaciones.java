@@ -50,12 +50,18 @@ public class ConsultarNotificaciones extends AppCompatActivity {
     private void loadAllNotifications() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
+            String currentUserEmail = currentUser.getEmail();
+
             db.collection("notificaciones").orderBy("fecha", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     List<Notificacion> notificaciones = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Notificacion notificacion = document.toObject(Notificacion.class);
-                        notificaciones.add(notificacion);
+
+                        String emailUsuario = notificacion.getEmailUsuario();
+                        if (emailUsuario == null || emailUsuario.isEmpty() || emailUsuario.equals(currentUserEmail)) {
+                            notificaciones.add(notificacion);
+                        }
                     }
 
                     adapter = new NotificacionesAdapter(notificaciones);

@@ -87,7 +87,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        notificationManager.notify(200, builder.build());
+        notificationManager.notify(100, builder.build());
     }
 }
 

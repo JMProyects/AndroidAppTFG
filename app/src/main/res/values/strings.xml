@@ -248,6 +248,8 @@
     <string name="txt_reciboAdm">Consultar recibos</string>
     <string name="txt_sinRecibos">No hay recibos realizados.</string>
 
+    <string name="txt_idReciboAdm">Identificador: </string>
+
     <!-- Ventana de consultar reservas ADMINISTRADOR -->
     <string name="txt_consultar_mis_reservasAdm">Consultar reservas</string>
 
@@ -276,6 +278,7 @@
     <string-array name="tipo_incidenciaAdm">
         <item>Tipo de incidencia</item>
         <item>General</item>
+        <item>Paquetería</item>
         <item>Reservas</item>
         <item>Pistas</item>
         <item>Incendio</item>
@@ -323,10 +326,11 @@
     <string name="order_by_user_name">Ordenar por usuario</string>
 
     <!-- Ordenar recibos ADMINISTRADOR -->
+    <string name="order_by_id">Ordenar por identificador</string>
     <string name="order_by_servicio_name">Ordenar por servicio</string>
     <string name="order_by_fecha">Ordenar por fecha</string>
     <string name="order_by_importe">Ordenar por importe</string>
-    <string name="order_by_num_tarjeta">Ordenar por núm. tarjeta</string>
+    <!--<string name="order_by_num_tarjeta">Ordenar por núm. tarjeta</string>-->
     <string name="order_by_usuario">Ordenar por usuario</string>
 
 </resources>

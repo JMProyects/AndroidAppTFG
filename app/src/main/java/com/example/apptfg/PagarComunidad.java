@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -23,20 +26,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -51,6 +48,7 @@ public class PagarComunidad extends AppCompatActivity {
     private ImageView cardBackImage;
     private EditText cvvEditText2;
     TextView importe;
+    AlertDialog progressDialog;
     private static final char space = ' ';
     private static final char barra = '/';
 
@@ -281,6 +279,7 @@ public class PagarComunidad extends AppCompatActivity {
     private void guardarDatosPago(String nombre, String numeroTarjeta) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        showProgressDialog();
         String userEmail = currentUser.getEmail();
 
         Map<String, Object> pago = new HashMap<>();
@@ -387,5 +386,15 @@ public class PagarComunidad extends AppCompatActivity {
     public void anteriorVentana(View view) {
         Intent anterior = new Intent(this, Pagos.class);
         startActivity(anterior);
+    }
+
+    private void showProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.progress_dialog, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
     }
 }

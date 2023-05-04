@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class ReservaHorarios extends AppCompatActivity {
     private FirebaseFirestore db;
     TextView textViewDate;
     TextView txtActividad;
-
+    AlertDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,12 +161,14 @@ public class ReservaHorarios extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Confirmar Reserva");
                 builder.setMessage("Está a punto de realizar una reserva. \n" + "\nActividad: " + actividad + "." + "\nDía: " + fechaReserva + "." + "\nHorario: " + horarioSeleccionado + ".\n\n ¿Está seguro?").setCancelable(false).setPositiveButton("Confirmar", (dialog, id) -> {
+
                     // Realizar la reserva aquí
                     realizarReserva(horarioSeleccionado, fechaReserva, actividad);
                     button.setBackgroundColor(Color.parseColor("#FF3957"));
                     button.setTag(true); // Establece el atributo isReserved en 'true' para bloquear el botón
                     Intent anterior = new Intent(this, ReservaActividades.class);
                     startActivity(anterior);
+
                     Toast.makeText(this, "¡Reserva confirmada con éxito!", Toast.LENGTH_LONG).show();
                 }).setNegativeButton("Cancelar", (dialog, id) -> dialog.cancel());
                 AlertDialog alert = builder.create();
@@ -191,6 +194,8 @@ public class ReservaHorarios extends AppCompatActivity {
 
     private void realizarReserva(String horario, String fechaReserva, String actividad) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
 

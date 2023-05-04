@@ -65,6 +65,9 @@ public class ConsultarRecibosAdminActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Maneja las opciones de ordenamiento
         switch (item.getItemId()) {
+            case R.id.order_by_id:
+                sortReservationsById();
+                return true;
             case R.id.order_by_servicio_name:
                 sortReservationsByServicioName();
                 return true;
@@ -73,9 +76,6 @@ public class ConsultarRecibosAdminActivity extends AppCompatActivity {
                 return true;
             case R.id.order_by_importe:
                 sortReservationsByImporte();
-                return true;
-            case R.id.order_by_num_tarjeta:
-                sortReservationsByTarjeta();
                 return true;
             case R.id.order_by_usuario:
                 sortReservationsByUsuario();
@@ -92,9 +92,9 @@ public class ConsultarRecibosAdminActivity extends AppCompatActivity {
         }
     }
 
-    private void sortReservationsByTarjeta() {
+    private void sortReservationsById() {
         if (adapter != null) {
-            adapter.sortBy(Comparator.comparing(Recibo::getNumero_tarjeta));
+            adapter.sortBy(Comparator.comparing(Recibo::getIdentificador));
             adapter.notifyDataSetChanged();
         }
     }

@@ -74,6 +74,8 @@ public class MensajeAdminActivity extends AppCompatActivity {
         // Obtener los elementos de la vista
         Spinner spinnerIncidencia = findViewById(R.id.spinner_incidenciasAdm);
         EditText editTextTexto = findViewById(R.id.id_txtmensaje);
+        EditText editTextEmailUsuario = findViewById(R.id.id_txt_email_usuario);
+        String emailUsuario = editTextEmailUsuario.getText().toString();
 
         // Obtener los valores seleccionados por el usuario
         String texto = editTextTexto.getText().toString();
@@ -107,6 +109,9 @@ public class MensajeAdminActivity extends AppCompatActivity {
             String email = user.getEmail();
             notificaciones.put("usuario", email);
         }
+        if (!emailUsuario.isEmpty()) {
+            notificaciones.put("emailUsuario", emailUsuario);
+        }
 
         // Añadir la incidencia a la colección "incidencias"
         incidenciasRef.add(notificaciones).addOnSuccessListener(documentReference -> {
@@ -114,6 +119,7 @@ public class MensajeAdminActivity extends AppCompatActivity {
             Toast.makeText(this, "Mensaje enviado con éxito", Toast.LENGTH_SHORT).show();
             spinnerIncidencia.setSelection(0);
             editTextTexto.setText("");
+            editTextEmailUsuario.setText("");
         }).addOnFailureListener(e -> {
             // Si ha habido un error, mostrar un mensaje de error
             Toast.makeText(this, "Error al enviar el mensaje", Toast.LENGTH_SHORT).show();

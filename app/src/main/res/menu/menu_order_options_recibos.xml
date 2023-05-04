@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <item
+        android:id="@+id/order_by_id"
+        android:title="@string/order_by_id"
+        app:showAsAction="never" />
     <item
         android:id="@+id/order_by_servicio_name"
         android:title="@string/order_by_servicio_name"

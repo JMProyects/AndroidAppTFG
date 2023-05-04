@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // Establece el texto de saludo según la hora del día
         if (hour >= 6 && hour < 13) {
             greetingTextView.setText("¡Buenos días!");
-        } else if (hour >= 13 && hour < 19) {
+        } else if (hour >= 13 && hour < 20) {
             greetingTextView.setText("¡Buenas tardes!");
         } else {
             greetingTextView.setText("¡Buenas noches!");

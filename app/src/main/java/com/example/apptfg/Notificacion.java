@@ -7,15 +7,18 @@ public class Notificacion {
     private String mensaje;
     private Date fecha;
     private String usuario;
+    private String emailUsuario;
 
     public Notificacion() {
         // Constructor vacío necesario para Firebase
     }
-    public Notificacion(String asunto, String mensaje, Date fecha, String usuario) {
+
+    public Notificacion(String asunto, String mensaje, Date fecha, String usuario, String emailUsuario) {
         this.asunto = asunto;
         this.mensaje = mensaje;
         this.fecha = fecha;
         this.usuario = usuario;
+        this.emailUsuario = emailUsuario;
     }
 
     public String getAsunto() {
@@ -48,6 +51,14 @@ public class Notificacion {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
     }
 }
 
