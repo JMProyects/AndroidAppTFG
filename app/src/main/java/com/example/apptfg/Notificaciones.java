@@ -28,7 +28,7 @@ public class Notificaciones extends AppCompatActivity {
 
     //Función para ver el apartado de "acerca de"
     public void acercaDeVentana(View view){
-        Intent acercaDe = new Intent(this, Acerca_de.class);
+        Intent acercaDe = new Intent(this, AcercaDe.class);
         startActivity(acercaDe);
     }
 
