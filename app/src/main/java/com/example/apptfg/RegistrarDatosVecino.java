@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,11 +47,14 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     EditText id_inputtelefono;
     EditText id_inputcorreo;
     EditText id_inputdireccion;
+    EditText id_inputportal; // Número del edificio
+    EditText id_inputpuerta; // Número de la puerta
     EditText id_inputlocalidad;
     EditText id_inputprovincia;
     EditText id_inputcp;
     private Uri selectedImageUri;
     AlertDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +67,8 @@ public class RegistrarDatosVecino extends AppCompatActivity {
         id_inputtelefono = findViewById(R.id.id_inputtelefono);
         id_inputcorreo = findViewById(R.id.id_inputcorreo);
         id_inputdireccion = findViewById(R.id.id_inputdireccion);
+        id_inputportal = findViewById(R.id.id_inputportal);
+        id_inputpuerta = findViewById(R.id.id_inputpuerta);
         id_inputlocalidad = findViewById(R.id.id_inputlocalidad);
         id_inputprovincia = findViewById(R.id.id_inputprovincia);
         id_inputcp = findViewById(R.id.id_inputcp);
@@ -103,6 +114,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
             } else {
                 Log.e("Auth", "Error en el registro", task.getException());
                 Toast.makeText(RegistrarDatosVecino.this, "Error en el registro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }
@@ -141,40 +153,62 @@ public class RegistrarDatosVecino extends AppCompatActivity {
 
     private void guardarDatosPersonales(FirebaseUser user, String imageUrl) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Convierte el correo electrónico a minúsculas
+
         String correoEnMinusculas = id_inputcorreo.getText().toString().toLowerCase();
+        String direccion = id_inputdireccion.getText().toString();
+        String direccionMayus = mayusPrimerCaracter(direccion);
+        String localidad = id_inputlocalidad.getText().toString();
+        String localidadMayus = mayusPrimerCaracter(localidad);
+        String provincia = id_inputprovincia.getText().toString();
+        String provinciaMayus = mayusPrimerCaracter(provincia);
 
-        // Crea un nuevo mapa con los datos del usuario
-        Map<String, Object> userData = new HashMap<String, Object>() {{
-            put("usuario", id_inputusuario.getText().toString());
-            put("contraseña", id_inputcontrasena.getText().toString());
-            put("nombre", id_inputnombre.getText().toString());
-            put("apellidos", id_inputapellidos.getText().toString());
-            put("dni", id_inputdni.getText().toString());
-            put("telefono", id_inputtelefono.getText().toString());
-            put("correo", correoEnMinusculas);
-            put("direccion", id_inputdireccion.getText().toString());
-            put("localidad", id_inputlocalidad.getText().toString());
-            put("provincia", id_inputprovincia.getText().toString());
-            put("codigo_postal", id_inputcp.getText().toString());
-        }};
+        String urbanizacion = id_inputdireccion.getText().toString().toLowerCase() + ", " + id_inputportal.getText().toString().toLowerCase() + ", " + id_inputlocalidad.getText().toString().toLowerCase() + ", " + id_inputprovincia.getText().toString().toLowerCase();
+        String puerta = id_inputpuerta.getText().toString();
 
-        // Si hay una URL de imagen, agrégala al mapa de datos
-        if (imageUrl != null) {
-            userData.put("profile_image_url", imageUrl);
-        }
+        // Verificar si ya existe una cuenta con la misma urbanizacion y puerta
+        db.collection("vecinos").whereEqualTo("urbanizacion", urbanizacion).whereEqualTo("puerta", puerta).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (!task.getResult().isEmpty()) {
+                    // Si ya existe una cuenta con la misma urbanizacion y puerta, muestra un mensaje de error
+                    Toast.makeText(RegistrarDatosVecino.this, "Ya existe una cuenta asociada a esta puerta en la urbanización", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Si no existe una cuenta con la misma urbanizacion y puerta, guarda los datos
 
-        db.collection("vecinos").document(correoEnMinusculas).set(userData).addOnSuccessListener(aVoid -> {
-            // Continúa con la siguiente actividad o muestra un mensaje de éxito
-            Toast.makeText(RegistrarDatosVecino.this, "¡Usuario creado correctamente!", Toast.LENGTH_SHORT).show();
-            Intent principal = new Intent(RegistrarDatosVecino.this, PrincipalActivity.class);
-            startActivity(principal);
-            finish();
+                    Map<String, Object> userData = new HashMap<String, Object>() {{
+                        put("usuario", id_inputusuario.getText().toString());
+                        put("contraseña", id_inputcontrasena.getText().toString());
+                        put("nombre", id_inputnombre.getText().toString());
+                        put("apellidos", id_inputapellidos.getText().toString());
+                        put("dni", id_inputdni.getText().toString());
+                        put("telefono", id_inputtelefono.getText().toString());
+                        put("correo", correoEnMinusculas);
+                        put("direccion", direccionMayus);
+                        put("portal", id_inputportal.getText().toString());
+                        put("puerta", puerta);
+                        put("urbanizacion", urbanizacion);
+                        put("localidad", localidadMayus);
+                        put("provincia", provinciaMayus);
+                        put("codigo_postal", id_inputcp.getText().toString());
+                    }};
 
-        }).addOnFailureListener(e -> {
-            // Muestra un mensaje de error
-            Toast.makeText(RegistrarDatosVecino.this, "Error al guardar datos personales: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("Firestore", "Error al guardar el documento", e);
+                    if (imageUrl != null) {
+                        userData.put("profile_image_url", imageUrl);
+                    }
+
+                    db.collection("vecinos").document(correoEnMinusculas).set(userData).addOnSuccessListener(aVoid -> {
+                        Toast.makeText(RegistrarDatosVecino.this, "¡Usuario creado correctamente!", Toast.LENGTH_SHORT).show();
+                        Intent principal = new Intent(RegistrarDatosVecino.this, PrincipalActivity.class);
+                        startActivity(principal);
+                        finish();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(RegistrarDatosVecino.this, "Error al guardar datos personales: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("Firestore", "Error al guardar el documento", e);
+                    });
+                }
+            } else {
+                Toast.makeText(RegistrarDatosVecino.this, "Error al comprobar la existencia de la cuenta: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Firestore", "Error al realizar la consulta", task.getException());
+            }
         });
     }
 
@@ -220,11 +254,13 @@ public class RegistrarDatosVecino extends AppCompatActivity {
         EditText inputTelefono = findViewById(R.id.id_inputtelefono);
         EditText inputCorreo = findViewById(R.id.id_inputcorreo);
         EditText inputDireccion = findViewById(R.id.id_inputdireccion);
+        EditText inputPortal = findViewById(R.id.id_inputportal);
+        EditText inputPuerta = findViewById(R.id.id_inputpuerta);
         EditText inputLocalidad = findViewById(R.id.id_inputlocalidad);
         EditText inputProvincia = findViewById(R.id.id_inputprovincia);
         EditText inputCp = findViewById(R.id.id_inputcp);
 
-        if (campoVacio(inputUsuario) || campoVacio(inputContrasena) || campoVacio(inputNombre) || campoVacio(inputApellidos) || campoVacio(inputDni) || campoVacio(inputTelefono) || campoVacio(inputCorreo) || campoVacio(inputDireccion) || campoVacio(inputLocalidad) || campoVacio(inputProvincia) || campoVacio(inputCp)) {
+        if (campoVacio(inputUsuario) || campoVacio(inputContrasena) || campoVacio(inputNombre) || campoVacio(inputApellidos) || campoVacio(inputDni) || campoVacio(inputTelefono) || campoVacio(inputCorreo) || campoVacio(inputDireccion) || campoVacio(inputPortal) || campoVacio(inputPuerta) || campoVacio(inputLocalidad) || campoVacio(inputProvincia) || campoVacio(inputCp)) {
             Toast.makeText(this, "Por favor, complete todos los campos antes de continuar", Toast.LENGTH_SHORT).show();
         } else if (!longitudExacta(inputDni, 9) || !longitudExacta(inputTelefono, 9) || !longitudExacta(inputCp, 5)) {
             Toast.makeText(this, "Por favor, asegúrese de que los campos tienen la longitud correcta", Toast.LENGTH_SHORT).show();
@@ -247,6 +283,18 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     private boolean validarContrasenya(EditText editText, int longitud) {
         return editText.getText().toString().trim().length() >= longitud;
     }
+
+    public String mayusPrimerCaracter(String input) {
+        if (TextUtils.isEmpty(input)) {
+            return input;
+        }
+
+        String firstChar = input.substring(0, 1).toUpperCase();
+        String restOfString = input.substring(1).toLowerCase();
+
+        return firstChar + restOfString;
+    }
+
 
     private void showProgressDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);

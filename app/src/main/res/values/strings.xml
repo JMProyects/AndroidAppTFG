@@ -36,6 +36,8 @@
     <string name="lbl_telefono">Teléfono</string>
     <string name="lbl_correo">Correo</string>
     <string name="lbl_direccion">Dirección</string>
+    <string name="lbl_portal">Portal</string>
+    <string name="lbl_puerta">Puerta</string>
     <string name="lbl_localidad">Localidad</string>
     <string name="lbl_provincia">Provincia</string>
     <string name="lbl_cp">Código Postal</string>
@@ -69,6 +71,12 @@
 
     <string name="txt_direccionperfil">Introduzca su Dirección</string>
     <string name="txt_direccionhint">Calle del puerto</string>
+
+    <string name="txt_portalperfil">Introduzca su Portal</string>
+    <string name="txt_portalhint">23</string>
+
+    <string name="txt_puertaperfil">Introduzca su Puerta</string>
+    <string name="txt_puertahint">1</string>
 
     <string name="txt_localidadperfil">Introduzca su Localidad</string>
     <string name="txt_localidadhint">Alboraya</string>
@@ -227,6 +235,8 @@
         <item>Quejas</item>
     </string-array>
 
+
+
     <!-- //////////////////////////// -->
     <!-- SECCIÓN PARA EL ADMINISTRADOR-->
     <!-- //////////////////////////// -->
@@ -289,6 +299,8 @@
         <item>Quejas</item>
     </string-array>
 
+    <!-- Usuarios urbanizacion -->
+    <string name="txt_usuariosAdm">NºPuerta</string>
 
     <!--Etiquetas para imagenes-->
     <string name="imagenlogo">imagenlogo</string>

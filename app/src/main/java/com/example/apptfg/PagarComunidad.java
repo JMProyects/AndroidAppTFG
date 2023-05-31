@@ -26,10 +26,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -282,23 +288,41 @@ public class PagarComunidad extends AppCompatActivity {
         showProgressDialog();
         String userEmail = currentUser.getEmail();
 
-        Map<String, Object> pago = new HashMap<>();
-        int idPago = new Random().nextInt(100000);
-        String idPagoFormateado = String.format("%05d", idPago);
-        pago.put("usuario", userEmail);
-        pago.put("identificador", idPagoFormateado);
-        pago.put("nombre", nombre);
-        pago.put("servicio", "Comunidad");
-        pago.put("numero_tarjeta", numeroTarjeta);
-        pago.put("importe", importe.getText().toString());
-        pago.put("fecha_pago", new Timestamp(new Date()));
+        // Obtener la urbanización del usuario
+        DocumentReference docRef = db.collection("vecinos").document(userEmail);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String urbanizacion = document.getString("urbanizacion");
 
-        db.collection("recibos").add(pago).addOnSuccessListener(documentReference -> {
-            Log.d("Firestore", "Documento guardado con ID: " + documentReference.getId());
-            Intent principal = new Intent(PagarComunidad.this, PagoConfirmado.class);
-            principal.putExtra("identificador", idPagoFormateado);
-            startActivity(principal);
-        }).addOnFailureListener(e -> Log.w("Firestore", "Error al guardar el documento", e));
+                    // Crear el objeto pago
+                    Map<String, Object> pago = new HashMap<>();
+                    int idPago = new Random().nextInt(100000);
+                    String idPagoFormateado = String.format("%05d", idPago);
+                    pago.put("usuario", userEmail);
+                    pago.put("identificador", idPagoFormateado);
+                    pago.put("nombre", nombre);
+                    pago.put("servicio", "Comunidad");
+                    pago.put("numero_tarjeta", numeroTarjeta);
+                    pago.put("importe", importe.getText().toString());
+                    pago.put("fecha_pago", new Timestamp(new Date()));
+                    pago.put("urbanizacion", urbanizacion);
+
+                    // Agregar el objeto pago a la base de datos
+                    db.collection("recibos").add(pago).addOnSuccessListener(documentReference -> {
+                        Log.d("Firestore", "Documento guardado con ID: " + documentReference.getId());
+                        Intent principal = new Intent(PagarComunidad.this, PagoConfirmado.class);
+                        principal.putExtra("identificador", idPagoFormateado);
+                        startActivity(principal);
+                    }).addOnFailureListener(e -> Log.w("Firestore", "Error al guardar el documento", e));
+                } else {
+                    Log.d("Firestore", "No se encontró ningún documento");
+                }
+            } else {
+                Log.d("Firestore", "Error al obtener el documento", task.getException());
+            }
+        });
     }
 
     public void mostrarDialogoConfirmacion() {

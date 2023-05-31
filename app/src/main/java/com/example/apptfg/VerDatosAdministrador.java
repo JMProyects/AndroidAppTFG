@@ -117,6 +117,8 @@ public class VerDatosAdministrador extends AppCompatActivity {
                     String telefono = document.getString("telefono");
                     String correo = document.getString("correo");
                     String direccion = document.getString("direccion");
+                    String portal = document.getString("portal");
+                    String puerta = document.getString("puerta");
                     String localidad = document.getString("localidad");
                     String provincia = document.getString("provincia");
                     String cp = document.getString("codigo_postal");
@@ -151,6 +153,12 @@ public class VerDatosAdministrador extends AppCompatActivity {
 
                     TextView direccionTextView = findViewById(R.id.id_inputdireccion);
                     direccionTextView.setText(direccion);
+
+                    TextView portalTextView = findViewById(R.id.id_inputportal);
+                    portalTextView.setText(portal);
+
+                    TextView puertaTextView = findViewById(R.id.id_inputpuerta);
+                    puertaTextView.setText(puerta);
 
                     TextView localidadTextView = findViewById(R.id.id_inputlocalidad);
                     localidadTextView.setText(localidad);

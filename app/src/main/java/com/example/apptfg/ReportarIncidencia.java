@@ -16,9 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
@@ -143,45 +146,62 @@ public class ReportarIncidencia extends AppCompatActivity {
             return;
         }
 
-        // Obtener la referencia a la colección "incidencias"
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference incidenciasRef = db.collection("incidencias");
-
-        // Crear un nuevo objeto Map con los campos de la incidencia
-        Map<String, Object> incidencia = new HashMap<>();
-        incidencia.put("fecha", fechaSeleccionada);
-        incidencia.put("asunto", tipoIncidencia);
-        incidencia.put("mensaje", texto);
 
         // Añadir el correo del usuario a la incidencia
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
-            incidencia.put("usuario", email);
-        }
 
-        // Añadir la incidencia a la colección "incidencias"
-        incidenciasRef.add(incidencia).addOnSuccessListener(documentReference -> {
-            // Si se ha añadido correctamente, mostrar un mensaje de éxito y limpiar los campos
-            Toast.makeText(this, "Incidencia enviada con éxito", Toast.LENGTH_SHORT).show();
-            textViewFecha.setText(R.string.txt_fecha_incidencia);
-            spinnerIncidencia.setSelection(0);
-            editTextTexto.setText("");
-        }).addOnFailureListener(e -> {
-            // Si ha habido un error, mostrar un mensaje de error
-            Toast.makeText(this, "Error al enviar la incidencia", Toast.LENGTH_SHORT).show();
-            Log.e("ReportarIncidencia", "Error al enviar la incidencia", e);
-        });
+            // Consultar el vecino en la base de datos
+            Date finalFechaSeleccionada = fechaSeleccionada;
+            db.collection("vecinos").document(email).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // obtener la urbanización del vecino
+                        String urbanizacion = document.getString("urbanizacion");
+
+                        // Crear un nuevo objeto Map con los campos de la incidencia
+                        Map<String, Object> incidencia = new HashMap<>();
+                        incidencia.put("fecha", finalFechaSeleccionada);
+                        incidencia.put("asunto", tipoIncidencia);
+                        incidencia.put("mensaje", texto);
+                        incidencia.put("urbanizacion", urbanizacion);
+                        incidencia.put("usuario", email);
+
+                        // Obtener la referencia a la colección "incidencias"
+                        CollectionReference incidenciasRef = db.collection("incidencias");
+
+                        // Añadir la incidencia a la colección "incidencias"
+                        incidenciasRef.add(incidencia).addOnSuccessListener(documentReference -> {
+                            // Si se ha añadido correctamente, mostrar un mensaje de éxito y limpiar los campos
+                            Toast.makeText(ReportarIncidencia.this, "Incidencia enviada con éxito", Toast.LENGTH_SHORT).show();
+                            textViewFecha.setText(R.string.txt_fecha_incidencia);
+                            spinnerIncidencia.setSelection(0);
+                            editTextTexto.setText("");
+                        }).addOnFailureListener(e -> {
+                            // Si ha habido un error, mostrar un mensaje de error
+                            Toast.makeText(ReportarIncidencia.this, "Error al enviar la incidencia", Toast.LENGTH_SHORT).show();
+                            Log.e("ReportarIncidencia", "Error al enviar la incidencia", e);
+                        });
+                    } else {
+                        Log.d("RegistrarIncidencia", "No such document");
+                    }
+                } else {
+                    Log.d("RegistrarIncidencia", "get failed with ", task.getException());
+                }
+            });
+        }
     }
+
 
     private boolean isSameDate(Date date1, Date date2) {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal1.setTime(date1);
         cal2.setTime(date2);
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
-                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
     //Función para volver a la ventana anterior

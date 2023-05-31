@@ -68,7 +68,6 @@
         android:id="@+id/sv"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
-        android:layout_marginBottom="30dp"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/id_btn_volver_registro"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="230dp">
+            android:layout_marginTop="300dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
@@ -265,6 +264,48 @@
                         android:layout_marginRight="10dp"
                         android:layout_gravity="center"
                         android:text="@string/lbl_direccion"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp" />
+
+                    <TextView
+                        android:id="@+id/id_lblportalperfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/lbl_portal"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/id_inputportal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/lbl_portal"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="3dp" />
+
+                    <TextView
+                        android:id="@+id/id_lblpuertaperfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/lbl_puerta"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/id_inputpuerta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:text="@string/lbl_puerta"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp" />
 

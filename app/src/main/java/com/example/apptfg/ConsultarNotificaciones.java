@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,6 +27,7 @@ public class ConsultarNotificaciones extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private TextView noNotificacionesTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,30 +54,43 @@ public class ConsultarNotificaciones extends AppCompatActivity {
         if (currentUser != null) {
             String currentUserEmail = currentUser.getEmail();
 
-            db.collection("notificaciones").orderBy("fecha", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
+            db.collection("vecinos").document(currentUser.getEmail()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    List<Notificacion> notificaciones = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Notificacion notificacion = document.toObject(Notificacion.class);
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String urbanizacion = document.getString("urbanizacion");
+                        db.collection("notificaciones").whereEqualTo("urbanizacion", urbanizacion)   // Solo obtenemos las notificaciones de la urbanización
+                                .orderBy("fecha", Query.Direction.DESCENDING).get().addOnCompleteListener(task2 -> {
+                                    if (task2.isSuccessful()) {
+                                        List<Notificacion> notificaciones = new ArrayList<>();
+                                        for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                                            Notificacion notificacion = document2.toObject(Notificacion.class);
+                                            String emailUsuario = notificacion.getEmailUsuario();
+                                            if (emailUsuario == null || emailUsuario.isEmpty() || emailUsuario.equals(currentUserEmail)) {
+                                                notificaciones.add(notificacion);
+                                            }
+                                        }
 
-                        String emailUsuario = notificacion.getEmailUsuario();
-                        if (emailUsuario == null || emailUsuario.isEmpty() || emailUsuario.equals(currentUserEmail)) {
-                            notificaciones.add(notificacion);
-                        }
-                    }
+                                        adapter = new NotificacionesAdapter(notificaciones);
+                                        rvNotificaciones.setAdapter(adapter);
 
-                    adapter = new NotificacionesAdapter(notificaciones);
-                    rvNotificaciones.setAdapter(adapter);
-
-                    if (notificaciones.isEmpty()) {
-                        noNotificacionesTextView.setVisibility(View.VISIBLE);
+                                        if (notificaciones.isEmpty()) {
+                                            noNotificacionesTextView.setVisibility(View.VISIBLE);
+                                        } else {
+                                            noNotificacionesTextView.setVisibility(View.GONE);
+                                        }
+                                    } else {
+                                        Log.w("ConsultarNotificaciones", "Error getting documents.", task2.getException());
+                                    }
+                                });
                     } else {
-                        noNotificacionesTextView.setVisibility(View.GONE);
+                        Log.d("ConsultarNotificaciones", "No such document");
                     }
                 } else {
-                    Log.w("ConsultarNotificaciones", "Error getting documents.", task.getException());
+                    Log.d("ConsultarNotificaciones", "get failed with ", task.getException());
                 }
             });
         }
     }
+
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -51,24 +52,38 @@ public class ConsultarNotisAdminActivity extends AppCompatActivity {
     private void loadAllNotifications() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            db.collection("incidencias").orderBy("fecha", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    List<Notificacion> incidencias = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Notificacion incidencia = document.toObject(Notificacion.class);
-                        incidencias.add(incidencia);
-                    }
+            // Obtener el correo electrónico del usuario actual
+            String userEmail = currentUser.getEmail();
 
-                    adapter = new NotificacionesAdapter(incidencias);
-                    rvNotificaciones.setAdapter(adapter);
+            // Obtener la urbanización del administrador
+            db.collection("vecinos").document(userEmail).get().addOnCompleteListener(adminTask -> {
+                if (adminTask.isSuccessful()) {
+                    DocumentSnapshot adminDocument = adminTask.getResult();
+                    String adminUrbanizacion = adminDocument.getString("urbanizacion");
 
-                    if (incidencias.isEmpty()) {
-                        noNotificacionesTextView.setVisibility(View.VISIBLE);
-                    } else {
-                        noNotificacionesTextView.setVisibility(View.GONE);
-                    }
+                    // Filtrar las incidencias por la urbanización del administrador
+                    db.collection("incidencias").whereEqualTo("urbanizacion", adminUrbanizacion).orderBy("fecha", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            List<Notificacion> incidencias = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Notificacion incidencia = document.toObject(Notificacion.class);
+                                incidencias.add(incidencia);
+                            }
+
+                            adapter = new NotificacionesAdapter(incidencias);
+                            rvNotificaciones.setAdapter(adapter);
+
+                            if (incidencias.isEmpty()) {
+                                noNotificacionesTextView.setVisibility(View.VISIBLE);
+                            } else {
+                                noNotificacionesTextView.setVisibility(View.GONE);
+                            }
+                        } else {
+                            Log.w("ConsultarNotisAdmin", "Error getting documents.", task.getException());
+                        }
+                    });
                 } else {
-                    Log.w("ConsultarNotisAdmin", "Error getting documents.", task.getException());
+                    Log.w("ConsultarNotisAdmin", "Error getting admin document.", adminTask.getException());
                 }
             });
         }

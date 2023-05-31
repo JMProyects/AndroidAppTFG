@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,7 +21,9 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +34,16 @@ import java.util.Map;
 
 public class MensajeAdminActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Spinner spinnerUsuarios;
+    private String urbanizacion;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_mensaje);
+        Button btnEnviar = findViewById(R.id.id_btn_enviar_incidencia);
+
         Spinner spinner = findViewById(R.id.spinner_incidenciasAdm);
         List<String> items = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.tipo_incidenciaAdm)));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items) {
@@ -63,23 +72,67 @@ public class MensajeAdminActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        spinnerUsuarios = findViewById(R.id.spinner_usuariosAdm);  // Aquí debe ir el ID real del Spinner
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Nota: Reemplaza "usuarios" y "email" con el nombre correcto de la colección y el campo
+            db.collection("vecinos").document(user.getEmail()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        urbanizacion = document.getString("urbanizacion");
+                        loadUsuariosData(urbanizacion);
+                        try {
+                            btnEnviar.setOnClickListener(v -> enviarIncidenciaAdm(urbanizacion));
+                        } catch (Exception e) {
+                            Log.e("MensajeAdminActivity", "Excepción no controlada", e);
+                        }
+
+
+                       /* btnEnviar.setOnClickListener(v -> {
+                            Toast.makeText(MensajeAdminActivity.this, "Botón presionado", Toast.LENGTH_SHORT).show();
+                        });*/
+
+                    } else {
+                        Log.d("MensajeAdminActivity", "No such document");
+                    }
+                } else {
+                    Log.d("MensajeAdminActivity", "get failed with ", task.getException());
+                }
+            });
+        }
+
     }
 
-    /*
-    COMPROBACIONES DEL FORMULARIO:
-    Aquí se comprueba si la fecha, el tipo de incidencia y el texto proporcionado por el vecino
-    son válidos antes de enviar el formulario:
-     */
-    public void enviarIncidencia(View view) {
+    private void loadUsuariosData(String urbanizacion) {
+        List<String> usuariosData = new ArrayList<>();
+
+        db.collection("vecinos").whereEqualTo("urbanizacion", urbanizacion).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String numeroPuerta = document.getString("puerta");
+                    usuariosData.add(numeroPuerta);
+                }
+                ArrayAdapter<String> adapterUsuarios = new ArrayAdapter<>(MensajeAdminActivity.this, android.R.layout.simple_spinner_item, usuariosData);
+                adapterUsuarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerUsuarios.setAdapter(adapterUsuarios);
+            } else {
+                Log.d("MensajeAdminActivity", "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
+    public void enviarIncidenciaAdm(String urbanizacionActual) {
         // Obtener los elementos de la vista
         Spinner spinnerIncidencia = findViewById(R.id.spinner_incidenciasAdm);
         EditText editTextTexto = findViewById(R.id.id_txtmensaje);
-        EditText editTextEmailUsuario = findViewById(R.id.id_txt_email_usuario);
-        String emailUsuario = editTextEmailUsuario.getText().toString();
+        Spinner spinnerUsuarios = findViewById(R.id.spinner_usuariosAdm);
 
         // Obtener los valores seleccionados por el usuario
         String texto = editTextTexto.getText().toString();
         String tipoIncidencia = spinnerIncidencia.getSelectedItem().toString();
+        String numeroPuertaSeleccionado = spinnerUsuarios.getSelectedItem().toString();
 
         // Comprobar que el spinner tiene seleccionado un tipo de incidencia
         if (spinnerIncidencia.getSelectedItemPosition() == 0) {
@@ -89,43 +142,61 @@ public class MensajeAdminActivity extends AppCompatActivity {
 
         // Comprobar que el usuario haya rellenado el editText
         if (texto.trim().isEmpty()) {
-            Toast.makeText(this, "Escriba un mensaje para la comunidad", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Escriba un correo específico para enviar un mensaje", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Obtener la referencia a la colección "incidencias"
+        // Obtener la referencia a la colección "notificaciones"
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference incidenciasRef = db.collection("notificaciones");
+        CollectionReference notificacionesRef = db.collection("notificaciones");
 
-        // Crear un nuevo objeto Map con los campos de la incidencia
+        // Crear un nuevo objeto Map con los campos de la notificacion
         Map<String, Object> notificaciones = new HashMap<>();
         notificaciones.put("fecha", new Timestamp(new Date()));
         notificaciones.put("asunto", tipoIncidencia);
         notificaciones.put("mensaje", texto);
+        notificaciones.put("urbanizacion", urbanizacionActual);
 
-        // Añadir el correo del usuario a la incidencia
+        // Añadir el correo del usuario a la notificacion
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
             notificaciones.put("usuario", email);
         }
-        if (!emailUsuario.isEmpty()) {
-            notificaciones.put("emailUsuario", emailUsuario);
-        }
 
-        // Añadir la incidencia a la colección "incidencias"
-        incidenciasRef.add(notificaciones).addOnSuccessListener(documentReference -> {
-            // Si se ha añadido correctamente, mostrar un mensaje de éxito y limpiar los campos
-            Toast.makeText(this, "Mensaje enviado con éxito", Toast.LENGTH_SHORT).show();
-            spinnerIncidencia.setSelection(0);
-            editTextTexto.setText("");
-            editTextEmailUsuario.setText("");
-        }).addOnFailureListener(e -> {
-            // Si ha habido un error, mostrar un mensaje de error
-            Toast.makeText(this, "Error al enviar el mensaje", Toast.LENGTH_SHORT).show();
-            Log.e("ReportarIncidencia", "Error al enviar el mensaje", e);
-        });
+        // Comprobar si el tipo de incidencia es "Paquetería"
+        if (tipoIncidencia.equals("Paquetería")) {
+            // Si es "Paquetería", solo enviar la notificacion al usuario seleccionado
+            db.collection("vecinos").whereEqualTo("puerta", numeroPuertaSeleccionado).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String emailUsuario = document.getString("correo");
+                        notificaciones.put("emailUsuario", emailUsuario);
+                        notificacionesRef.add(notificaciones);
+                        Toast.makeText(this, "Mensaje enviado con éxito", Toast.LENGTH_SHORT).show();
+                        spinnerIncidencia.setSelection(0);
+                        editTextTexto.setText("");
+                        spinnerUsuarios.setSelection(0);
+                    }
+                } else {
+                    // Si ha habido un error, mostrar un mensaje de error
+                    Toast.makeText(this, "Error al enviar el mensaje", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Si no es "Paquetería", enviar la notificacion a todos los usuarios de la urbanización
+            db.collection("vecinos").whereEqualTo("urbanizacion", urbanizacionActual).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    notificacionesRef.add(notificaciones);
+                    Toast.makeText(this, "Mensaje enviado con éxito", Toast.LENGTH_SHORT).show();
+                    spinnerIncidencia.setSelection(0);
+                    editTextTexto.setText("");
+                    spinnerUsuarios.setSelection(0);
+                }
+            });
+        }
     }
+
 
     //Función para navegar al "Notificaciones y más" del administrador.
     public void anteriorActivityNotificacionesAdm(View view) {

@@ -97,6 +97,8 @@ public class ModificarDatosAdmin extends AppCompatActivity {
                     String telefono = document.getString("telefono");
                     String correo = document.getString("correo");
                     String direccion = document.getString("direccion");
+                    String portal = document.getString("portal");
+                    String puerta = document.getString("puerta");
                     String localidad = document.getString("localidad");
                     String provincia = document.getString("provincia");
                     String cp = document.getString("codigo_postal");
@@ -125,6 +127,12 @@ public class ModificarDatosAdmin extends AppCompatActivity {
 
                     EditText direccionEditText = findViewById(R.id.id_inputdireccion);
                     direccionEditText.setText(direccion);
+
+                    EditText portalEditText = findViewById(R.id.id_inputportal);
+                    portalEditText.setText(portal);
+
+                    EditText puertaEditText = findViewById(R.id.id_inputpuerta);
+                    puertaEditText.setText(puerta);
 
                     EditText localidadEditText = findViewById(R.id.id_inputlocalidad);
                     localidadEditText.setText(localidad);
@@ -157,6 +165,8 @@ public class ModificarDatosAdmin extends AppCompatActivity {
         EditText inputTelefono = findViewById(R.id.id_inputtelefono);
         EditText inputCorreo = findViewById(R.id.id_inputcorreo);
         EditText inputDireccion = findViewById(R.id.id_inputdireccion);
+        EditText inputPortal = findViewById(R.id.id_inputportal);
+        EditText inputPuerta = findViewById(R.id.id_inputpuerta);
         EditText inputLocalidad = findViewById(R.id.id_inputlocalidad);
         EditText inputProvincia = findViewById(R.id.id_inputprovincia);
         EditText inputCp = findViewById(R.id.id_inputcp);
@@ -169,6 +179,8 @@ public class ModificarDatosAdmin extends AppCompatActivity {
         String telefono = inputTelefono.getText().toString();
         String correo = inputCorreo.getText().toString();
         String direccion = inputDireccion.getText().toString();
+        String portal = inputPortal.getText().toString();
+        String puerta = inputPuerta.getText().toString();
         String localidad = inputLocalidad.getText().toString();
         String provincia = inputProvincia.getText().toString();
         String cp = inputCp.getText().toString();
@@ -182,6 +194,8 @@ public class ModificarDatosAdmin extends AppCompatActivity {
         updatedData.put("telefono", telefono);
         updatedData.put("correo", correo);
         updatedData.put("direccion", direccion);
+        updatedData.put("portal", portal);
+        updatedData.put("puerta", puerta);
         updatedData.put("localidad", localidad);
         updatedData.put("provincia", provincia);
         updatedData.put("codigo_postal", cp);
@@ -189,6 +203,7 @@ public class ModificarDatosAdmin extends AppCompatActivity {
         db.collection("vecinos").document(userEmail).update(updatedData).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.d(TAG, "Datos actualizados correctamente");
+                updatePassword(contrasena);
             } else {
                 Log.d(TAG, "Error al actualizar los datos: ", task.getException());
             }
@@ -204,11 +219,13 @@ public class ModificarDatosAdmin extends AppCompatActivity {
         EditText inputTelefono = findViewById(R.id.id_inputtelefono);
         EditText inputCorreo = findViewById(R.id.id_inputcorreo);
         EditText inputDireccion = findViewById(R.id.id_inputdireccion);
+        EditText inputPortal = findViewById(R.id.id_inputportal);
+        EditText inputPuerta = findViewById(R.id.id_inputpuerta);
         EditText inputLocalidad = findViewById(R.id.id_inputlocalidad);
         EditText inputProvincia = findViewById(R.id.id_inputprovincia);
         EditText inputCp = findViewById(R.id.id_inputcp);
 
-        if (campoVacio(inputUsuario) || campoVacio(inputContrasena) || campoVacio(inputNombre) || campoVacio(inputApellidos) || campoVacio(inputDni) || campoVacio(inputTelefono) || campoVacio(inputCorreo) || campoVacio(inputDireccion) || campoVacio(inputLocalidad) || campoVacio(inputProvincia) || campoVacio(inputCp)) {
+        if (campoVacio(inputUsuario) || campoVacio(inputContrasena) || campoVacio(inputNombre) || campoVacio(inputApellidos) || campoVacio(inputDni) || campoVacio(inputTelefono) || campoVacio(inputCorreo) || campoVacio(inputDireccion) || campoVacio(inputPortal) || campoVacio(inputPuerta) || campoVacio(inputLocalidad) || campoVacio(inputProvincia) || campoVacio(inputCp)) {
             Toast.makeText(this, "Por favor, complete todos los campos antes de continuar", Toast.LENGTH_SHORT).show();
         } else {
             mostrarDialogoConfirmacion(); // Muestra el diálogo de confirmación cuando todos los campos estén completados
@@ -217,5 +234,19 @@ public class ModificarDatosAdmin extends AppCompatActivity {
 
     private boolean campoVacio(EditText editText) {
         return editText.getText().toString().trim().isEmpty();
+    }
+
+    private void updatePassword(String newPassword) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            currentUser.updatePassword(newPassword).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Contraseña actualizada correctamente.");
+                } else {
+                    Log.d(TAG, "Error al actualizar la contraseña: ", task.getException());
+                }
+            });
+        }
     }
 }

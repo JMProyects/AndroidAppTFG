@@ -123,27 +123,43 @@ public class ConsultarRecibosAdminActivity extends AppCompatActivity {
     private void loadAllRecibos() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            db.collection("recibos").orderBy("fecha_pago", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
+            db.collection("vecinos").document(currentUser.getEmail()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    List<ReciboAdmin> recibo = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        ReciboAdmin recibos = document.toObject(ReciboAdmin.class);
-                        // Añade el nombre del usuario al objeto recibos
-                        String usuarioNombre = document.getString("usuario");
-                        recibos.setUsuarioNombre(usuarioNombre);
-                        recibo.add(recibos);
-                    }
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String urbanizacion = document.getString("urbanizacion");
+                        db.collection("recibos")
+                                .whereEqualTo("urbanizacion", urbanizacion)   // Solo obtenemos los recibos de la urbanización
+                                .orderBy("fecha_pago", Query.Direction.DESCENDING)
+                                .get()
+                                .addOnCompleteListener(task2 -> {
+                                    if (task2.isSuccessful()) {
+                                        List<ReciboAdmin> recibo = new ArrayList<>();
+                                        for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                                            ReciboAdmin recibos = document2.toObject(ReciboAdmin.class);
+                                            // Añade el nombre del usuario al objeto recibos
+                                            String usuarioNombre = document2.getString("usuario");
+                                            recibos.setUsuarioNombre(usuarioNombre);
+                                            recibo.add(recibos);
+                                        }
 
-                    adapter = new RecibosAdminAdapter(recibo, ConsultarRecibosAdminActivity.this, ConsultarRecibosAdminActivity.this);
-                    rvRecibos.setAdapter(adapter);
+                                        adapter = new RecibosAdminAdapter(recibo, ConsultarRecibosAdminActivity.this, ConsultarRecibosAdminActivity.this);
+                                        rvRecibos.setAdapter(adapter);
 
-                    if (recibo.isEmpty()) {
-                        noRecibosTextView.setVisibility(View.VISIBLE);
+                                        if (recibo.isEmpty()) {
+                                            noRecibosTextView.setVisibility(View.VISIBLE);
+                                        } else {
+                                            noRecibosTextView.setVisibility(View.GONE);
+                                        }
+                                    } else {
+                                        Log.w("ConsultarRecibosAdmin", "Error getting documents.", task2.getException());
+                                    }
+                                });
                     } else {
-                        noRecibosTextView.setVisibility(View.GONE);
+                        Log.d("ConsultarRecibosAdmin", "No such document");
                     }
                 } else {
-                    Log.w("ConsultarRecibosAdmin", "Error getting documents.", task.getException());
+                    Log.d("ConsultarRecibosAdmin", "get failed with ", task.getException());
                 }
             });
         }

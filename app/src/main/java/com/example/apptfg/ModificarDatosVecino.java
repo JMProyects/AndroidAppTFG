@@ -101,6 +101,8 @@ public class ModificarDatosVecino extends AppCompatActivity {
                     String telefono = document.getString("telefono");
                     String correo = document.getString("correo");
                     String direccion = document.getString("direccion");
+                    String portal = document.getString("portal");
+                    String puerta = document.getString("puerta");
                     String localidad = document.getString("localidad");
                     String provincia = document.getString("provincia");
                     String cp = document.getString("codigo_postal");
@@ -129,6 +131,12 @@ public class ModificarDatosVecino extends AppCompatActivity {
 
                     EditText direccionEditText = findViewById(R.id.id_inputdireccion);
                     direccionEditText.setText(direccion);
+
+                    EditText portalEditText = findViewById(R.id.id_inputportal);
+                    portalEditText.setText(portal);
+
+                    EditText puertaEditText = findViewById(R.id.id_inputpuerta);
+                    puertaEditText.setText(puerta);
 
                     EditText localidadEditText = findViewById(R.id.id_inputlocalidad);
                     localidadEditText.setText(localidad);
@@ -193,6 +201,7 @@ public class ModificarDatosVecino extends AppCompatActivity {
         db.collection("vecinos").document(userEmail).update(updatedData).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.d(TAG, "Datos actualizados correctamente");
+                updatePassword(contrasena);
             } else {
                 Log.d(TAG, "Error al actualizar los datos: ", task.getException());
             }
@@ -222,5 +231,19 @@ public class ModificarDatosVecino extends AppCompatActivity {
 
     private boolean campoVacio(EditText editText) {
         return editText.getText().toString().trim().isEmpty();
+    }
+
+    private void updatePassword(String newPassword) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            currentUser.updatePassword(newPassword).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Contraseña actualizada correctamente.");
+                } else {
+                    Log.d(TAG, "Error al actualizar la contraseña: ", task.getException());
+                }
+            });
+        }
     }
 }

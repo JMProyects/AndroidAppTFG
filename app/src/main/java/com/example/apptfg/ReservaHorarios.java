@@ -1,5 +1,7 @@
 package com.example.apptfg;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
@@ -44,7 +46,7 @@ public class ReservaHorarios extends AppCompatActivity {
     private FirebaseFirestore db;
     TextView textViewDate;
     TextView txtActividad;
-    AlertDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,31 +196,58 @@ public class ReservaHorarios extends AppCompatActivity {
 
     private void realizarReserva(String horario, String fechaReserva, String actividad) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
+            db.collection("vecinos").document(userEmail).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String urbanizacion = document.getString("urbanizacion");
 
-            // Crear un mapa para almacenar los datos en Firestore
-            Map<String, Object> reserva = new HashMap<>();
-            reserva.put("fecha_reserva", fechaReserva);
-            reserva.put("actividad", actividad);
-            reserva.put("horario", horario);
-            reserva.put("usuario", userEmail);
+                        Map<String, Object> reserva = new HashMap<>();
+                        reserva.put("fecha_reserva", fechaReserva);
+                        reserva.put("actividad", actividad);
+                        reserva.put("horario", horario);
+                        reserva.put("usuario", userEmail);
+                        reserva.put("urbanizacion", urbanizacion);
 
-            // Almacenar la información en Firestore
-            db.collection("reservas").add(reserva).addOnSuccessListener(documentReference -> {
-                Log.d("ReservaHorarios", "Reserva agregada con éxito");
-                String reservaId = documentReference.getId();
-                documentReference.update("id", reservaId);
+                        db.collection("reservas").add(reserva).addOnSuccessListener(documentReference -> {
+                            String reservaId = documentReference.getId();
+                            documentReference.update("id", reservaId);
+                            setReminderAlarm(fechaReserva, horario, actividad);
+                        }).addOnFailureListener(e -> Log.w("ReservaHorarios", "Error al agregar la reserva", e));
 
-                // Establece la alarma para el recordatorio
-                setReminderAlarm(fechaReserva, horario, actividad);
-            }).addOnFailureListener(e -> Log.w("ReservaHorarios", "Error al agregar la reserva", e));
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            });
         }
     }
 
     private void updateHorarioButtons(String fecha, String actividad) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userEmail = currentUser.getEmail();
+            db.collection("vecinos").document(userEmail).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String urbanizacion = document.getString("urbanizacion");
+                        actualizaBotonesConReservasUrbanizacion(fecha, actividad, urbanizacion);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            });
+        }
+    }
+
+    private void actualizaBotonesConReservasUrbanizacion(String fecha, String actividad, String urbanizacion) {
         List<Button> buttons = Arrays.asList(findViewById(R.id.id_btn_horario1), findViewById(R.id.id_btn_horario2), findViewById(R.id.id_btn_horario3), findViewById(R.id.id_btn_horario4), findViewById(R.id.id_btn_horario5), findViewById(R.id.id_btn_horario6), findViewById(R.id.id_btn_horario7));
 
         // Restablecer el estado y el color de todos los botones antes de actualizarlos
@@ -256,7 +285,7 @@ public class ReservaHorarios extends AppCompatActivity {
         }
 
         // Consulta Firestore y actualiza la disponibilidad de los botones según las reservas
-        db.collection("reservas").whereEqualTo("fecha_reserva", fecha).whereEqualTo("actividad", actividad).get().addOnCompleteListener(task -> {
+        db.collection("reservas").whereEqualTo("fecha_reserva", fecha).whereEqualTo("actividad", actividad).whereEqualTo("urbanizacion", urbanizacion).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String horario = document.getString("horario");
@@ -277,38 +306,52 @@ public class ReservaHorarios extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
+            db.collection("vecinos").document(userEmail).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String urbanizacion = document.getString("urbanizacion");
 
-            db.collection("reservas").whereEqualTo("fecha_reserva", fechaReserva).whereEqualTo("usuario", userEmail).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                    boolean overlappingReservation = false;
-                    boolean alreadyReservedActivity = false;
-                    DocumentSnapshot existingReservation = null;
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String existingHorario = document.getString("horario");
-                        String existingActividad = document.getString("actividad");
-                        if (areHorariosOverlapping(horario, existingHorario)) {
-                            overlappingReservation = true;
-                            existingReservation = document;
-                            break;
-                        }
-                        if (existingActividad.equals(actividad)) {
-                            alreadyReservedActivity = true;
-                        }
-                    }
-                    if (!overlappingReservation && alreadyReservedActivity) {
-                        listener.onComplete(false, null, true);
+                        db.collection("reservas").whereEqualTo("fecha_reserva", fechaReserva).whereEqualTo("urbanizacion", urbanizacion).get().addOnCompleteListener(reservationTask -> {
+                            if (reservationTask.isSuccessful() && !reservationTask.getResult().isEmpty()) {
+                                boolean overlappingReservation = false;
+                                boolean alreadyReservedActivity = false;
+                                DocumentSnapshot existingReservation = null;
+                                for (QueryDocumentSnapshot reservationDocument : reservationTask.getResult()) {
+                                    String existingHorario = reservationDocument.getString("horario");
+                                    String existingActividad = reservationDocument.getString("actividad");
+                                    String existingUser = reservationDocument.getString("usuario");
+                                    if (userEmail.equals(existingUser) && areHorariosOverlapping(horario, existingHorario)) {
+                                        overlappingReservation = true;
+                                        existingReservation = reservationDocument;
+                                        break;
+                                    }
+                                    if (userEmail.equals(existingUser) && existingActividad.equals(actividad)) {
+                                        alreadyReservedActivity = true;
+                                    }
+                                }
+                                if (!overlappingReservation && alreadyReservedActivity) {
+                                    listener.onComplete(false, null, true);
+                                } else {
+                                    listener.onComplete(overlappingReservation, existingReservation, false);
+                                }
+                            } else {
+                                boolean overlappingReservation = false;
+                                boolean alreadyReservedActivity = false;
+                                DocumentSnapshot existingReservation = null;
+                                listener.onComplete(overlappingReservation, existingReservation, alreadyReservedActivity);
+                            }
+                        });
                     } else {
-                        listener.onComplete(overlappingReservation, existingReservation, false);
+                        Log.d(TAG, "No such document");
                     }
                 } else {
-                    boolean overlappingReservation = false;
-                    boolean alreadyReservedActivity = false;
-                    DocumentSnapshot existingReservation = null;
-                    listener.onComplete(overlappingReservation, existingReservation, alreadyReservedActivity);
+                    Log.d(TAG, "get failed with ", task.getException());
                 }
             });
         }
     }
+
 
     public interface OnOverlappingReservationCheckCompleteListener {
         void onComplete(boolean overlappingReservation, DocumentSnapshot existingReservation, boolean hasExistingActivityReservation);
@@ -393,7 +436,6 @@ public class ReservaHorarios extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     private void createNotificationChannel() {
         CharSequence name = "ReservationReminder";

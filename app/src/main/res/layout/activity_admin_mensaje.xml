@@ -58,20 +58,30 @@
         app:layout_constraintTop_toBottomOf="@+id/id_txtrepincidencia"
         app:layout_constraintVertical_bias="1.0">
 
-        <EditText
-            android:id="@+id/id_txt_email_usuario"
+        <TextView
+            android:id="@+id/id_txtnumpuerta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="12"
+            android:text="@string/txt_usuariosAdm"
+            android:textColor="#000000"
             android:gravity="center"
-            android:hint="Correo del usuario (opcional)"
-            android:inputType="textEmailAddress"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_incidenciasAdm" />
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/spinner_usuariosAdm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/txt_usuariosAdm"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown"
+            android:theme="@style/miSpinnerEstilo"
+            android:tooltipText="@string/txt_usuariosAdm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.587" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,8 +150,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#C7FE80"
-        android:onClick="enviarIncidencia"
         android:text="@string/txt_enviar_incidencia"
+        android:onClick="enviarIncidenciaAdm"
         android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
