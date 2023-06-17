@@ -6,11 +6,16 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -216,9 +221,40 @@ public class RegistrarDatosVecino extends AppCompatActivity {
     public void mostrarDialogoConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar registro");
-        builder.setMessage("Está a punto de darse de alta en el sistema. ¿Está seguro?");
 
-        builder.setPositiveButton("Confirmar", (dialog, id) -> registrarUsuario(id_inputcorreo.getText().toString(), id_inputcontrasena.getText().toString()));
+        // Infla el View personalizado
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_checkbox, null);
+        CheckBox checkBox = dialogView.findViewById(R.id.dialog_checkbox);
+        TextView textView = dialogView.findViewById(R.id.dialog_textView);
+
+        // Establecer el enlace
+        String rgpd = "\t\tReglamento General de Protección de Datos \n\t\t(RGPD)";
+        SpannableString ss = new SpannableString(rgpd);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                String url = "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=celex%3A32016R0679";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        };
+        ss.setSpan(clickableSpan, 0, rgpd.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(ss);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Agrega el View personalizado al builder
+        builder.setView(dialogView);
+
+        builder.setPositiveButton("Confirmar", (dialog, id) -> {
+            if (checkBox.isChecked()) {
+                registrarUsuario(id_inputcorreo.getText().toString(), id_inputcontrasena.getText().toString());
+            } else {
+                // El usuario no ha aceptado los términos y condiciones, haz algo aquí
+                Toast.makeText(this, "Debe aceptar los términos y condiciones para registrarse.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         builder.setNegativeButton("Atrás", (dialog, id) -> {
             // No es necesario realizar ninguna acción, simplemente se cierra el diálogo
@@ -243,6 +279,7 @@ public class RegistrarDatosVecino extends AppCompatActivity {
         positiveButton.setTextColor(greenColor);
         negativeButton.setTextColor(redColor);
     }
+
 
 
     public void verificarCampos(View view) {

@@ -42,6 +42,7 @@
     <string name="lbl_provincia">Provincia</string>
     <string name="lbl_cp">Código Postal</string>
 
+    <string name="txt_rgpd">Acepto los términos y condiciones del </string>
 
     <!-- Datos Personales-->
 

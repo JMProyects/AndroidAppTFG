@@ -50,7 +50,7 @@ public class ModificarDatosAdmin extends AppCompatActivity {
             updateUserData();
 
             //Navega a la anterior actividad y muestra el toast de confirmación.
-            Intent principal = new Intent(this, VerDatosVecino.class);
+            Intent principal = new Intent(this, VerDatosAdministrador.class);
             startActivity(principal);
             Toast.makeText(this, "¡Datos actualizados correctamente!", Toast.LENGTH_SHORT).show();
         });
