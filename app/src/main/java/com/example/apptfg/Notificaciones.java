@@ -22,7 +22,7 @@ public class Notificaciones extends AppCompatActivity {
 
     //Función para reportar una incidencia
     public void reportarIncidenciaVentana(View view){
-        Intent rIncidencia = new Intent(this,ReportarIncidencia.class);
+        Intent rIncidencia = new Intent(this, Incidencia.class);
         startActivity(rIncidencia);
     }
 

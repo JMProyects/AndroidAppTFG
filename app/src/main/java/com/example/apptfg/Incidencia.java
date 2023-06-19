@@ -16,8 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -35,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ReportarIncidencia extends AppCompatActivity {
+public class Incidencia extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,14 +174,14 @@ public class ReportarIncidencia extends AppCompatActivity {
                         // Añadir la incidencia a la colección "incidencias"
                         incidenciasRef.add(incidencia).addOnSuccessListener(documentReference -> {
                             // Si se ha añadido correctamente, mostrar un mensaje de éxito y limpiar los campos
-                            Toast.makeText(ReportarIncidencia.this, "Incidencia enviada con éxito", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Incidencia.this, "Incidencia enviada con éxito", Toast.LENGTH_SHORT).show();
                             textViewFecha.setText(R.string.txt_fecha_incidencia);
                             spinnerIncidencia.setSelection(0);
                             editTextTexto.setText("");
                         }).addOnFailureListener(e -> {
                             // Si ha habido un error, mostrar un mensaje de error
-                            Toast.makeText(ReportarIncidencia.this, "Error al enviar la incidencia", Toast.LENGTH_SHORT).show();
-                            Log.e("ReportarIncidencia", "Error al enviar la incidencia", e);
+                            Toast.makeText(Incidencia.this, "Error al enviar la incidencia", Toast.LENGTH_SHORT).show();
+                            Log.e("Incidencia", "Error al enviar la incidencia", e);
                         });
                     } else {
                         Log.d("RegistrarIncidencia", "No such document");
